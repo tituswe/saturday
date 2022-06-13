@@ -20,7 +20,7 @@
 		B008472C2853825F0081CFFF /* UserLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008472B2853825F0081CFFF /* UserLoginModel.swift */; };
 		B0128AE0285358C30067C3D4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B0128ADF285358C30067C3D4 /* FirebaseAnalytics */; };
 		B0128AE2285358C30067C3D4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B0128AE1285358C30067C3D4 /* FirebaseAuth */; };
-		B09838602853A60E00FB93FC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098385F2853A60E00FB93FC /* GoogleService-Info.plist */; };
+		B076886628578681006148A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B076886528578681006148A0 /* GoogleService-Info.plist */; };
 		B09838622853A7EF00FB93FC /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838612853A7EF00FB93FC /* CartManager.swift */; };
 		B09838642853A89900FB93FC /* Datasets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838632853A89900FB93FC /* Datasets.swift */; };
 		B09838672853A90600FB93FC /* ItemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838662853A90600FB93FC /* ItemCard.swift */; };
@@ -44,7 +44,7 @@
 		589820DB28566AE300719CCE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B0084727285381E60081CFFF /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		B008472B2853825F0081CFFF /* UserLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginModel.swift; sourceTree = "<group>"; };
-		B098385F2853A60E00FB93FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B076886528578681006148A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B09838612853A7EF00FB93FC /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
 		B09838632853A89900FB93FC /* Datasets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datasets.swift; sourceTree = "<group>"; };
 		B09838662853A90600FB93FC /* ItemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCard.swift; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 				589820D628563D5F00719CCE /* LogIn */,
 				589820D428563D3600719CCE /* Split */,
 				5886D3C328355FB80044938C /* Preview Content */,
-				B098385F2853A60E00FB93FC /* GoogleService-Info.plist */,
 			);
 			path = Saturday;
 			sourceTree = "<group>";
@@ -103,6 +102,7 @@
 		5886D3C328355FB80044938C /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				B076886528578681006148A0 /* GoogleService-Info.plist */,
 				5886D3C428355FB80044938C /* Preview Assets.xcassets */,
 				B09838632853A89900FB93FC /* Datasets.swift */,
 			);
@@ -242,7 +242,7 @@
 			files = (
 				5886D3C528355FB80044938C /* Preview Assets.xcassets in Resources */,
 				5886D3C228355FB80044938C /* Assets.xcassets in Resources */,
-				B09838602853A60E00FB93FC /* GoogleService-Info.plist in Resources */,
+				B076886628578681006148A0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,7 +411,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tituswe.Saturday;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamsaturday.Saturday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -440,7 +440,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tituswe.Saturday;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamsaturday.Saturday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
