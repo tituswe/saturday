@@ -36,7 +36,9 @@ struct ItemRow: View {
             
             Spacer()
             Button {
-                cartManager.removeFromCart(index: selectedCart, item: item)
+                withAnimation(.easeOut(duration: 0.2)) {
+                    cartManager.removeFromCart(index: selectedCart, item: item)
+                }
             } label: {
                 Image(systemName: "trash")
                     .foregroundColor(Color.systemRed)
@@ -45,7 +47,7 @@ struct ItemRow: View {
           
         }
         .padding(.horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)        
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

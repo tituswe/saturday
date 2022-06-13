@@ -39,12 +39,13 @@ struct SplitView: View {
                                         .onTapGesture {
                                             isOpen[i].toggle()
                                         }
-                                        .onLongPressGesture(minimumDuration: 0.15) {
+                                        .onLongPressGesture(minimumDuration: 0.2) {
+                                            withAnimation(.easeIn(duration: 0.2)) {
                                                 selectedCart = i
                                                 resetSelected()
                                                 isSelected[i] = true
+                                            }
                                         }
-                                        .animation(.default)
                                 }
                             }
                         }

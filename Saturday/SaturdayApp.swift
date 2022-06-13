@@ -25,13 +25,14 @@ struct SaturdayApp: App {
     
     var body: some Scene {
         
-        // Login
         WindowGroup {
             let user = UserLoginModel()
-            SplitView()
-                .environmentObject(user)
-//            ContentView()
+//            WelcomeView()
 //                .environmentObject(user)
+//            SplitView()
+//                .environmentObject(user)
+            ContentView()
+                .environmentObject(user)
         }
     }
 }

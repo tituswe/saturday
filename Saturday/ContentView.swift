@@ -1,39 +1,40 @@
 import SwiftUI
 
-// LOGIN - DONE
 struct ContentView: View {
-
-    @EnvironmentObject var user: UserLoginModel
-
+    @State private var showAddPerson = false
+    @StateObject private var people = PersonStore()
+    
     var body: some View {
         NavigationView {
-
-            //Login View
-            if user.signedIn {
-
-                Button(action: {
-                    user.signOut()
-                }, label: {
-                    Text("Log Out")
-                        .foregroundColor(Color.blue)
-                })
-            } else {
-                LogInView()
-                    .environmentObject(user)
+            List(people.persons) { person in
+                VStack(alignment: .leading) {
+                    Text(person.name)
+                        .font(.largeTitle)
+                    HStack {
+                        Text("Birthday " + person.birthday)
+                        Text(person.birthdate.formatted(
+                            .relative(
+                                presentation: .named,
+                                unitsStyle: .wide)))
+                    }
+                }
+            }
+            .sheet(isPresented: $showAddPerson) {
+                AddPersonView(people: people)
+            }
+            .navigationTitle("Wait For It")
+            .toolbar {
+                ToolbarItem {
+                    // swiftlint:disable:next multiple_closures_with_trailing_closure
+                    Button(action: { showAddPerson.toggle() }) {
+                        Image(systemName: "plus.circle")
+                            .font(.title)
+                    }
+                }
             }
         }
-        .onAppear(perform: {
-            user.signedIn = user.isSignedIn()
-        })
     }
 }
-
-//struct ContentView: View {
-//    var body: some View {
-//        Text("Hello World")
-//            .padding()
-//    }
-//}
 
 
 struct ContentView_Previews: PreviewProvider {

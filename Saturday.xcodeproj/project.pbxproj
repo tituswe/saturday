@@ -20,7 +20,11 @@
 		B008472C2853825F0081CFFF /* UserLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008472B2853825F0081CFFF /* UserLoginModel.swift */; };
 		B0128AE0285358C30067C3D4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B0128ADF285358C30067C3D4 /* FirebaseAnalytics */; };
 		B0128AE2285358C30067C3D4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B0128AE1285358C30067C3D4 /* FirebaseAuth */; };
-		B076886628578681006148A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B076886528578681006148A0 /* GoogleService-Info.plist */; };
+		B05CE702285789DD0041BA60 /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE701285789DD0041BA60 /* ScanButton.swift */; };
+		B05CE704285789F80041BA60 /* AddPersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE703285789F80041BA60 /* AddPersonView.swift */; };
+		B05CE70628578A1D0041BA60 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE70528578A1D0041BA60 /* Person.swift */; };
+		B05CE70828578AF90041BA60 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE70728578AF90041BA60 /* WelcomeView.swift */; };
+		B0790233285788EA00AD2A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0790232285788EA00AD2A55 /* GoogleService-Info.plist */; };
 		B09838622853A7EF00FB93FC /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838612853A7EF00FB93FC /* CartManager.swift */; };
 		B09838642853A89900FB93FC /* Datasets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838632853A89900FB93FC /* Datasets.swift */; };
 		B09838672853A90600FB93FC /* ItemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838662853A90600FB93FC /* ItemCard.swift */; };
@@ -44,7 +48,11 @@
 		589820DB28566AE300719CCE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B0084727285381E60081CFFF /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		B008472B2853825F0081CFFF /* UserLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginModel.swift; sourceTree = "<group>"; };
-		B076886528578681006148A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B05CE701285789DD0041BA60 /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
+		B05CE703285789F80041BA60 /* AddPersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPersonView.swift; sourceTree = "<group>"; };
+		B05CE70528578A1D0041BA60 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		B05CE70728578AF90041BA60 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		B0790232285788EA00AD2A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B09838612853A7EF00FB93FC /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
 		B09838632853A89900FB93FC /* Datasets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datasets.swift; sourceTree = "<group>"; };
 		B09838662853A90600FB93FC /* ItemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCard.swift; sourceTree = "<group>"; };
@@ -71,6 +79,7 @@
 		5886D3B128355FB60044938C = {
 			isa = PBXGroup;
 			children = (
+				B0790232285788EA00AD2A55 /* GoogleService-Info.plist */,
 				5886D3BC28355FB60044938C /* Saturday */,
 				5886D3BB28355FB60044938C /* Products */,
 			);
@@ -92,6 +101,7 @@
 				589820D92856637300719CCE /* SaturdayLogo.swift */,
 				5886D3CB283567CD0044938C /* Extensions.swift */,
 				5886D3C128355FB80044938C /* Assets.xcassets */,
+				B05CE700285789B00041BA60 /* LiveText */,
 				589820D628563D5F00719CCE /* LogIn */,
 				589820D428563D3600719CCE /* Split */,
 				5886D3C328355FB80044938C /* Preview Content */,
@@ -102,7 +112,6 @@
 		5886D3C328355FB80044938C /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				B076886528578681006148A0 /* GoogleService-Info.plist */,
 				5886D3C428355FB80044938C /* Preview Assets.xcassets */,
 				B09838632853A89900FB93FC /* Datasets.swift */,
 			);
@@ -158,6 +167,16 @@
 			path = LogIn;
 			sourceTree = "<group>";
 		};
+		B05CE700285789B00041BA60 /* LiveText */ = {
+			isa = PBXGroup;
+			children = (
+				B05CE701285789DD0041BA60 /* ScanButton.swift */,
+				B05CE703285789F80041BA60 /* AddPersonView.swift */,
+				B05CE70528578A1D0041BA60 /* Person.swift */,
+			);
+			path = LiveText;
+			sourceTree = "<group>";
+		};
 		B09C19A6284FAE3B008C7DCE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +190,7 @@
 			children = (
 				B0084727285381E60081CFFF /* LogInView.swift */,
 				589820DB28566AE300719CCE /* SignUpView.swift */,
+				B05CE70728578AF90041BA60 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -242,7 +262,7 @@
 			files = (
 				5886D3C528355FB80044938C /* Preview Assets.xcassets in Resources */,
 				5886D3C228355FB80044938C /* Assets.xcassets in Resources */,
-				B076886628578681006148A0 /* GoogleService-Info.plist in Resources */,
+				B0790233285788EA00AD2A55 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +282,11 @@
 				B09838642853A89900FB93FC /* Datasets.swift in Sources */,
 				589820D828563F6000719CCE /* NavbarView.swift in Sources */,
 				B09C19AD284FAEBD008C7DCE /* Item.swift in Sources */,
+				B05CE704285789F80041BA60 /* AddPersonView.swift in Sources */,
+				B05CE70628578A1D0041BA60 /* Person.swift in Sources */,
 				589820D128563BE200719CCE /* CartView.swift in Sources */,
+				B05CE702285789DD0041BA60 /* ScanButton.swift in Sources */,
+				B05CE70828578AF90041BA60 /* WelcomeView.swift in Sources */,
 				B0084728285381E60081CFFF /* LogInView.swift in Sources */,
 				B09838672853A90600FB93FC /* ItemCard.swift in Sources */,
 				589820DC28566AE400719CCE /* SignUpView.swift in Sources */,

@@ -35,10 +35,12 @@ struct ItemCard: View {
             .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
             
             Button {
-                if (selectedCart == -1) {
-                    return
+                withAnimation(.easeOut(duration: 0.2)) {
+                    if (selectedCart == -1) {
+                        return
+                    }
+                    cartManager.addToCart(index: selectedCart, item: item)
                 }
-                cartManager.addToCart(index: selectedCart, item: item)
             } label: {
                 Image(systemName: "plus")
                     .padding(10)
