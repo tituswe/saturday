@@ -12,5 +12,9 @@ struct User: Identifiable {
     
     var id: String
     var name: String
-    
+    var email: String
+   
+    func toString() -> String {
+        return "this is " + self.name + " with the userID " + self.id
+    }
 }

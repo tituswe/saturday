@@ -27,12 +27,18 @@ struct SaturdayApp: App {
         
         WindowGroup {
             let user = UserLoginModel()
-            WelcomeView()
-                .environmentObject(user)
+
+//            if user.signedIn == false {
+//                WelcomeView()
+//                    .environmentObject(user)
+//            }
 //            SplitView()
 //                .environmentObject(user)
 //            ContentView()
 //                .environmentObject(user)
+//            HomeView(friends: friendListU)
+//                .environmentObject(user)
+            TextExtractionView()
         }
     }
 }

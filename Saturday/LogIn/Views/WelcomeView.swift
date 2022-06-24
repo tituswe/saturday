@@ -15,6 +15,7 @@ struct WelcomeView: View {
             
             //Login View
             if user.signedIn {
+                //Display Homepage
                 
                 Button(action: {
                     user.signOut()
@@ -36,5 +37,6 @@ struct WelcomeView: View {
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeView()
+            .environmentObject(UserLoginModel())
     }
 }

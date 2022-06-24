@@ -1,5 +1,6 @@
 import SwiftUI
 
+/* Live Text - testing code
 struct ContentView: View {
     @State private var showAddPerson = false
     @StateObject private var people = PersonStore()
@@ -35,7 +36,13 @@ struct ContentView: View {
         }
     }
 }
+*/
 
+struct ContentView: View {
+    var body: some View {
+      Text("Welcome to Saturday")
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

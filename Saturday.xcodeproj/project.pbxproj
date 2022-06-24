@@ -20,6 +20,12 @@
 		B008472C2853825F0081CFFF /* UserLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008472B2853825F0081CFFF /* UserLoginModel.swift */; };
 		B0128AE0285358C30067C3D4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B0128ADF285358C30067C3D4 /* FirebaseAnalytics */; };
 		B0128AE2285358C30067C3D4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B0128AE1285358C30067C3D4 /* FirebaseAuth */; };
+		B032CB4B2860D56A003FB01F /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB4A2860D56A003FB01F /* FriendsView.swift */; };
+		B032CB4E2860EECC003FB01F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB4D2860EECC003FB01F /* HomeView.swift */; };
+		B032CB512860F2C3003FB01F /* FriendCardHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB502860F2C3003FB01F /* FriendCardHome.swift */; };
+		B032CB5328647751003FB01F /* TextExtractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB5228647751003FB01F /* TextExtractionView.swift */; };
+		B032CB562864A384003FB01F /* TextExtractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB552864A384003FB01F /* TextExtractionModel.swift */; };
+		B032CB582864A845003FB01F /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB572864A845003FB01F /* TextProcessor.swift */; };
 		B05CE702285789DD0041BA60 /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE701285789DD0041BA60 /* ScanButton.swift */; };
 		B05CE704285789F80041BA60 /* AddPersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE703285789F80041BA60 /* AddPersonView.swift */; };
 		B05CE70628578A1D0041BA60 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE70528578A1D0041BA60 /* Person.swift */; };
@@ -51,6 +57,12 @@
 		589820DB28566AE300719CCE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B0084727285381E60081CFFF /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		B008472B2853825F0081CFFF /* UserLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginModel.swift; sourceTree = "<group>"; };
+		B032CB4A2860D56A003FB01F /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		B032CB4D2860EECC003FB01F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B032CB502860F2C3003FB01F /* FriendCardHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardHome.swift; sourceTree = "<group>"; };
+		B032CB5228647751003FB01F /* TextExtractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtractionView.swift; sourceTree = "<group>"; };
+		B032CB552864A384003FB01F /* TextExtractionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtractionModel.swift; sourceTree = "<group>"; };
+		B032CB572864A845003FB01F /* TextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessor.swift; sourceTree = "<group>"; };
 		B05CE701285789DD0041BA60 /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
 		B05CE703285789F80041BA60 /* AddPersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPersonView.swift; sourceTree = "<group>"; };
 		B05CE70528578A1D0041BA60 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -107,9 +119,11 @@
 				589820D92856637300719CCE /* SaturdayLogo.swift */,
 				5886D3CB283567CD0044938C /* Extensions.swift */,
 				5886D3C128355FB80044938C /* Assets.xcassets */,
+				B032CB4C2860EEB1003FB01F /* Homepage */,
 				B05CE700285789B00041BA60 /* LiveText */,
 				589820D628563D5F00719CCE /* LogIn */,
 				589820D428563D3600719CCE /* Split */,
+				B032CB492860D51E003FB01F /* FriendSystem */,
 				5886D3C328355FB80044938C /* Preview Content */,
 			);
 			path = Saturday;
@@ -175,12 +189,48 @@
 			path = LogIn;
 			sourceTree = "<group>";
 		};
+		B032CB492860D51E003FB01F /* FriendSystem */ = {
+			isa = PBXGroup;
+			children = (
+				B032CB4A2860D56A003FB01F /* FriendsView.swift */,
+			);
+			path = FriendSystem;
+			sourceTree = "<group>";
+		};
+		B032CB4C2860EEB1003FB01F /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				B032CB4D2860EECC003FB01F /* HomeView.swift */,
+				B032CB4F2860F287003FB01F /* Components */,
+			);
+			path = Homepage;
+			sourceTree = "<group>";
+		};
+		B032CB4F2860F287003FB01F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B032CB502860F2C3003FB01F /* FriendCardHome.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B032CB542864A35D003FB01F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B032CB572864A845003FB01F /* TextProcessor.swift */,
+				B032CB552864A384003FB01F /* TextExtractionModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B05CE700285789B00041BA60 /* LiveText */ = {
 			isa = PBXGroup;
 			children = (
 				B05CE701285789DD0041BA60 /* ScanButton.swift */,
 				B05CE703285789F80041BA60 /* AddPersonView.swift */,
 				B05CE70528578A1D0041BA60 /* Person.swift */,
+				B032CB5228647751003FB01F /* TextExtractionView.swift */,
+				B032CB542864A35D003FB01F /* Models */,
 			);
 			path = LiveText;
 			sourceTree = "<group>";
@@ -286,6 +336,8 @@
 				5886D3C028355FB60044938C /* ContentView.swift in Sources */,
 				B098386B2853AA6900FB93FC /* ItemRow.swift in Sources */,
 				B008472C2853825F0081CFFF /* UserLoginModel.swift in Sources */,
+				B032CB4E2860EECC003FB01F /* HomeView.swift in Sources */,
+				B032CB5328647751003FB01F /* TextExtractionView.swift in Sources */,
 				5886D3CC283567CD0044938C /* Extensions.swift in Sources */,
 				B09C19AB284FAEB4008C7DCE /* Friend.swift in Sources */,
 				B08F15DE2857BA200041F971 /* DatabaseManager.swift in Sources */,
@@ -294,6 +346,8 @@
 				589820D828563F6000719CCE /* NavbarView.swift in Sources */,
 				B09C19AD284FAEBD008C7DCE /* Item.swift in Sources */,
 				B05CE704285789F80041BA60 /* AddPersonView.swift in Sources */,
+				B032CB582864A845003FB01F /* TextProcessor.swift in Sources */,
+				B032CB512860F2C3003FB01F /* FriendCardHome.swift in Sources */,
 				B08F15DC2857B7720041F971 /* User.swift in Sources */,
 				B05CE70628578A1D0041BA60 /* Person.swift in Sources */,
 				589820D128563BE200719CCE /* CartView.swift in Sources */,
@@ -301,11 +355,13 @@
 				B05CE70828578AF90041BA60 /* WelcomeView.swift in Sources */,
 				B0084728285381E60081CFFF /* LogInView.swift in Sources */,
 				B09838672853A90600FB93FC /* ItemCard.swift in Sources */,
+				B032CB4B2860D56A003FB01F /* FriendsView.swift in Sources */,
 				589820DC28566AE400719CCE /* SignUpView.swift in Sources */,
 				589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */,
 				5886D3BE28355FB60044938C /* SaturdayApp.swift in Sources */,
 				B098386D2853ABBB00FB93FC /* FriendCard.swift in Sources */,
 				B098386F2853BA5C00FB93FC /* SplitView.swift in Sources */,
+				B032CB562864A384003FB01F /* TextExtractionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
