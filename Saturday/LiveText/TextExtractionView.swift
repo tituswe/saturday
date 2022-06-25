@@ -16,7 +16,7 @@ struct TextExtractionView: View {
             showingResultsWindow = true
         }
         .sheet(isPresented: $showingResultsWindow, content: {
-            TextExtractionConvert()
+            SplitView()
         })
     }
 }

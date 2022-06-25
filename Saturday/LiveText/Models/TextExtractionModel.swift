@@ -8,7 +8,7 @@
 import SwiftUI
 import Vision
 
-class TextExtractionModel: UIViewController {
+class TextExtractionModel {
     
     private var referenceReceipt: Image?
     private var extractedText: String = "Receipt not found"
@@ -16,10 +16,6 @@ class TextExtractionModel: UIViewController {
     
     public func insertReciept(image: Image) {
         self.referenceReceipt = image
-    }
-    
-    public func getText() -> String {
-        return self.extractedText
     }
     
     private let label: UILabel = {
@@ -37,30 +33,6 @@ class TextExtractionModel: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(label)
-        view.addSubview(imageView)
-        
-        recognizeText(image: imageView.image)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        imageView.frame = CGRect(
-            x: 20,
-            y: view.safeAreaInsets.top,
-            width: view.frame.size.width-40,
-            height: view.frame.size.width-40
-        )
-        label.frame = CGRect(
-            x: 20,
-            y: view.frame.size.width + view.safeAreaInsets.top,
-            width: view.frame.size.width-40,
-            height: 200
-        )
-    }
     
     private func recognizeText(image: UIImage?) {
         guard let cgImage = image?.cgImage else {
@@ -106,14 +78,21 @@ class TextExtractionModel: UIViewController {
             print(error)
         }
     }
-}
-
-struct TextExtractionConvert: UIViewControllerRepresentable {
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-    }
-    
-    func makeUIViewController(context: Context) -> UIViewController {
-        return TextExtractionModel()
+    func extractItems() -> [Item]{
+        recognizeText(image: imageView.image)
+        
+        var itemList: [Item] = []
+        
+        let processedText = TextProcessor().presentText(extractedText: self.extractedText)
+        var i = 0
+        while i < processedText.count {
+            if i % 3 == 0 { // i = 0, 3, 6, 9,...
+                //Do nothing (No quantity)
+                itemList.append(Item(id: "item \(i)", name: processedText[i+1], price: Double(processedText[i+2])!))
+            }
+            i += 1
+        }
+        return itemList
     }
 }

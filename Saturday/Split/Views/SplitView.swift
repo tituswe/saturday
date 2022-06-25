@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SplitView: View {
 
-    @StateObject var cartManager = CartManager(items: itemList, friends: friendList)
+    @StateObject var cartManager = CartManager(items: TextExtractionModel().extractItems(), friends: friendList)
     
     @State var selectedCart: Int = -1
     

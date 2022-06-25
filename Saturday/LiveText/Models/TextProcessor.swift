@@ -16,7 +16,6 @@ class TextProcessor {
     /* MARK: NEW APPROACH
      * Store the extracted text string into an array.
      * Each element in the array is demarkated by the ";" seperator
-     * With the String array, remove all elements up to and including "Reorder"
      * After which, using the quantity as a marker, take elements of quanitity, name and price.
      * Quantities are always in the format of \(Integer)"x"
      * Name and Price always follows the quantity element in order of Name, Price.
@@ -25,12 +24,6 @@ class TextProcessor {
     func presentText(extractedText: String) -> [String] {
         // Transform string to array
         self.cleanData(extractedText: extractedText)
-
-        // SCRAPPED: Removing elements up to and including "Reorder"
-//        while self.cleanArray[0] != "Reorder" {
-//            self.cleanArray.remove(at: 0)
-//        }
-//        self.cleanArray.remove(at: 0) // Remove "Reorder"
         
         // Check for \(Integer)"x" denoting quantity
         var i = 0
@@ -46,7 +39,7 @@ class TextProcessor {
                 }
             }
         }
-        print(self.presentedText)
+
         return self.presentedText
     }
     
@@ -55,7 +48,7 @@ class TextProcessor {
         var substringIndex = 0
         
         // For loop to put each line into the array in the format of ";..."
-        for (index, char) in extractedText.enumerated() {
+        for (_, char) in extractedText.enumerated() {
             if char == ";" {
                 substringIndex += 1
                 initialArray.append("\(char)")
