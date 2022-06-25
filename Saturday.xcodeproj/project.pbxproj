@@ -246,9 +246,9 @@
 		B09C19A7284FAE43008C7DCE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B05CE70728578AF90041BA60 /* WelcomeView.swift */,
 				B0084727285381E60081CFFF /* LogInView.swift */,
 				589820DB28566AE300719CCE /* SignUpView.swift */,
-				B05CE70728578AF90041BA60 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

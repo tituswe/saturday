@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    
     @EnvironmentObject var user: UserLoginModel
     
     var body: some View {
@@ -16,13 +17,14 @@ struct WelcomeView: View {
             //Login View
             if user.signedIn {
                 //Display Homepage
-                
-                Button(action: {
-                    user.signOut()
-                }, label: {
-                    Text("Log Out")
-                        .foregroundColor(Color.blue)
-                })
+                HomeView()
+                    .environmentObject(user)
+//                Button(action: {
+//                    user.signOut()
+//                }, label: {
+//                    Text("Log Out")
+//                        .foregroundColor(Color.blue)
+//                })
             } else {
                 LogInView()
                     .environmentObject(user)

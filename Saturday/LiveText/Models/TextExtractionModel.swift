@@ -10,12 +10,23 @@ import Vision
 
 class TextExtractionModel {
     
-    private var referenceReceipt: Image?
+//    private var referenceReceipt: Image?
+    private var referenceReceipt: String = "receipt1"
     private var extractedText: String = "Receipt not found"
     private var displayedText: String = ""
+   
+    // MARK: This func is the actual function to be used
+//    public func insertReciept(image: Image) {
+//        self.referenceReceipt = image
+//    }
     
-    public func insertReciept(image: Image) {
-        self.referenceReceipt = image
+    public func insertReceipt(fileName: String) {
+        self.referenceReceipt = fileName
+        self.imageView.image = UIImage(named: "\(fileName)")
+    }
+    
+    public func getReceipt() -> String {
+        return self.referenceReceipt
     }
     
     private let label: UILabel = {

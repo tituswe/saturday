@@ -8,16 +8,29 @@
 import SwiftUI
 
 struct TextExtractionView: View {
-    @State var showingResultsWindow = false
+    @State var showingSplitView = false
     @State var showingUploadWindow = false
+    @State var model: TextExtractionModel = TextExtractionModel()
     
     var body: some View {
-        Button("Upload Receipt") {
-            showingResultsWindow = true
+        VStack {
+            Button("Upload Receipt") {
+                showingUploadWindow.toggle()
+            }
+            .sheet(isPresented: $showingUploadWindow, content: {
+                
+                // TODO: Show upload window
+                // ContentView(temp: $showingUploadWindow, temp2: $showingSplitView, receipt: UPLOADED IMAGE)
+                
+                ContentView(temp: $showingUploadWindow, temp2: $showingSplitView, model: $model)
+            })
+            
+            NavigationLink(destination: SplitView(cartManager: CartManager(items: model.extractItems(), friends: friendList))) {
+                Text("Split it!")
+            }
+            .padding()
         }
-        .sheet(isPresented: $showingResultsWindow, content: {
-            SplitView()
-        })
+        .navigationTitle("Upload Receipt")
     }
 }
 

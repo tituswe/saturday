@@ -39,14 +39,42 @@ struct ContentView: View {
 */
 
 struct ContentView: View {
+    
+    @Binding var temp: Bool
+    @Binding var temp2: Bool
+//    var receipt: Image
+    @Binding var model: TextExtractionModel
+    
     var body: some View {
-      Text("Welcome to Saturday")
+        Text("Currently showing ContentView. \n \nThis should instead be the Upload from Gallery page")
+            .padding()
+        
+        Button("Select and Upload Receipt1") {
+            temp.toggle()
+            self.model.insertReceipt(fileName: "receipt1")
+            temp2.toggle()
+        }
+        .padding()
+        
+        Button("Select and Upload Receipt2") {
+            temp.toggle()
+            self.model.insertReceipt(fileName: "receipt2")
+            temp2.toggle()
+        }
+        .padding()
+        
+        Button("Select and Upload Receipt3") {
+            temp.toggle()
+            self.model.insertReceipt(fileName: "receipt3")
+            temp2.toggle()
+        }
+        .padding()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(temp: true)
+//    }
+//}
 
