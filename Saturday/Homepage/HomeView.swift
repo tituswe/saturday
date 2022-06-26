@@ -14,9 +14,7 @@ struct HomeView: View {
     @State private var showSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
-    
-    @State private var image: UIImage? = UIImage(named: "receipt1")
-    
+    @State private var image: UIImage?
     @State private var isShowingSplitView: Bool = false
     
     var body: some View {
@@ -68,8 +66,13 @@ struct HomeView: View {
             Spacer()
             
             NavigationLink(isActive: $isShowingSplitView) {
-                            SplitView(cartManager: CartManager(items: TextExtractionModel(referenceReceipt: self.$image).extractItems(), friends: friendList))
-//                SaturdayLogo()
+                if image != nil {
+                    SplitView(cartManager:
+                                CartManager(
+                                    model: TextExtractionModel(
+                                        referenceReceipt: self.image!),
+                                    friends: friendList))
+                }
             } label: {
                 Text("")
             }
@@ -98,15 +101,6 @@ struct HomeView: View {
                                 .cancel()
                             ])
             }
-            
-            //                NavigationLink(destination: TextExtractionView()) {
-            //                    Text("Add Split")
-            //                        .bold()
-            //                        .frame(width: 150, height: 50)
-            //                        .background(Color.green)
-            //                        .foregroundColor(.white)
-            //                        .cornerRadius(20)
-            //                }
             
             Spacer()
             

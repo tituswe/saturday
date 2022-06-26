@@ -9,8 +9,6 @@ import SwiftUI
 
 struct SplitView: View {
 
-//    @StateObject var cartManager = CartManager(items: TextExtractionModel().extractItems(), friends: friendList)
-    
     @StateObject var cartManager: CartManager
     
     @State var selectedCart: Int = -1
@@ -83,7 +81,7 @@ struct SplitView: View {
             // MARK: Bottom Panel
             if (allAllocated()) {
                 Button {
-                    print("Go to split confirmation page") // TODO: MISSING Link to splitconfirmation page
+                    print("Go to split confirmation page") // TODO: MISSING Link to split confirmation page
                 } label: {
                     Text("Send Split")
                         .font(.system(.title3, design: .rounded))
@@ -131,8 +129,8 @@ struct SplitView: View {
 }
 
 
-//struct SplitView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SplitView(cartManager: CartManager(items: TextExtractionModel().extractItems(), friends: friendList))
-//    }
-//}
+struct SplitView_Previews: PreviewProvider {
+    static var previews: some View {
+        SplitView(cartManager: CartManager(model: TextExtractionModel(referenceReceipt: UIImage(named: "receipt1")!), friends: friendList))
+    }
+}

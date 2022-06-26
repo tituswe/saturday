@@ -32,13 +32,6 @@ struct SaturdayApp: App {
                 WelcomeView()
                     .environmentObject(user)
             }
-//            SplitView()
-//                .environmentObject(user)
-//            ContentView()
-//                .environmentObject(user)
-//            HomeView(friends: friendListU)
-//                .environmentObject(user)
-//            TextExtractionView()
         }
     }
 }

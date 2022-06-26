@@ -51,6 +51,6 @@ struct CartView: View {
 struct CartView_Previews: PreviewProvider {
     static var previews: some View {
         CartView(cartNumber: 0)
-            .environmentObject(CartManager(items: itemList, friends: friendList))
+            .environmentObject(CartManager(model: TextExtractionModel(referenceReceipt: UIImage(named: "receipt1")!), friends: friendList))
     }
 }

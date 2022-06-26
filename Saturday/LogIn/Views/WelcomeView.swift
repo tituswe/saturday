@@ -19,12 +19,6 @@ struct WelcomeView: View {
                 //Display Homepage
                 HomeView()
                     .environmentObject(user)
-//                Button(action: {
-//                    user.signOut()
-//                }, label: {
-//                    Text("Log Out")
-//                        .foregroundColor(Color.blue)
-//                })
             } else {
                 LogInView()
                     .environmentObject(user)

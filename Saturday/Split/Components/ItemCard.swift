@@ -54,9 +54,9 @@ struct ItemCard: View {
     }
 }
 
-struct ItemCard_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemCard(item: itemList[0], selectedCart: 0)
-            .environmentObject(CartManager(items: itemList, friends: friendList))
-    }
-}
+//struct ItemCard_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ItemCard(item: itemList[0], selectedCart: 0)
+//            .environmentObject(CartManager(items: itemList, friends: friendList))
+//    }
+//}

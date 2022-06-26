@@ -10,9 +10,9 @@ import SwiftUI
 
 class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    @Binding var isShowingSplitView: Bool
     @Binding var image: UIImage?
     @Binding var isShown: Bool
-    @Binding var isShowingSplitView: Bool
     
     init(image: Binding<UIImage?>, isShown: Binding<Bool>, isShowingSplitView: Binding<Bool>) {
         _image = image
@@ -24,7 +24,7 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
         if let uiImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             image = uiImage
             isShown = false
-            isShowingSplitView = true
+            isShowingSplitView.toggle()
         }
     }
     

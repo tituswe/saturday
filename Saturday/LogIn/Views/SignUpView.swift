@@ -15,7 +15,7 @@ struct SignUpView: View {
     /// Stateful property that takes in the input for the password
     @State var password = ""
     
-    /// Stateful property that takes in the input for the password
+    /// Stateful property that takes in the input for the name
     @State var name = ""
     
     @EnvironmentObject var user: UserLoginModel

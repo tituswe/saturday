@@ -9,12 +9,14 @@ import Foundation
 
 class CartManager: ObservableObject {
     
+    private var model: TextExtractionModel
     @Published private(set) var items: [Item]
     @Published private(set) var friends: [String]
     @Published private(set) var carts: [Cart] = []
     
-    init(items: [Item], friends: [String]) {
-        self.items = items
+    init(model: TextExtractionModel, friends: [String]) {
+        self.model = model
+        self.items = model.extractItems()
         self.friends = friends
         for i in 0..<friends.count {
             print(i)
@@ -66,24 +68,3 @@ class Cart: ObservableObject, Identifiable {
         total -= item.price
     }
 }
-
-
-//class CartManager: ObservableObject {
-//    var name: String
-//    @Published private(set) var items: [Item] = []
-//    @Published private(set) var total: Double = 0.00
-//
-//    init(name: String) {
-//        self.name = name
-//    }
-//
-//    func addToCart(item: Item) {
-//        items.append(item)
-//        total += item.price
-//    }
-//
-//    func removeFromCart(item: Item) {
-//        items = items.filter { $0.id != item.id }
-//        total -= item.price
-//    }
-//}

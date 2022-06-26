@@ -64,15 +64,15 @@ struct FriendCard: View {
     }
 }
 
-struct FriendCard_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            FriendCard(name: "Titus", cartNumber: 0, numberOfProducts: 1, isSelected: .constant(true))
-                .environmentObject(CartManager(items: itemList, friends: friendList))
-                .previewLayout(.sizeThatFits)
-            FriendCard(name: "Titus", cartNumber: 0, numberOfProducts: 1, isSelected: .constant(false))
-                .environmentObject(CartManager(items: itemList, friends: friendList))
-                .previewLayout(.sizeThatFits)
-        }
-    }
-}
+//struct FriendCard_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            FriendCard(name: "Titus", cartNumber: 0, numberOfProducts: 1, isSelected: .constant(true))
+//                .environmentObject(CartManager(items: itemList, friends: friendList))
+//                .previewLayout(.sizeThatFits)
+//            FriendCard(name: "Titus", cartNumber: 0, numberOfProducts: 1, isSelected: .constant(false))
+//                .environmentObject(CartManager(items: itemList, friends: friendList))
+//                .previewLayout(.sizeThatFits)
+//        }
+//    }
+//}
