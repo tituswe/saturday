@@ -25,39 +25,39 @@ struct HomeView: View {
             Spacer()
             
             ScrollView {
-                Text("I Owe You")
+                Text("Josh Owes You")
                     .font(.system(.title3, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
                     .frame(width: 350, height: 150)
-                    .background(Color.systemBlue)
+                    .background(Color.systemGreen)
                     .cornerRadius(50)
                     .padding(10)
                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                Text("I Owe You")
+                Text("Kyron Owes You")
                     .font(.system(.title3, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
                     .frame(width: 350, height: 150)
-                    .background(Color.systemBlue)
+                    .background(Color.systemGreen)
                     .cornerRadius(50)
                     .padding(10)
                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                Text("I Owe You")
+                Text("You Owe Yuze")
                     .font(.system(.title3, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
                     .frame(width: 350, height: 150)
-                    .background(Color.systemBlue)
+                    .background(Color.systemRed)
                     .cornerRadius(50)
                     .padding(10)
                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                Text("I Owe You")
+                Text("You Owe Yuze")
                     .font(.system(.title3, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
                     .frame(width: 350, height: 150)
-                    .background(Color.systemBlue)
+                    .background(Color.systemRed)
                     .cornerRadius(50)
                     .padding(10)
                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
@@ -67,10 +67,15 @@ struct HomeView: View {
             
             NavigationLink(isActive: $isShowingSplitView) {
                 if image != nil {
+//                    SplitView(cartManager:
+//                                CartManager(
+//                                    model: TextExtractionModel(
+//                                        referenceReceipt: self.image!),
+//                                    friends: friendList))
                     SplitView(cartManager:
                                 CartManager(
                                     model: TextExtractionModel(
-                                        referenceReceipt: self.image!),
+                                        referenceReceipt: UIImage(named: "receipt1")!),
                                     friends: friendList))
                 }
             } label: {
@@ -117,7 +122,6 @@ struct HomeView: View {
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: self.$image, isShown: self.$showImagePicker, isShowingSplitView: self.$isShowingSplitView, sourceType: self.sourceType)
         }
-        
         
     }
 }

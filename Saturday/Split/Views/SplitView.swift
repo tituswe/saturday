@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct SplitView: View {
-
+    
     @StateObject var cartManager: CartManager
+    
+    @EnvironmentObject var user: UserLoginModel
     
     @State var selectedCart: Int = -1
     
     @State var isOpen: [Bool] = [Bool](repeating: false, count: friendList.count)
     
     @State var isSelected: [Bool] = [Bool](repeating: false, count: friendList.count)
+    
+    @State var isShowingConfirmView: Bool = false
     
     var body: some View {
         VStack {
@@ -80,17 +84,28 @@ struct SplitView: View {
             
             // MARK: Bottom Panel
             if (allAllocated()) {
-                Button {
-                    print("Go to split confirmation page") // TODO: MISSING Link to split confirmation page
-                } label: {
-                    Text("Send Split")
-                        .font(.system(.title3, design: .rounded))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.white)
-                        .frame(width: 200, height: 50)
-                        .background(Color.systemBlue)
-                        .cornerRadius(50)
-                        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                ZStack {
+                    NavigationLink(isActive: $isShowingConfirmView) {
+                        ConfirmationView()
+                            .environmentObject(cartManager)
+                            .environmentObject(user)
+                    } label: {
+                        Text("")
+                    }
+
+                    Button {
+                        isShowingConfirmView = true
+                    } label: {
+                        Text("View Split")
+                            .font(.system(.title3, design: .rounded))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.systemBlue)
+                            .cornerRadius(50)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
+                    
                 }
             } else if (noneSelected()) {
                 Text("Select a Friend")
@@ -132,5 +147,6 @@ struct SplitView: View {
 struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
         SplitView(cartManager: CartManager(model: TextExtractionModel(referenceReceipt: UIImage(named: "receipt1")!), friends: friendList))
+            .environmentObject(UserLoginModel())
     }
 }

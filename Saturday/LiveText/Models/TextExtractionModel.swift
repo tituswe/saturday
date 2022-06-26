@@ -79,7 +79,7 @@ class TextExtractionModel {
         }
     }
     
-    func extractItems() -> [Item]{
+    func extractItems() -> [Item] {
         recognizeText(image: self.referenceReceipt)
         
         var itemList: [Item] = []
@@ -88,8 +88,10 @@ class TextExtractionModel {
         var i = 0
         while i < processedText.count {
             if i % 3 == 0 { // i = 0, 3, 6, 9,...
-                //Do nothing (No quantity)
-                itemList.append(Item(id: "item \(i)", name: processedText[i+1], price: Double(processedText[i+2])!))
+                let qty = processedText[i].first!.wholeNumberValue!
+                for j in 0..<qty {
+                    itemList.append(Item(id: "item \(i+j)", name: processedText[i+1], price: Double(processedText[i+2])!/Double(qty)))
+                }
             }
             i += 1
         }

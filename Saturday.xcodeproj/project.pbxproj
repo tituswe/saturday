@@ -17,6 +17,8 @@
 		589820D828563F6000719CCE /* NavbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820D728563F6000719CCE /* NavbarView.swift */; };
 		589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820D92856637300719CCE /* SaturdayLogo.swift */; };
 		589820DC28566AE400719CCE /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820DB28566AE300719CCE /* SignUpView.swift */; };
+		58FF60CD2868BD7000ABB89B /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF60CC2868BD7000ABB89B /* ConfirmationView.swift */; };
+		58FF60CF2868CAFF00ABB89B /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF60CE2868CAFF00ABB89B /* SentView.swift */; };
 		B0084728285381E60081CFFF /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0084727285381E60081CFFF /* LogInView.swift */; };
 		B008472C2853825F0081CFFF /* UserLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008472B2853825F0081CFFF /* UserLoginModel.swift */; };
 		B0128AE0285358C30067C3D4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B0128ADF285358C30067C3D4 /* FirebaseAnalytics */; };
@@ -56,6 +58,8 @@
 		589820D728563F6000719CCE /* NavbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavbarView.swift; sourceTree = "<group>"; };
 		589820D92856637300719CCE /* SaturdayLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaturdayLogo.swift; sourceTree = "<group>"; };
 		589820DB28566AE300719CCE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		58FF60CC2868BD7000ABB89B /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
+		58FF60CE2868CAFF00ABB89B /* SentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentView.swift; sourceTree = "<group>"; };
 		B0084727285381E60081CFFF /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		B008472B2853825F0081CFFF /* UserLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginModel.swift; sourceTree = "<group>"; };
 		B032CB4A2860D56A003FB01F /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 			children = (
 				B098386E2853BA5C00FB93FC /* SplitView.swift */,
 				589820D028563BE200719CCE /* CartView.swift */,
+				58FF60CC2868BD7000ABB89B /* ConfirmationView.swift */,
+				58FF60CE2868CAFF00ABB89B /* SentView.swift */,
 				589820D728563F6000719CCE /* NavbarView.swift */,
 			);
 			path = Views;
@@ -339,6 +345,7 @@
 				B032CB4E2860EECC003FB01F /* HomeView.swift in Sources */,
 				5886D3CC283567CD0044938C /* Extensions.swift in Sources */,
 				B09C19AB284FAEB4008C7DCE /* Friend.swift in Sources */,
+				58FF60CF2868CAFF00ABB89B /* SentView.swift in Sources */,
 				B08F15DE2857BA200041F971 /* DatabaseManager.swift in Sources */,
 				B09838622853A7EF00FB93FC /* CartManager.swift in Sources */,
 				B09838642853A89900FB93FC /* Datasets.swift in Sources */,
@@ -358,6 +365,7 @@
 				589820DC28566AE400719CCE /* SignUpView.swift in Sources */,
 				589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */,
 				5886D3BE28355FB60044938C /* SaturdayApp.swift in Sources */,
+				58FF60CD2868BD7000ABB89B /* ConfirmationView.swift in Sources */,
 				B098386D2853ABBB00FB93FC /* FriendCard.swift in Sources */,
 				581758FE286843FF004DB5EE /* ImagePicker.swift in Sources */,
 				B098386F2853BA5C00FB93FC /* SplitView.swift in Sources */,
