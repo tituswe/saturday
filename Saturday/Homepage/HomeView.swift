@@ -11,32 +11,120 @@ struct HomeView: View {
     
     @EnvironmentObject var user: UserLoginModel
     
+    @State private var showSheet: Bool = false
+    @State private var showImagePicker: Bool = false
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    
+    @State private var image: UIImage? = UIImage(named: "receipt1")
+    
+    @State private var isShowingSplitView: Bool = false
+    
     var body: some View {
-            VStack {
-                // MARK: Navigation Bar
-                NavbarView(topLeftButtonView: "line.horizontal.3", topRightButtonView: "circle.dashed", titleString: "Dashboard", topLeftButtonAction: {}, topRightButtonAction: {}) // TODO: Add toolbar functionality
-                
-                Spacer()
-                
-                NavigationLink(destination: TextExtractionView()) {
-                    Text("Add Split")
-                        .bold()
-                        .frame(width: 150, height: 50)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(20)
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    user.signOut()
-                }, label: {
-                    Text("Log Out")
-                        .foregroundColor(Color.blue)
-                })
+        VStack {
+            // MARK: Navigation Bar
+            NavbarView(topLeftButtonView: "line.horizontal.3", topRightButtonView: "circle.dashed", titleString: "Dashboard", topLeftButtonAction: {}, topRightButtonAction: {}) // TODO: Add toolbar functionality
+            
+            Spacer()
+            
+            ScrollView {
+                Text("I Owe You")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .frame(width: 350, height: 150)
+                    .background(Color.systemBlue)
+                    .cornerRadius(50)
+                    .padding(10)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                Text("I Owe You")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .frame(width: 350, height: 150)
+                    .background(Color.systemBlue)
+                    .cornerRadius(50)
+                    .padding(10)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                Text("I Owe You")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .frame(width: 350, height: 150)
+                    .background(Color.systemBlue)
+                    .cornerRadius(50)
+                    .padding(10)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                Text("I Owe You")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .frame(width: 350, height: 150)
+                    .background(Color.systemBlue)
+                    .cornerRadius(50)
+                    .padding(10)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
             }
-            .navigationBarHidden(true)
+            
+            Spacer()
+            
+            NavigationLink(isActive: $isShowingSplitView) {
+                            SplitView(cartManager: CartManager(items: TextExtractionModel(referenceReceipt: self.$image).extractItems(), friends: friendList))
+//                SaturdayLogo()
+            } label: {
+                Text("")
+            }
+            
+            Button("Add Split") {
+                self.showSheet = true
+            }
+            .padding()
+            .font(.system(.title3, design: .rounded))
+            .foregroundColor(Color.white)
+            .frame(width: 200, height: 50)
+            .background(Color.systemGreen)
+            .cornerRadius(50)
+            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+            .actionSheet(isPresented: $showSheet) {
+                ActionSheet(title: Text("Select Photo"),
+                            message: Text("Choose"), buttons: [
+                                .default(Text("Photo Library")) {
+                                    self.showImagePicker = true
+                                    self.sourceType = .photoLibrary
+                                },
+                                .default(Text("Camera")) {
+                                    self.showImagePicker = true
+                                    self.sourceType = .camera
+                                },
+                                .cancel()
+                            ])
+            }
+            
+            //                NavigationLink(destination: TextExtractionView()) {
+            //                    Text("Add Split")
+            //                        .bold()
+            //                        .frame(width: 150, height: 50)
+            //                        .background(Color.green)
+            //                        .foregroundColor(.white)
+            //                        .cornerRadius(20)
+            //                }
+            
+            Spacer()
+            
+            Button(action: {
+                user.signOut()
+            }, label: {
+                Text("Log Out")
+                    .foregroundColor(Color.blue)
+                    .font(.footnote)
+            })
+            
+        }
+        .navigationBarHidden(true)
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: self.$image, isShown: self.$showImagePicker, isShowingSplitView: self.$isShowingSplitView, sourceType: self.sourceType)
+        }
+        
+        
     }
 }
 

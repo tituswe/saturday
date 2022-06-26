@@ -131,8 +131,8 @@ struct SplitView: View {
 }
 
 
-struct SplitView_Previews: PreviewProvider {
-    static var previews: some View {
-        SplitView(cartManager: CartManager(items: TextExtractionModel().extractItems(), friends: friendList))
-    }
-}
+//struct SplitView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SplitView(cartManager: CartManager(items: TextExtractionModel().extractItems(), friends: friendList))
+//    }
+//}

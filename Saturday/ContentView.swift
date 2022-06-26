@@ -49,26 +49,26 @@ struct ContentView: View {
         Text("Currently showing ContentView. \n \nThis should instead be the Upload from Gallery page")
             .padding()
         
-        Button("Select and Upload Receipt1") {
-            temp.toggle()
-            self.model.insertReceipt(fileName: "receipt1")
-            temp2.toggle()
-        }
-        .padding()
-        
-        Button("Select and Upload Receipt2") {
-            temp.toggle()
-            self.model.insertReceipt(fileName: "receipt2")
-            temp2.toggle()
-        }
-        .padding()
-        
-        Button("Select and Upload Receipt3") {
-            temp.toggle()
-            self.model.insertReceipt(fileName: "receipt3")
-            temp2.toggle()
-        }
-        .padding()
+//        Button("Select and Upload Receipt1") {
+//            temp.toggle()
+//            self.model.insertReceipt(fileName: "receipt1")
+//            temp2.toggle()
+//        }
+//        .padding()
+//
+//        Button("Select and Upload Receipt2") {
+//            temp.toggle()
+//            self.model.insertReceipt(fileName: "receipt2")
+//            temp2.toggle()
+//        }
+//        .padding()
+//
+//        Button("Select and Upload Receipt3") {
+//            temp.toggle()
+//            self.model.insertReceipt(fileName: "receipt3")
+//            temp2.toggle()
+//        }
+//        .padding()
     }
 }
 

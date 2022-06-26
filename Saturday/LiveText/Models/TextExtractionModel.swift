@@ -10,24 +10,27 @@ import Vision
 
 class TextExtractionModel {
     
-//    private var referenceReceipt: Image?
-    private var referenceReceipt: String = "receipt1"
+    @Binding private var referenceReceipt: UIImage?
+//    private var referenceReceipt: String = "receipt1"
     private var extractedText: String = "Receipt not found"
     private var displayedText: String = ""
    
-    // MARK: This func is the actual function to be used
-//    public func insertReciept(image: Image) {
+    init(referenceReceipt: Binding<UIImage?>) {
+        _referenceReceipt = referenceReceipt
+    }
+//     MARK: This func is the actual function to be used
+//    public func insertReciept(image: UIImage) {
 //        self.referenceReceipt = image
 //    }
     
-    public func insertReceipt(fileName: String) {
-        self.referenceReceipt = fileName
-        self.imageView.image = UIImage(named: "\(fileName)")
-    }
+//    public func insertReceipt(fileName: String) {
+//        self.referenceReceipt = fileName
+//        self.imageView.image = UIImage(named: "\(fileName)")
+//    }
     
-    public func getReceipt() -> String {
-        return self.referenceReceipt
-    }
+//    public func getReceipt() -> String {
+//        return self.referenceReceipt
+//    }
     
     private let label: UILabel = {
         let label = UILabel()
@@ -91,7 +94,7 @@ class TextExtractionModel {
     }
     
     func extractItems() -> [Item]{
-        recognizeText(image: imageView.image)
+        recognizeText(image: self.referenceReceipt)
         
         var itemList: [Item] = []
         
