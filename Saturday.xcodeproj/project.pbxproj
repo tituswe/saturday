@@ -28,9 +28,6 @@
 		B032CB512860F2C3003FB01F /* FriendCardHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB502860F2C3003FB01F /* FriendCardHome.swift */; };
 		B032CB562864A384003FB01F /* TextExtractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB552864A384003FB01F /* TextExtractionModel.swift */; };
 		B032CB582864A845003FB01F /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB572864A845003FB01F /* TextProcessor.swift */; };
-		B05CE702285789DD0041BA60 /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE701285789DD0041BA60 /* ScanButton.swift */; };
-		B05CE704285789F80041BA60 /* AddPersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE703285789F80041BA60 /* AddPersonView.swift */; };
-		B05CE70628578A1D0041BA60 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE70528578A1D0041BA60 /* Person.swift */; };
 		B05CE70828578AF90041BA60 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05CE70728578AF90041BA60 /* WelcomeView.swift */; };
 		B0790233285788EA00AD2A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0790232285788EA00AD2A55 /* GoogleService-Info.plist */; };
 		B08F15DA2857A8C60041F971 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B08F15D92857A8C60041F971 /* FirebaseFirestore */; };
@@ -67,9 +64,6 @@
 		B032CB502860F2C3003FB01F /* FriendCardHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardHome.swift; sourceTree = "<group>"; };
 		B032CB552864A384003FB01F /* TextExtractionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtractionModel.swift; sourceTree = "<group>"; };
 		B032CB572864A845003FB01F /* TextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessor.swift; sourceTree = "<group>"; };
-		B05CE701285789DD0041BA60 /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
-		B05CE703285789F80041BA60 /* AddPersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPersonView.swift; sourceTree = "<group>"; };
-		B05CE70528578A1D0041BA60 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B05CE70728578AF90041BA60 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		B0790232285788EA00AD2A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B08F15DB2857B7720041F971 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -233,9 +227,6 @@
 		B05CE700285789B00041BA60 /* LiveText */ = {
 			isa = PBXGroup;
 			children = (
-				B05CE701285789DD0041BA60 /* ScanButton.swift */,
-				B05CE703285789F80041BA60 /* AddPersonView.swift */,
-				B05CE70528578A1D0041BA60 /* Person.swift */,
 				B032CB542864A35D003FB01F /* Models */,
 			);
 			path = LiveText;
@@ -351,13 +342,10 @@
 				B09838642853A89900FB93FC /* Datasets.swift in Sources */,
 				589820D828563F6000719CCE /* NavbarView.swift in Sources */,
 				B09C19AD284FAEBD008C7DCE /* Item.swift in Sources */,
-				B05CE704285789F80041BA60 /* AddPersonView.swift in Sources */,
 				B032CB582864A845003FB01F /* TextProcessor.swift in Sources */,
 				B032CB512860F2C3003FB01F /* FriendCardHome.swift in Sources */,
 				B08F15DC2857B7720041F971 /* User.swift in Sources */,
-				B05CE70628578A1D0041BA60 /* Person.swift in Sources */,
 				589820D128563BE200719CCE /* CartView.swift in Sources */,
-				B05CE702285789DD0041BA60 /* ScanButton.swift in Sources */,
 				B05CE70828578AF90041BA60 /* WelcomeView.swift in Sources */,
 				B0084728285381E60081CFFF /* LogInView.swift in Sources */,
 				B09838672853A90600FB93FC /* ItemCard.swift in Sources */,

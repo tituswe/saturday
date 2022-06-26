@@ -83,6 +83,7 @@ struct SignUpView: View {
                 .padding()
             }
             .padding(50)
+            .navigationTitle("Sign Up")
         }
     }
 }

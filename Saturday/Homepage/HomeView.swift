@@ -20,67 +20,98 @@ struct HomeView: View {
     var body: some View {
         VStack {
             // MARK: Navigation Bar
-            NavbarView(topLeftButtonView: "line.horizontal.3", topRightButtonView: "circle.dashed", titleString: "Dashboard", topLeftButtonAction: {}, topRightButtonAction: {}) // TODO: Add toolbar functionality
+            NavbarView(
+                topLeftButtonView: "line.horizontal.3",
+                topRightButtonView: "circle.dashed",
+                titleString: "Dashboard",
+                // TODO: Add toolbar functionality
+                topLeftButtonAction: {},
+                topRightButtonAction: {
+                    user.signOut()
+                })
             
             Spacer()
             
             ScrollView {
-                Text("Josh Owes You")
-                    .font(.system(.title3, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-                    .frame(width: 350, height: 150)
-                    .background(Color.systemGreen)
-                    .cornerRadius(50)
-                    .padding(10)
-                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                Text("Kyron Owes You")
-                    .font(.system(.title3, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-                    .frame(width: 350, height: 150)
-                    .background(Color.systemGreen)
-                    .cornerRadius(50)
-                    .padding(10)
-                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                Text("You Owe Yuze")
-                    .font(.system(.title3, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-                    .frame(width: 350, height: 150)
-                    .background(Color.systemRed)
-                    .cornerRadius(50)
-                    .padding(10)
-                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                Text("You Owe Yuze")
-                    .font(.system(.title3, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-                    .frame(width: 350, height: 150)
-                    .background(Color.systemRed)
-                    .cornerRadius(50)
-                    .padding(10)
-                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                
+                Spacer()
+                
+                Text("Pending Credits")
+                    .padding()
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        Text("Josh Owes You \n$13.76")
+                            .font(.system(.title3, design: .rounded))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .frame(width: 350, height: 150)
+                            .background(Color.systemViolet)
+                            .cornerRadius(50)
+                            .padding(10)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                        Text("Kyron Owes You \n$8.95")
+                            .font(.system(.title3, design: .rounded))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .frame(width: 350, height: 150)
+                            .background(Color.systemViolet)
+                            .cornerRadius(50)
+                            .padding(10)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
+                }
+                
+                Spacer()
+                
+                Text("Pending Debts")
+                    .padding()
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        Text("You Owe Yuze \n$10.42")
+                            .font(.system(.title3, design: .rounded))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .frame(width: 350, height: 150)
+                            .background(Color.systemIndigo)
+                            .cornerRadius(50)
+                            .padding(10)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                        Text("You Owe Yuze \n$43.95")
+                            .font(.system(.title3, design: .rounded))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.white)
+                            .frame(width: 350, height: 150)
+                            .background(Color.systemIndigo)
+                            .cornerRadius(50)
+                            .padding(10)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
+                }
             }
             
             Spacer()
             
             NavigationLink(isActive: $isShowingSplitView) {
                 if image != nil {
-//                    SplitView(cartManager:
-//                                CartManager(
-//                                    model: TextExtractionModel(
-//                                        referenceReceipt: self.image!),
-//                                    friends: friendList))
                     SplitView(cartManager:
                                 CartManager(
                                     model: TextExtractionModel(
-                                        referenceReceipt: UIImage(named: "receipt1")!),
+                                        referenceReceipt: self.image!),
                                     friends: friendList))
+                    // MARK: FOR SIMULATOR
+//                    SplitView(cartManager:
+//                                CartManager(
+//                                    model: TextExtractionModel(
+//                                        referenceReceipt: UIImage(named: "receipt1")!),
+//                                    friends: friendList))
                 }
             } label: {
                 Text("")
             }
+            
+            Spacer()
             
             Button("Add Split") {
                 self.showSheet = true
@@ -89,7 +120,7 @@ struct HomeView: View {
             .font(.system(.title3, design: .rounded))
             .foregroundColor(Color.white)
             .frame(width: 200, height: 50)
-            .background(Color.systemGreen)
+            .background(Color.systemBlue)
             .cornerRadius(50)
             .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
             .actionSheet(isPresented: $showSheet) {
@@ -108,21 +139,11 @@ struct HomeView: View {
             }
             
             Spacer()
-            
-            Button(action: {
-                user.signOut()
-            }, label: {
-                Text("Log Out")
-                    .foregroundColor(Color.blue)
-                    .font(.footnote)
-            })
-            
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: self.$image, isShown: self.$showImagePicker, isShowingSplitView: self.$isShowingSplitView, sourceType: self.sourceType)
         }
-        
     }
 }
 

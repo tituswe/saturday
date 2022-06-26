@@ -24,7 +24,15 @@ struct SplitView: View {
     var body: some View {
         VStack {
             // MARK: Navigation Bar
-            NavbarView(topLeftButtonView: "line.horizontal.3", topRightButtonView: "circle.dashed", titleString: "Your Bill", topLeftButtonAction: {}, topRightButtonAction: {}) // TODO: Add toolbar functionality
+            NavbarView(
+                topLeftButtonView: "line.horizontal.3",
+                topRightButtonView: "circle.dashed",
+                titleString: "Dashboard",
+                // TODO: Add toolbar functionality
+                topLeftButtonAction: {},
+                topRightButtonAction: {
+                    user.signOut()
+                })
             Spacer()
             
             // MARK: Friend Cards

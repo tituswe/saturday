@@ -78,6 +78,7 @@ struct LogInView: View {
                 }
             }
             .padding(50)
+            .navigationTitle("Login")
         }
     }
 }

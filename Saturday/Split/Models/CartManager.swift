@@ -19,7 +19,6 @@ class CartManager: ObservableObject {
         self.items = model.extractItems()
         self.friends = friends
         for i in 0..<friends.count {
-            print(i)
             self.carts.append(Cart(index: i, name: friends[i]))
         }
     }

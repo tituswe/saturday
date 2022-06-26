@@ -36,6 +36,7 @@ struct ConfirmationView: View {
                     .cornerRadius(50)
                   .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
             }
+            .padding()
             
             NavigationLink(isActive: $isShowingSentView) {
                 SentView()

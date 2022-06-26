@@ -12,15 +12,26 @@ struct SentView: View {
     @EnvironmentObject var user: UserLoginModel
     
     var body: some View {
-        Text("fuck!")
-        
-        NavigationLink {
-            HomeView()
-                .environmentObject(user)
-        } label: {
-            Text("peepeepoopoo")
+        VStack {
+            Text("Split Sent!")
+                .padding()
+            
+            NavigationLink {
+                HomeView()
+                    .environmentObject(user)
+            } label: {
+                Text("Return to Dashboard")
+                    .font(.system(.body, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .frame(width: 200, height: 50)
+                    .background(Color.systemBlue)
+                    .cornerRadius(50)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                    .padding()
+            }
         }
-
+        .navigationBarHidden(true)
     }
 }
 
