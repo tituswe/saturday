@@ -27,7 +27,7 @@ struct SplitView: View {
             NavbarView(
                 topLeftButtonView: "line.horizontal.3",
                 topRightButtonView: "circle.dashed",
-                titleString: "Dashboard",
+                titleString: "Split Bill",
                 // TODO: Add toolbar functionality
                 topLeftButtonAction: {},
                 topRightButtonAction: {
