@@ -1,8 +1,8 @@
 //
-//  TitleComponent.swift
-//  Dots
+//  NavbarView.swift
+//  Saturday
 //
-//  Created by Jack Zhao on 1/24/21.
+//  Created by Team Saturday on 28/6/22.
 //
 
 import SwiftUI
@@ -30,7 +30,7 @@ struct NavbarView: View {
                             .font(.title2)
                     }
                 } else {
-                    Text(" ")
+                    Text("")
                         .font(.title2)
                 }
                 Spacer()
@@ -40,7 +40,7 @@ struct NavbarView: View {
                             .font(.title2)
                     }
                 } else {
-                    Text(" ")
+                    Text("")
                         .font(.title2)
                 }
             }

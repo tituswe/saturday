@@ -17,7 +17,7 @@ struct WelcomeView: View {
             //Login View
             if user.signedIn {
                 //Display Homepage
-                HomeView()
+                HomeView(databaseManager: DatabaseManager())
                     .environmentObject(user)
             } else {
                 LogInView()

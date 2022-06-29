@@ -31,6 +31,7 @@ struct SaturdayApp: App {
             if user.signedIn == false {
                 WelcomeView()
                     .environmentObject(user)
+//                HomeView(databaseManager: previewDatabaseManager)
             }
         }
     }

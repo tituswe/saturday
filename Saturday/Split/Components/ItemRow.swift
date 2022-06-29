@@ -1,8 +1,8 @@
 //
 //  ItemRow.swift
-//  Saturday
+//  Saturday2
 //
-//  Created by Titus Lowe on 10/6/22.
+//  Created by Titus Lowe on 29/6/22.
 //
 
 import SwiftUI
@@ -11,49 +11,54 @@ struct ItemRow: View {
     
     @EnvironmentObject var cartManager: CartManager
     
-    var selectedCart: Int
-    
-    var item: Item
-    
-    @State private var scale = 1.0
+    let item: Item
     
     var body: some View {
-        HStack(spacing: 20) {
-            RoundedRectangle(cornerSize: .zero)
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50)
-                .cornerRadius(10)
-                .foregroundColor(.gray)
+        
+        HStack {
             
-            VStack(alignment: .leading, spacing: 10) {
-                Text(item.name)
-                    .font(.system(.body, design: .rounded))
-                    .bold()
+            ZStack {
                 
-                Text("$" + String(format: "%.2f", item.price))
-                    .font(.system(.subheadline, design: .rounded))
+                VStack(alignment: .leading) {
+                    
+                    Text(item.name)
+                        .bold()
+                        .font(.system(.body, design: .rounded))
+                    
+                    Text("S" + String(format: "%.2f", item.price))
+                        .font(.system(.subheadline, design: .rounded))
+                    
+                }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: 60)
+                .background()
+                .cornerRadius(20)
+                
+            }
+            .frame(height: 50)
+            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+            
+            Button {
+                cartManager.removeItem(user: cartManager.selectedUser, item: item)
+            } label: {
+                Image(systemName: "minus")
+                    .padding(10)
+                    .padding(.vertical, 7)
+                    .foregroundColor(.white)
+                    .background(Color.systemRed)
+                    .cornerRadius(50)
+                    .padding(.leading)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
             }
             
-            Spacer()
-            Button {
-                withAnimation(.easeOut(duration: 0.2)) {
-                    cartManager.removeFromCart(index: selectedCart, item: item)
-                }
-            } label: {
-                Image(systemName: "trash")
-                    .foregroundColor(Color.systemRed)
-            }
-
-          
         }
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
     }
 }
 
-//struct ItemRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ItemRow(selectedCart: 0, item: itemList[3])
-//            .environmentObject(CartManager(items: itemList, friends: friendList))
-//    }
-//}
+struct ItemRow_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemRow(item: previewItem)
+            .environmentObject(CartManager())
+    }
+}

@@ -10,21 +10,24 @@ import SwiftUI
 
 class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    @Binding var isShowingSplitView: Bool
     @Binding var image: UIImage?
     @Binding var isShown: Bool
+    @Binding var hasAddedReceipt: Bool
+    @EnvironmentObject var cartManager: CartManager
     
-    init(image: Binding<UIImage?>, isShown: Binding<Bool>, isShowingSplitView: Binding<Bool>) {
+    init(image: Binding<UIImage?>, isShown: Binding<Bool>, hasAddedReceipt: Binding<Bool>, cartManager: EnvironmentObject<CartManager>) {
         _image = image
         _isShown = isShown
-        _isShowingSplitView = isShowingSplitView
+        _hasAddedReceipt = hasAddedReceipt
+        _cartManager = cartManager
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let uiImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             image = uiImage
             isShown = false
-            isShowingSplitView.toggle()
+            hasAddedReceipt = true
+            cartManager.addItemList(itemList: TextExtractionModel(referenceReceipt: uiImage).extractItems())
         }
     }
     
@@ -40,8 +43,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     @Binding var image: UIImage?
     @Binding var isShown: Bool
-    @Binding var isShowingSplitView: Bool
+    @Binding var hasAddedReceipt: Bool
     var sourceType: UIImagePickerController.SourceType = .camera
+    @EnvironmentObject var cartManager: CartManager
     
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
@@ -49,7 +53,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> ImagePicker.Coordinator {
-        return ImagePickerCoordinator(image: $image, isShown: $isShown, isShowingSplitView: $isShowingSplitView)
+        return ImagePickerCoordinator(image: $image, isShown: $isShown, hasAddedReceipt: $hasAddedReceipt, cartManager: _cartManager)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {

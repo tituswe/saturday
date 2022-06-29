@@ -31,7 +31,7 @@ class UserLoginModel: ObservableObject {
         }
     }
     
-    func signUp(email: String, password: String, name: String) -> Void {
+    func signUp(email: String, password: String, name: String, username: String) -> Void {
         
         auth.createUser(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else {
@@ -40,7 +40,7 @@ class UserLoginModel: ObservableObject {
             }
             
             // Success
-            DatabaseManager().addUser(email: email, password: password, name: name)
+            FirestoreManager().addUser(email: email, name: name, username: username)
             self?.signedIn = true
         }
     }

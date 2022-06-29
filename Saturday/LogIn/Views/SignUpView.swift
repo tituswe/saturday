@@ -18,6 +18,9 @@ struct SignUpView: View {
     /// Stateful property that takes in the input for the name
     @State var name = ""
     
+    /// Stateful property that takes in the input for the username
+    @State var username = ""
+    
     @EnvironmentObject var user: UserLoginModel
     
     var body: some View {
@@ -30,6 +33,18 @@ struct SignUpView: View {
             
             VStack {
                 TextField("Name", text: $name)
+                    .multilineTextAlignment(.center)
+                    .font(.system(.body, design: .rounded))
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(50)
+                
+                Spacer()
+                    .frame(height: 10)
+                
+                TextField("Username", text: $username)
                     .multilineTextAlignment(.center)
                     .font(.system(.body, design: .rounded))
                     .disableAutocorrection(true)
@@ -68,7 +83,7 @@ struct SignUpView: View {
                         return
                     }
                     
-                    user.signUp(email: email, password: password, name: name)
+                    user.signUp(email: email, password: password, name: name, username: username)
                     
                 }, label: {
                     Text("Sign Up")
