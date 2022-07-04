@@ -23,8 +23,8 @@ struct ConfirmView: View {
                 
                 // MARK: Navigation Bar
                 NavbarView(
-                    topLeftButtonView: "line.horizontal.3",
-                    topRightButtonView: "circle.dashed",
+                    topLeftButtonView: "",
+                    topRightButtonView: "",
                     titleString: "Your Split",
                     topLeftButtonAction: {},
                     topRightButtonAction: {})

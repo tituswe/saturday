@@ -12,21 +12,27 @@ struct WelcomeView: View {
     @EnvironmentObject var user: UserLoginModel
     
     var body: some View {
+        
         NavigationView {
             
-            //Login View
-            if user.signedIn {
-                //Display Homepage
-                HomeView(databaseManager: DatabaseManager())
-                    .environmentObject(user)
-            } else {
-                LogInView()
-                    .environmentObject(user)
+            VStack {
+                
+                if user.signedIn {
+                    HomeView(databaseManager: DatabaseManager())
+                        .environmentObject(user)
+                } else {
+                    LogInView()
+                        .environmentObject(user)
+                }
+                
             }
+            .navigationBarHidden(true)
+            
         }
         .onAppear(perform: {
             user.signedIn = user.isSignedIn()
         })
+        
     }
 }
 

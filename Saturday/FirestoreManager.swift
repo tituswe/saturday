@@ -41,6 +41,8 @@ class FirestoreManager: ObservableObject {
         ])
     }
     
+    // TODO: Create an array of Debts in the Cart Manager, then just pump it into the Firestore. Will auto put in nicely lol
+    // Call
     func addDebt(debt: Debt) {
         let debtorUsername = debt.debtor.username
         let creditorUsername = debt.creditor.username

@@ -22,7 +22,9 @@ struct NavbarView: View {
     
     /// Home Nav bar view.
     var body: some View {
+        
         VStack (spacing: 20) {
+            
             HStack {
                 if topLeftButtonView != "" {
                     Button(action: topLeftButtonAction) {
@@ -54,11 +56,15 @@ struct NavbarView: View {
                     .padding(.bottom)
                 Spacer()
             }
+            
         }
         .padding(.horizontal, 25)
         .frame(height: 100)
-        .background(Color.gray)
+        
+        Divider()
+        
     }
+    
 }
 
 struct TitleComponent_Previews: PreviewProvider {

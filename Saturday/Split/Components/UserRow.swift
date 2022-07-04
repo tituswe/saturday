@@ -19,23 +19,20 @@ struct UserRow: View {
         
         HStack {
             
-            Image("saturdayIcon")
+            Image("profilePicture")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .clipShape(Circle())
-                .frame(width: 50, height: 50)
+                .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                .frame(width: 64, height: 64)
                 .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                .padding(.trailing)
-
+            
             Text(user.name)
                 .bold()
                 .font(.system(.body, design: .rounded))
                 .padding()
-                .frame(maxWidth: .infinity, maxHeight: 60)
-                .background()
-                .cornerRadius(20)
-                .frame(height: 50)
-                .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+            
+            Spacer()
             
             Button {
                 cartManager.addUser(user: user)

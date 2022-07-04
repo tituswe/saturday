@@ -8,121 +8,80 @@
 import SwiftUI
 
 struct HomeView: View {
-   
+    
     @EnvironmentObject var user: UserLoginModel
     
     @StateObject var databaseManager: DatabaseManager
     
     @State var isShowingSplitView: Bool = false
     
+    @State var isShowingSideMenu: Bool = false
+    
     var body: some View {
         
         NavigationView {
             
-            VStack {
+            ZStack {
                 
-                // MARK: Navigation Bar
-                NavbarView(
-                    topLeftButtonView: "line.horizontal.3",
-                    topRightButtonView: "circle.dashed",
-                    titleString: "Dashboard",
-                    topLeftButtonAction: {
-                        let debt = Debt(
-                            creditor: kyteorite,
-                            debtor: Joshua_TYH,
-                            name: "Testing",
-                            itemList: previewItemList,
-                            totalPayable: 3.00)
-                        
-                        FirestoreManager().addDebt(debt: debt)
-                        
-                    },
-                    topRightButtonAction: {
-                        user.signOut()
-                    })
+                // MARK: Side Menu Bar
+                if isShowingSideMenu {
+                    SideMenuView(isShowingSideMenu: $isShowingSideMenu)
+                        .environmentObject(user)
+                }
                 
-                Spacer()
-                
-                ScrollView {
+                ZStack {
                     
-                    Spacer()
+                    Color(.white)
                     
-                    // MARK: Credits
-                    // TODO: Credits Functionality
-                    Text("Pending Credits")
-                        .padding()
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
+                    VStack {
                         
-                        LazyHStack {
-                            
-                            Text("Josh Owes You \n$13.76")
-                                .font(.system(.title3, design: .rounded))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.white)
-                                .frame(width: 350, height: 150)
-                                .background(Color.systemViolet)
-                                .cornerRadius(50)
-                                .padding(10)
-                                .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                            
+                        // MARK: Navigation Bar
+                        NavbarView(
+                            topLeftButtonView: "line.horizontal.3",
+                            topRightButtonView: "plus",
+                            titleString: "Dashboard",
+                            topLeftButtonAction: {
+                                withAnimation(.spring()) {
+                                    isShowingSideMenu = true
+                                }
+                                
+                                
+                            },
+                            topRightButtonAction: {
+                                isShowingSplitView = true
+                            })
+                        
+                        Spacer()
+                        
+                        ScrollView {
+                        
+                            VStack {
+                                DebtCard()
+                                DebtCard()
+                                DebtCard()
+                                DebtCard()
+                            }
                         }
-                        .padding()
                         
-                    }
-                    
-                    Spacer()
-                    
-                    // MARK: Debits
-                    // TODO: Debits Functionality
-                    Text("Pending Debts")
-                        .padding()
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
+                        Spacer()
                         
-                        LazyHStack {
-                            
-                            Text("You Owe Yuze \n$10.42")
-                                .font(.system(.title3, design: .rounded))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.white)
-                                .frame(width: 350, height: 150)
-                                .background(Color.systemIndigo)
-                                .cornerRadius(50)
-                                .padding(10)
-                                .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                            
+                        NavigationLink(isActive: $isShowingSplitView) {
+                            SplitView(cartManager: CartManager(), isShowingSplitView: $isShowingSplitView)
+                                .environmentObject(previewDatabaseManager)
+                                .navigationBarHidden(true)
+                        } label: {
+                            Text("")
                         }
-                        .padding()
                         
                     }
                     
                 }
-                
-                Spacer()
-                
-                // MARK: Bottom Bar
-                Button("Add Split") {
-                    self.isShowingSplitView.toggle()
-                }
-                .padding()
-                .font(.system(.title3, design: .rounded))
-                .foregroundColor(Color.white)
-                .frame(width: 200, height: 50)
-                .background(Color.systemBlue)
-                .cornerRadius(50)
-                .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                
-                NavigationLink(isActive: $isShowingSplitView) {
-                    SplitView(cartManager: CartManager())
-                        .environmentObject(previewDatabaseManager)
-                        .navigationBarHidden(true)
-                } label: {
-                    Text("")
-                }
+                .cornerRadius(isShowingSideMenu ? 20 : 10)
+                .offset(x: isShowingSideMenu ? 300: 0, y: isShowingSideMenu ? 44 : 0)
+                .scaleEffect(isShowingSideMenu ? 0.8 : 1)
+                .navigationBarHidden(true)
                 
             }
-            .navigationBarHidden(true)
             
         }
         

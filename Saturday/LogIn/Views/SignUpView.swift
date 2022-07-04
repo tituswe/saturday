@@ -9,21 +9,18 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    /// Stateful property that takes in the input for the email
-    @State var email = ""
-    
-    /// Stateful property that takes in the input for the password
-    @State var password = ""
-    
-    /// Stateful property that takes in the input for the name
-    @State var name = ""
-    
-    /// Stateful property that takes in the input for the username
-    @State var username = ""
-    
     @EnvironmentObject var user: UserLoginModel
     
+    @State var name = ""
+    
+    @State var username = ""
+    
+    @State var email = ""
+    
+    @State var password = ""
+    
     var body: some View {
+        
         VStack {
             
             Spacer()
@@ -32,6 +29,7 @@ struct SignUpView: View {
                 .frame(width: 300, height: 300, alignment: .center)
             
             VStack {
+                
                 TextField("Name", text: $name)
                     .multilineTextAlignment(.center)
                     .font(.system(.body, design: .rounded))
@@ -78,13 +76,10 @@ struct SignUpView: View {
                     .cornerRadius(50)
                 
                 Button(action: {
-                    
                     guard !email.isEmpty, !password.isEmpty else {
                         return
                     }
-                    
                     user.signUp(email: email, password: password, name: name, username: username)
-                    
                 }, label: {
                     Text("Sign Up")
                         .font(.system(.title3, design: .rounded))
@@ -96,10 +91,13 @@ struct SignUpView: View {
                 })
                 .cornerRadius(50)
                 .padding()
+                
             }
             .padding(50)
             .navigationTitle("Sign Up")
+            
         }
+        .navigationBarHidden(true)
     }
 }
 

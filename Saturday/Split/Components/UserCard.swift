@@ -94,9 +94,9 @@ struct UserCard: View {
                         Circle()
                             .frame(width: 30, height: 30)
                             .foregroundColor(Color.systemIndigo)
-                        Image(systemName: "eye")
+                        Image(systemName: "eyeglasses")
                             .resizable()
-                            .frame(width: 21, height: 14)
+                            .frame(width: 21, height: 9)
                             .foregroundColor(.white)
                     }
                 }

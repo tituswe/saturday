@@ -21,8 +21,8 @@ struct AddUserView: View {
             
             // MARK: Navigation Bar
             NavbarView(
-                topLeftButtonView: "line.horizontal.3",
-                topRightButtonView: "circle.dashed",
+                topLeftButtonView: "",
+                topRightButtonView: "",
                 titleString: "Add Users",
                 topLeftButtonAction: {},
                 topRightButtonAction: {})
@@ -45,6 +45,7 @@ struct AddUserView: View {
                     UserRow(user: user)
                         .environmentObject(databaseManager)
                         .environmentObject(cartManager)
+                    Divider()
                 }
                 .searchable(text: $searchText)
                 

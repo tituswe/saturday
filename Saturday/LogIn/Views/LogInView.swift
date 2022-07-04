@@ -9,78 +9,159 @@ import SwiftUI
 
 struct LogInView: View {
     
-    /// Stateful property that takes in the input for the email
-    @State var email = ""
-    
-    /// Stateful property that takes in the input for the password
-    @State var password = ""
-    
     @EnvironmentObject var user: UserLoginModel
     
+    @State var email = ""
+    
+    @State var password = ""
+    
     var body: some View {
-        VStack {
+        
+        NavigationView {
             
-            Spacer()
-            
-            SaturdayLogo()
-                .frame(width: 300, height: 300, alignment: .center)
-            
-            VStack {
-                TextField("Email", text: $email)
-                    .multilineTextAlignment(.center)
-                    .font(.system(.body, design: .rounded))
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(50)
+            ZStack {
                 
-                Spacer()
-                    .frame(height: 10)
+                Color.systemBlue
+                    .ignoresSafeArea()
                 
-                SecureField("Password", text: $password)
-                    .multilineTextAlignment(.center)
-                    .font(.system(.body, design: .rounded))
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(50)
+                Circle()
+                    .scale(1.7)
+                    .foregroundColor(.white.opacity(0.15))
                 
-                Button(action: {
+                Circle()
+                    .scale(1.35)
+                    .foregroundColor(.white)
+                
+                VStack {
                     
-                    guard !email.isEmpty, !password.isEmpty else {
-                        return
+                    Text("Login")
+                        .font(.system(.largeTitle, design: .rounded))
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    TextField("Email", text: $email)
+                        .multilineTextAlignment(.center)
+                        .font(.system(.body, design: .rounded))
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(50)
+                    
+                    Spacer()
+                        .frame(height: 10)
+
+                    SecureField("Password", text: $password)
+                        .multilineTextAlignment(.center)
+                        .font(.system(.body, design: .rounded))
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(50)
+                    
+                    Spacer()
+                        .frame(height: 10)
+
+                    Button {
+                        guard !email.isEmpty, !password.isEmpty else {
+                            return
+                        }
+                        user.signIn(email: email, password: password)
+                    } label: {
+                        Text("Login")
+                            .font(.system(.body, design: .rounded))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(width: 300, height: 50)
+                            .background(Color.systemBlue)
+                            .cornerRadius(50)
                     }
                     
-                    user.signIn(email: email, password: password)
-                }, label: {
-                    Text("Log In")
-                        .font(.system(.title3, design: .rounded))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.white)
-                        .frame(width: 200, height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .background(Color.systemBlue)
-                })
-                .cornerRadius(50)
-                .padding()
-                
-                HStack {
-                    Text("New around here?")
-                        .font(.system(.headline, design: .rounded))
-                    NavigationLink("Sign Up", destination:
-                                    SignUpView()
-                        .environmentObject(user))
-                    .foregroundColor(Color.systemBlue)
-                    .font(.system(.subheadline, design: .rounded))
+                    HStack {
+                        Text("New around here?")
+                            .font(.system(.headline, design: .rounded))
+                        NavigationLink("Sign Up", destination:
+                                        SignUpView()
+                            .environmentObject(user))
+                        .navigationBarHidden(true)
+                        .foregroundColor(Color.systemBlue)
+                        .font(.system(.subheadline, design: .rounded))
+                        
+                    }
                     
                 }
+                
             }
-            .padding(50)
-            .navigationTitle("Login")
             .navigationBarHidden(true)
+                
         }
+//        VStack {
+//
+//            Spacer()
+//
+//            SaturdayLogo()
+//                .frame(width: 300, height: 300, alignment: .center)
+//
+//            VStack {
+//
+//                TextField("Email", text: $email)
+//                    .multilineTextAlignment(.center)
+//                    .font(.system(.body, design: .rounded))
+//                    .disableAutocorrection(true)
+//                    .autocapitalization(.none)
+//                    .padding()
+//                    .background(Color(.secondarySystemBackground))
+//                    .cornerRadius(50)
+//
+//                Spacer()
+//                    .frame(height: 10)
+//
+//                SecureField("Password", text: $password)
+//                    .multilineTextAlignment(.center)
+//                    .font(.system(.body, design: .rounded))
+//                    .disableAutocorrection(true)
+//                    .autocapitalization(.none)
+//                    .padding()
+//                    .background(Color(.secondarySystemBackground))
+//                    .cornerRadius(50)
+//
+//                Button(action: {
+//
+//                    guard !email.isEmpty, !password.isEmpty else {
+//                        return
+//                    }
+//
+//                    user.signIn(email: email, password: password)
+//                }, label: {
+//                    Text("Log In")
+//                        .font(.system(.title3, design: .rounded))
+//                        .fontWeight(.bold)
+//                        .foregroundColor(Color.white)
+//                        .frame(width: 200, height: 50)
+//                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+//                        .background(Color.systemBlue)
+//                })
+//                .cornerRadius(50)
+//                .padding()
+//
+//                HStack {
+//                    Text("New around here?")
+//                        .font(.system(.headline, design: .rounded))
+//                    NavigationLink("Sign Up", destination:
+//                                    SignUpView()
+//                        .environmentObject(user))
+//                    .foregroundColor(Color.systemBlue)
+//                    .font(.system(.subheadline, design: .rounded))
+//
+//                }
+//
+//            }
+//            .padding(50)
+//            .navigationTitle("Login")
+//        }
     }
 }
 

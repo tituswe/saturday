@@ -22,11 +22,9 @@ class UserLoginModel: ObservableObject {
         
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else {
-                // Failure
                 return
             }
             
-            //Success
             self?.signedIn = true
         }
     }
@@ -35,11 +33,9 @@ class UserLoginModel: ObservableObject {
         
         auth.createUser(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else {
-                //Failure
                 return
             }
             
-            // Success
             FirestoreManager().addUser(email: email, name: name, username: username)
             self?.signedIn = true
         }

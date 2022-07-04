@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "SaturdayLogo@1x.png",
+      "filename" : "IMAGE 2022-07-05 00:08:14.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "SaturdayLogo@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "SaturdayLogo@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -13,6 +13,8 @@ struct SplitView: View {
     
     @StateObject var cartManager: CartManager
     
+    @Binding var isShowingSplitView: Bool
+    
     @State var isShowingAddUserView: Bool = false
     
     @State var isShowingActionSheet: Bool = false
@@ -37,10 +39,12 @@ struct SplitView: View {
                 
                 // MARK: Navigation Bar
                 NavbarView(
-                    topLeftButtonView: "line.horizontal.3",
-                    topRightButtonView: "circle.dashed",
+                    topLeftButtonView: "arrow.backward",
+                    topRightButtonView: "",
                     titleString: "Your Split",
-                    topLeftButtonAction: {},
+                    topLeftButtonAction: {
+                        isShowingSplitView = false
+                    },
                     topRightButtonAction: {})
                 
                 Spacer()
@@ -74,7 +78,7 @@ struct SplitView: View {
                             LazyHStack {
                                 
                                 Button {
-                                    self.isShowingAddUserView.toggle()
+                                    self.isShowingAddUserView = true
                                 } label: {
                                     Image(systemName: "plus")
                                         .padding(10)
@@ -102,6 +106,7 @@ struct SplitView: View {
                     }
                     
                 }
+                .navigationBarHidden(true)
                 .frame(height: 150, alignment: .center)
                 
                 Spacer()
@@ -241,9 +246,9 @@ struct SplitView: View {
 struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SplitView(cartManager: CartManager())
+            SplitView(cartManager: CartManager(), isShowingSplitView: .constant(true))
                 .environmentObject(previewDatabaseManager)
-            SplitView(cartManager: previewCartManager)
+            SplitView(cartManager: previewCartManager, isShowingSplitView: .constant(true))
                 .environmentObject(previewDatabaseManager)
         }
     }
