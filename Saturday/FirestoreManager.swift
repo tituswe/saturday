@@ -12,6 +12,28 @@ class FirestoreManager: ObservableObject {
     
     let db = Firestore.firestore()
     
+//    func getUser(username: String) -> User {
+//        
+//        var username = ""
+//        var name = ""
+//        var email = ""
+//        
+//        db.collection("users").document("\(username)").getDocument { user, error in
+//            
+//            if let user = user, user.exists {
+//                let dataDescription = user.data().map(String.init(describing:)) ?? "nil"
+//                print("User data: \(dataDescription)")
+//                username = user.get("username") as? String ?? ""
+//                name = user.get("name") as? String ?? ""
+//                email = user.get("email") as? String ?? ""
+//            }
+//        }
+//        // TODO: fix the arrays
+//        return User(username: username, name: name, email: email, friendList: [], debtList: [], creditList: [])
+//        
+//        
+//    }
+    
     func addUser(email: String, name: String, username: String) {
         
         let usersRef = db.collection("users")

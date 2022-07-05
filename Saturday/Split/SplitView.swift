@@ -8,35 +8,33 @@
 import SwiftUI
 
 struct SplitView: View {
-    
-    @EnvironmentObject var databaseManager: DatabaseManager
-    
+
     @StateObject var cartManager: CartManager
-    
+
     @Binding var isShowingSplitView: Bool
-    
+
     @State var isShowingAddUserView: Bool = false
-    
+
     @State var isShowingActionSheet: Bool = false
-    
+
     @State var isShowingImagePicker: Bool = false
-    
+
     @State var sourceType: UIImagePickerController.SourceType = .camera
-    
+
     @State var image: UIImage?
-    
+
     @State var isShowingConfirmView: Bool = false
-    
+
     @State var isShowingSentView: Bool = false
-    
+
     @State var hasAddedReceipt: Bool = false
-    
+
     var body: some View {
-        
+
         NavigationView {
-            
+
             VStack {
-                
+
                 // MARK: Navigation Bar
                 NavbarView(
                     topLeftButtonView: "arrow.backward",
@@ -46,16 +44,16 @@ struct SplitView: View {
                         isShowingSplitView = false
                     },
                     topRightButtonAction: {})
-                
+
                 Spacer()
-                
+
                 // MARK: User Cards
                 VStack {
-                    
+
                     if (cartManager.userList.isEmpty) {
-                        
+
                         HStack(alignment: .center) {
-                            
+
                             Button {
                                 self.isShowingAddUserView.toggle()
                             } label: {
@@ -68,15 +66,15 @@ struct SplitView: View {
                                     .cornerRadius(50)
                                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                             }
-                            
+
                         }
-                        
+
                     } else {
-                        
+
                         ScrollView(.horizontal, showsIndicators: false) {
-                            
+
                             LazyHStack {
-                                
+
                                 Button {
                                     self.isShowingAddUserView = true
                                 } label: {
@@ -88,38 +86,38 @@ struct SplitView: View {
                                         .cornerRadius(20)
                                         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                                 }
-                                
-                                
+
+
                                 ForEach(cartManager.userList, id: \.id) { user in
-                                    
-                                    UserCard(user: user)
-                                        .environmentObject(databaseManager)
-                                        .environmentObject(cartManager)
-                                    
+
+//                                    UserCard(user: user)
+//                                        .environmentObject(databaseManager)
+//                                        .environmentObject(cartManager)
+
                                 }
-                                
+
                             }
                             .padding()
-                            
+
                         }
-                        
+
                     }
-                    
+
                 }
                 .navigationBarHidden(true)
                 .frame(height: 150, alignment: .center)
-                
+
                 Spacer()
-                
+
                 Divider()
-                
+
                 // MARK: Item Cards
                 VStack {
-                    
+
                     if (cartManager.itemList.isEmpty) { // TODO: Maybe if self.image != nil
-                        
+
                         Spacer()
-                        
+
                         Button("Add Receipt") {
                             self.isShowingActionSheet = true
                         }
@@ -144,45 +142,45 @@ struct SplitView: View {
                                             .cancel()
                                         ])
                         }
-                        
+
                         Spacer()
-                        
+
                     } else {
-                        
+
                         ScrollView {
-                            
+
                             LazyVStack {
-                                
+
                                 ForEach(cartManager.itemList, id: \.id) { item in
-                                    
-                                    ItemCard(item: item)
-                                        .environmentObject(cartManager)
-                                    
+
+//                                    ItemCard(item: item)
+//                                        .environmentObject(cartManager)
+
                                 }
-                                
+
                             }
                             .padding()
-                            
+
                         }
-                        
+
                     }
-                    
+
                 }
                 .frame(height: 400)
-                .sheet(isPresented: $isShowingImagePicker) {
-                    ImagePicker(image: self.$image, isShown: self.$isShowingImagePicker, hasAddedReceipt: self.$hasAddedReceipt, sourceType: self.sourceType)
-                        .environmentObject(cartManager)
-                }
-                
+//                .sheet(isPresented: $isShowingImagePicker) {
+//                    ImagePicker(image: self.$image, isShown: self.$isShowingImagePicker, hasAddedReceipt: self.$hasAddedReceipt, sourceType: self.sourceType)
+//                        .environmentObject(cartManager)
+//                }
+
                 Spacer()
-                
+
                 // MARK: Bottom Bar
                 VStack {
-                    
+
                     if (cartManager.itemList.isEmpty) {
-                        
+
                         if (hasAddedReceipt && !cartManager.userList.isEmpty) {
-                            
+
                             Button {
                                 self.isShowingConfirmView = true
                             } label: {
@@ -195,20 +193,20 @@ struct SplitView: View {
                                     .cornerRadius(50)
                                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                             }
-                            
+
                             NavigationLink(isActive: $isShowingSentView) {
-                                SentView()
-                                    .navigationBarHidden(true)
+//                                SentView()
+//                                    .navigationBarHidden(true)
                             } label: {
                                 Text("")
                             }
-                            
+
                         }
-                        
+
                     } else {
-                        
+
                         let selectedUser = cartManager.selectedUser
-                        
+
                         if selectedUser == nil {
                             Text("Select a Friend")
                                 .font(.system(.title3, design: .rounded))
@@ -222,34 +220,29 @@ struct SplitView: View {
                                 .frame(width: 200, height: 50)
                         }
                     }
-                    
+
                 }
-                
+
             }
             .navigationBarHidden(true)
-            .sheet(isPresented: $isShowingAddUserView) {
-                AddUserView()
-                    .environmentObject(databaseManager)
-                    .environmentObject(cartManager)
-            }
-            .sheet(isPresented: $isShowingConfirmView) {
-                ConfirmView(isShowingConfirmView: $isShowingConfirmView, isShowingSentView: $isShowingSentView)
-                    .environmentObject(cartManager)
-            }
-            
+//            .sheet(isPresented: $isShowingAddUserView) {
+//                AddUserView()
+//                    .environmentObject(databaseManager)
+//                    .environmentObject(cartManager)
+//            }
+//            .sheet(isPresented: $isShowingConfirmView) {
+//                ConfirmView(isShowingConfirmView: $isShowingConfirmView, isShowingSentView: $isShowingSentView)
+//                    .environmentObject(cartManager)
+//            }
+
         }
-        
+
     }
-    
+
 }
 
 struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            SplitView(cartManager: CartManager(), isShowingSplitView: .constant(true))
-                .environmentObject(previewDatabaseManager)
-            SplitView(cartManager: previewCartManager, isShowingSplitView: .constant(true))
-                .environmentObject(previewDatabaseManager)
-        }
+        SplitView(cartManager: CartManager(), isShowingSplitView: .constant(true))
     }
 }

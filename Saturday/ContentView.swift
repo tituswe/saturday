@@ -3,8 +3,21 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    
     var body: some View {
-        Text("Welcome to Saturday")
+        
+        Group {
+            
+            if viewModel.userSession == nil {
+                LogInView()
+        
+            } else {
+                HomeView()
+            }
+            
+        }
+        
     }
 }
 

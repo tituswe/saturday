@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SideMenuView: View {
     
-    @EnvironmentObject var user: UserLoginModel
+    @EnvironmentObject var viewModel: AuthenticationViewModel
     
     @Binding var isShowingSideMenu: Bool
     
-    @State var isShowingProfile: Bool = false
+    @State var isShowingDashboard: Bool = false
     
     @State var isShowingFriends: Bool = false
     
@@ -34,17 +34,20 @@ struct SideMenuView: View {
                 
                 // MARK: Header
                 SideMenuHeaderView(isShowingSideMenu: $isShowingSideMenu)
+                    .environmentObject(viewModel)
                     .frame(height: 240)
                 
                 // MARK: Cell Items
                 Button {
-                    isShowingProfile = true
+                    isShowingDashboard = true
                 } label: {
-                    SideMenuOptionView(title: "Profile", imageName: "person")
+                    SideMenuOptionView(title: "Dashboard", imageName: "house")
                 }
-
-                NavigationLink(isActive: $isShowingProfile) {
-                    Text("Profile")
+                
+                NavigationLink(isActive: $isShowingDashboard) {
+                    HomeView()
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
                 } label: {
                     Text("")
                 }
@@ -56,7 +59,9 @@ struct SideMenuView: View {
                 }
                 
                 NavigationLink(isActive: $isShowingFriends) {
-                    Text("Friends")
+                    FriendsView()
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
                 } label: {
                     Text("")
                 }
@@ -66,7 +71,7 @@ struct SideMenuView: View {
                 } label: {
                     SideMenuOptionView(title: "History", imageName: "clock")
                 }
-
+                
                 NavigationLink(isActive: $isShowingHistory) {
                     Text("History")
                 } label: {
@@ -77,7 +82,7 @@ struct SideMenuView: View {
                 
                 Button {
                     withAnimation(.spring()) {
-                        user.signOut()
+                        viewModel.logout()
                     }
                 } label: {
                     SideMenuOptionView(title: "Logout", imageName: "arrow.left.square")
@@ -96,6 +101,6 @@ struct SideMenuView: View {
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
         SideMenuView(isShowingSideMenu: .constant(true))
-            .environmentObject(UserLoginModel())
+            .environmentObject(AuthenticationViewModel())
     }
 }
