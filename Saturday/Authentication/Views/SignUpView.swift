@@ -179,7 +179,6 @@ struct SignUpView: View {
                     
                     Button {
                         withAnimation(.spring()) {
-                            //                                state = .PROFILEPICTURE
                             state = .PASSWORD1
                         }
                     } label: {

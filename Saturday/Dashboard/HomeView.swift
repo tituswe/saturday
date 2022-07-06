@@ -40,8 +40,6 @@ struct HomeView: View {
                                 withAnimation(.spring()) {
                                     isShowingSideMenu = true
                                 }
-                                
-                                
                             },
                             topRightButtonAction: {
                                 isShowingSplitView = true
@@ -61,20 +59,18 @@ struct HomeView: View {
                         
                         Spacer()
                         
-                        NavigationLink(isActive: $isShowingSplitView) {
-//                            SplitView(cartManager: CartManager(), isShowingSplitView: $isShowingSplitView)
-//                                .environmentObject(previewDatabaseManager)
-//                                .navigationBarHidden(true)
-                        } label: {
-                            Text("")
-                        }
-                        
                     }
                     
                 }
                 .cornerRadius(isShowingSideMenu ? 20 : 10)
                 .offset(x: isShowingSideMenu ? 300: 0, y: isShowingSideMenu ? 44 : 0)
                 .scaleEffect(isShowingSideMenu ? 0.8 : 1)
+                
+                NavigationLink(isActive: $isShowingSplitView) {
+                    SplitView(isShowingSplitView: $isShowingSplitView)
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
+                } label: {}
                 
             }
             

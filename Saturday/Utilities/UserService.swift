@@ -30,10 +30,21 @@ struct UserService {
             }
     }
     
-    func fetchRequests(withUid uid: String, completion: @escaping([User]) -> Void) {
+    func fetchFriendRequests(withUid uid: String, completion: @escaping([User]) -> Void) {
         Firestore.firestore().collection("friendRequests")
             .document(uid)
             .collection("senders")
+            .getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                let users = documents.compactMap({ try? $0.data(as: User.self) })
+                completion(users)
+            }
+    }
+    
+    func fetchFriends(withUid uid: String, completion: @escaping([User]) -> Void) {
+        Firestore.firestore().collection("friends")
+            .document(uid)
+            .collection("list")
             .getDocuments { snapshot, _ in
                 guard let documents = snapshot?.documents else { return }
                 let users = documents.compactMap({ try? $0.data(as: User.self) })

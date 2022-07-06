@@ -1,33 +1,16 @@
-////
-////  Datasets.swift
-////  Saturday
-////
-////  Created by Joshua Tan on 11/6/22.
-////
 //
-//import Foundation
+//  Datasets.swift
+//  Saturday
 //
-//var previewItem: Item = Item(name: "Apple", price: 0.50)
+//  Created by Joshua Tan on 11/6/22.
 //
-//var previewItemList: [Item] = [
-//    Item(name: "Apple", price: 0.50),
-//    Item(name: "Banana", price: 1.00),
-//    Item(name: "Cherry", price: 1.50)
-//]
-//
-//var previewUser: User = User(username: "tituswe", name: "Titus", email: "tituswe@saturday.com", friendList: [], debtList: [], creditList: [])
-//
-//var previewUserList: [User] = [
-//    User(username: "tituswe", name: "Titus", email: "tituswe@saturday.com", friendList: [], debtList: [], creditList: []),
-//    User(username: "Joshua_TYH", name: "Josh", email: "joshua_tyh@saturday.com", friendList: [], debtList: [], creditList: []),
-//    User(username: "kyteorite", name: "Kyron", email: "kyteorite@saturday.com", friendList: [], debtList: [], creditList: []),
-//    User(username: "yuzemunchmunch", name: "Yuze", email: "yuzemunchmunch@saturday.com", friendList: [], debtList: [], creditList: [])
-//]
-//
-//var previewCartManager: CartManager = CartManager(itemList: previewItemList, userList: previewUserList)
-//
-//var previewDatabaseManager: DatabaseManager = DatabaseManager(userList: previewUserList)
-//
-//var tituswe: User = User(username: "tituswe", name: "Titus", email: "tituswe@saturday.com", friendList: [], debtList: [], creditList: [])
-//var Joshua_TYH: User = User(username: "Joshua_TYH", name: "Josh", email: "joshua_tyh@saturday.com", friendList: [], debtList: [], creditList: [])
-//var kyteorite: User = User(username: "kyteorite", name: "Kyron", email: "kyteorite@saturday.com", friendList: [], debtList: [], creditList: [])
+
+import Foundation
+
+let previewUser = User(id: "DspU8DyzZYOuUh6OKAvegJjJfQq1",
+                       name: "Titus Lowe",
+                       username: "tituswe",
+                       profileImageUrl: "https://firebasestorage.googleapis.com:443/v0/b/saturday-orbital2022.appspot.com/o/profile_image%2FB6E63BDB-AEC3-467C-A56E-C91CC571C6BA?alt=media&token=586e703d-d9f5-4a9a-990a-1cacee8c982d",
+                       email: "tituswe@saturday.com")
+
+let previewItem = Item(name: "Chicken Fried Rice", price: 6.50)

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct FriendRequestsView: View {
     
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+
     @Binding var isShowingFriendRequestsView: Bool
     
     var body: some View {
@@ -19,13 +19,10 @@ struct FriendRequestsView: View {
             
             // MARK: Navigation Bar
             NavbarView(
-                topLeftButtonView: "arrow.backward",
+                topLeftButtonView: "",
                 topRightButtonView: "",
                 titleString: "Friend Requests",
-                topLeftButtonAction: {
-                    isShowingFriendRequestsView = false
-                    print(isShowingFriendRequestsView)
-                },
+                topLeftButtonAction: {},
                 topRightButtonAction: {})
             
             Spacer()
@@ -34,10 +31,10 @@ struct FriendRequestsView: View {
                 
                 LazyVStack {
                     
-                    ForEach(authenticationViewModel.friendRequests) { user in
+                    ForEach(viewModel.friendRequests) { user in
                         
                         UserRowView(user: user, state: .RECEIVE)
-                            .environmentObject(authenticationViewModel)
+                            .environmentObject(viewModel)
                         
                         Divider()
                         

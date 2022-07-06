@@ -27,7 +27,7 @@ struct SideMenuView: View {
         
         ZStack {
             
-            LinearGradient(gradient: Gradient(colors: [Color.gray, Color.white]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color.gray, Color.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             
             VStack {
@@ -53,6 +53,8 @@ struct SideMenuView: View {
                 }
                 
                 Button {
+                    viewModel.fetchFriends()
+                    viewModel.fetchUsers()
                     isShowingFriends = true
                 } label: {
                     SideMenuOptionView(title: "Friends", imageName: "person.2")

@@ -9,9 +9,7 @@ import SwiftUI
 
 struct FriendsView: View {
     
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
-    @ObservedObject var friendViewModel = FriendsViewModel()
+    @EnvironmentObject var viewModel: AuthenticationViewModel
     
     @State var isShowingSideMenu: Bool = false
     
@@ -24,7 +22,7 @@ struct FriendsView: View {
             // MARK: Side Menu Bar
             if isShowingSideMenu {
                 SideMenuView(isShowingSideMenu: $isShowingSideMenu)
-                    .environmentObject(authenticationViewModel)
+                    .environmentObject(viewModel)
             }
             
             ZStack {
@@ -52,7 +50,8 @@ struct FriendsView: View {
                         Spacer()
                         
                         Button {
-                            isShowingFriendRequestsView = true
+                            viewModel.fetchFriendRequests()
+                            self.isShowingFriendRequestsView = true
                         } label: {
                             Text("Friend Requests")
                                 .font(.system(.caption, design: .rounded))
@@ -63,18 +62,14 @@ struct FriendsView: View {
                         }
                         .padding(.top, 10)
                         .padding(.horizontal, 15)
-                        
-                        NavigationLink(isActive: $isShowingFriendRequestsView) {
+                        .sheet(isPresented: $isShowingFriendRequestsView) {
                             FriendRequestsView(isShowingFriendRequestsView: $isShowingFriendRequestsView)
-                                .environmentObject(authenticationViewModel)
-                                .navigationBarHidden(true)
-                        } label: {
-                            Text("")
+                                .environmentObject(viewModel)
                         }
                         
                     }
                     
-                    SearchBar(text: $friendViewModel.searchText)
+                    SearchBar(text: $viewModel.searchText)
                         .padding(.top, 10)
                         .padding(.horizontal, 10)
                    
@@ -83,12 +78,27 @@ struct FriendsView: View {
                         
                         LazyVStack {
                             
-                            ForEach(friendViewModel.searchableUsers) { user in
+                            if viewModel.searchText.isEmpty {
                                 
-                                UserRowView(user: user)
-                                    .environmentObject(authenticationViewModel)
+                                ForEach(viewModel.friends) { user in
+                                    
+                                    UserRowView(user: user, state: .FRIEND)
+                                        .environmentObject(viewModel)
+                                    
+                                    Divider()
+                                    
+                                }
                                 
-                                Divider()
+                            } else {
+                                
+                                ForEach(viewModel.searchableUsers) { user in
+                                    
+                                    UserRowView(user: user)
+                                        .environmentObject(viewModel)
+                                    
+                                    Divider()
+                                    
+                                }
                                 
                             }
                             

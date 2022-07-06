@@ -12,12 +12,13 @@ enum RequestState {
     
     case SEND
     case RECEIVE
+    case FRIEND
     
 }
 
 struct UserRowView: View {
     
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: AuthenticationViewModel
 
     let user: User
     
@@ -48,7 +49,7 @@ struct UserRowView: View {
             
             if state == .SEND {
                 Button {
-                    authenticationViewModel.sendFriendRequest(user: user)
+                    viewModel.sendFriendRequest(user: user)
                 } label: {
                     Text("Add Friend")
                         .font(.system(.caption2, design: .rounded))
@@ -61,20 +62,40 @@ struct UserRowView: View {
                         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                 }
             } else if state == .RECEIVE {
-                Button {
-                    print("DEBUG: Accept request...")
-                } label: {
-                    Text("Accept")
-                        .font(.system(.caption2, design: .rounded))
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 100, height: 30)
-                        .background(Color.systemBlue)
-                        .cornerRadius(50)
-                        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                HStack {
+                    
+                    Button {
+                        viewModel.acceptFriendRequest(user: user)
+                    } label: {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 25, height: 25)
+                            .background(Color.systemGreen)
+                            .cornerRadius(50)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
+                    
+                    Spacer()
+                        .frame(width: 16)
+                    
+                    Button {
+                        viewModel.declineFriendRequest(user: user)
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 25, height: 25)
+                            .background(Color.systemRed)
+                            .cornerRadius(50)
+                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
                 }
+                .padding(.horizontal, 8)
+            } else if (state == .FRIEND) {
+                
             }
+            
             
 
         }
@@ -86,6 +107,6 @@ struct UserRowView: View {
 
 //struct UserRowView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        UserRowView()
+//        UserRowView(state: .RECEIVE)
 //    }
 //}
