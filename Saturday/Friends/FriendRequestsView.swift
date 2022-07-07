@@ -9,10 +9,8 @@ import SwiftUI
 
 struct FriendRequestsView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
 
-    @Binding var isShowingFriendRequestsView: Bool
-    
     var body: some View {
         
         VStack {
@@ -52,7 +50,7 @@ struct FriendRequestsView: View {
 
 struct FriendRequestsView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendRequestsView(isShowingFriendRequestsView: .constant(true))
-            .environmentObject(AuthenticationViewModel())
+        FriendRequestsView()
+            .environmentObject(UserViewModel())
     }
 }

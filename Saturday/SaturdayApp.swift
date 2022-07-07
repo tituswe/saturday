@@ -11,7 +11,7 @@ import FirebaseCore
 @main
 struct SaturdayApp: App {
     
-    @StateObject var viewModel = AuthenticationViewModel()
+    @StateObject var viewModel = UserViewModel()
     
     init() {
         FirebaseApp.configure()

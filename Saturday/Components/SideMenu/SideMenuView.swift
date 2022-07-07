@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SideMenuView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @Binding var isShowingSideMenu: Bool
     
@@ -103,6 +103,6 @@ struct SideMenuView: View {
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
         SideMenuView(isShowingSideMenu: .constant(true))
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(UserViewModel())
     }
 }

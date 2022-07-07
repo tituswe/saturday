@@ -10,7 +10,7 @@ import Kingfisher
 
 struct SideMenuHeaderView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @Binding var isShowingSideMenu: Bool
     
@@ -54,7 +54,7 @@ struct SideMenuHeaderView: View {
                         
                         HStack(spacing: 4) {
                             
-                            Text("+$144.25")
+                            Text("+$" + String(format: "%.2f", viewModel.totalReceivable))
                                 .font(.system(.subheadline, design: .rounded))
                                 .fontWeight(.bold)
                             
@@ -66,7 +66,7 @@ struct SideMenuHeaderView: View {
                         
                         HStack(spacing: 4) {
                             
-                            Text("-$62.00")
+                            Text("-$" + String(format: "%.2f", viewModel.totalPayable))
                                 .font(.system(.subheadline, design: .rounded))
                                 .fontWeight(.bold)
                             
@@ -96,6 +96,6 @@ struct SideMenuHeaderView: View {
 struct SideMenuHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         SideMenuHeaderView(isShowingSideMenu: .constant(true))
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(UserViewModel())
     }
 }

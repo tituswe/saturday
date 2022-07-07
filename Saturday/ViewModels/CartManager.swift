@@ -16,7 +16,7 @@ class CartManager: ObservableObject {
     @Published var payableItems = [Item]()
     @Published var payableUsers = [User]()
     @Published var allUsers = [User]()
-    @Published var debts = [String: Debt]()
+    @Published var transactions = [String: Transaction]()
     @Published var selectedMap = [String: Bool]()
     @Published var selectedUserId: String?
     
@@ -26,8 +26,8 @@ class CartManager: ObservableObject {
     }
     
     // TODO: Delete later
-    init(debts: [String: Debt]) {
-        self.debts = debts
+    init(transactions: [String: Transaction]) {
+        self.transactions = transactions
     }
     
     private let service = UserService()
@@ -65,10 +65,10 @@ class CartManager: ObservableObject {
         
         self.selectedMap.removeValue(forKey: uid)
         
-        guard let items = self.debts[uid]?.getItems() else { return }
+        guard let items = self.transactions[uid]?.getItems() else { return }
         
         self.addItemsToPayableItems(items: items)
-        self.debts.removeValue(forKey: uid)
+        self.transactions.removeValue(forKey: uid)
     }
     
     func selectUser(user: User) {
@@ -86,18 +86,18 @@ class CartManager: ObservableObject {
         self.selectedUserId = nil
     }
     
-    func getDebt(key: String) -> Debt {
-        guard let debt = self.debts[key] else { return Debt(id: "NIL") }
+    func getTransaction(key: String) -> Transaction {
+        guard let transaction = self.transactions[key] else { return Transaction(id: "NIL") }
         
-        return debt
+        return transaction
     }
     
-    func getDebtItems(key: String) -> [Item] {
-        return self.getDebt(key: key).items
+    func getTransactionItems(key: String) -> [Item] {
+        return self.getTransaction(key: key).items
     }
     
-    func getDebtItemsCount(key: String) -> Int {
-        return self.getDebtItems(key: key).count
+    func getTransactionItemsCount(key: String) -> Int {
+        return self.getTransactionItems(key: key).count
     }
     
     func updatePayableItems(items: [Item]) {
@@ -112,121 +112,84 @@ class CartManager: ObservableObject {
         self.payableItems.append(contentsOf: items)
     }
     
-    func addItemToDebt(item: Item) {
+    func addItemToTransaction(item: Item) {
         guard let selectedUserId = selectedUserId else { return }
 
-        self.debts[selectedUserId]?.addItem(item: item)
+        self.transactions[selectedUserId]?.addItem(item: item)
         
         self.payableItems = self.payableItems.filter { $0.id != item.id }
+    }
+    
+    func removeItemFromTransaction(item: Item) {
+        guard let selectedUserId = selectedUserId else { return }
+        
+        self.transactions[selectedUserId]?.removeItem(item: item)
+        
+        self.payableItems.append(item)
     }
     
     
     // MARK: Firestore
     
-    func broadcastDebts() {
+    func broadcastTransactions() {
         guard let creditor = creditor else { return }
         guard let creditorId = creditor.id else { return }
         
-        self.debts.keys.forEach { debtorId in
-            guard let debt = debts[debtorId] else { return }
+        self.transactions.keys.forEach { debtorId in
+            guard let transaction = transactions[debtorId] else { return }
             
-            self.broadcastDebt(debtorId: debtorId, creditorId: creditorId, debt: debt)
+            if !transaction.items.isEmpty {
+                self.broadcastTransaction(debtorId: debtorId, creditorId: creditorId, transaction: transaction)
+            }
         }
         
     }
     
-    func broadcastDebt(debtorId: String, creditorId: String, debt: Debt) {
-        let debtId = debt.debtId.uuidString
-        let debtData = ["date": debt.date,
-                        "total": debt.total,
+    func broadcastTransaction(debtorId: String, creditorId: String, transaction: Transaction) {
+        let transactionId = transaction.transactionId
+        let debtData = ["transactionId": transactionId,
+                        "date": transaction.date,
+                        "total": transaction.total,
                         "creditorId": creditorId] as [String : Any]
-        let creditData = ["date": debt.date,
-                          "total": debt.total,
+        let creditData = ["transactionId": transactionId,
+                          "date": transaction.date,
+                          "total": transaction.total,
                           "debtorId": debtorId] as [String : Any]
         
         // Writing to debts
-        let debtStore = Firestore.firestore().collection("debts").document(debtorId).collection("list").document(debtId)
+        let debtStore = Firestore.firestore().collection("debts").document(debtorId).collection("transactions").document(transactionId)
         debtStore.setData(debtData)
         
         // Writing to credits
-        let creditStore = Firestore.firestore().collection("credits").document(creditorId).collection("list").document(debtId)
+        let creditStore = Firestore.firestore().collection("credits").document(creditorId).collection("transactions").document(transactionId)
         creditStore.setData(creditData)
         
-        for item in debt.items {
-            self.storeDebtItem(debtorId: debtorId, creditorId: creditorId, debtId: debtId, item: item)
+        for item in transaction.items {
+            self.storeTransactionItem(debtorId: debtorId, creditorId: creditorId, transactionId: transactionId, item: item)
         }
     }
     
-    func storeDebtItem(debtorId: String, creditorId: String, debtId: String, item: Item) {
+    func storeTransactionItem(debtorId: String, creditorId: String, transactionId: String, item: Item) {
+        guard let itemId = item.id else { return }
+        
         let data = ["name": item.name,
                     "price": item.price] as [String : Any]
         
         Firestore.firestore().collection("debts")
             .document(debtorId)
-            .collection("list")
-            .document(debtId)
+            .collection("transactions")
+            .document(transactionId)
             .collection("items")
-            .document(item.id.uuidString)
+            .document(itemId)
             .setData(data)
         
         Firestore.firestore().collection("credits")
             .document(creditorId)
-            .collection("list")
-            .document(debtId)
+            .collection("transactions")
+            .document(transactionId)
             .collection("items")
-            .document(item.id.uuidString)
+            .document(itemId)
             .setData(data)
     }
     
-    
-//    func addDebt(id: String, creditorId: String) {
-//        self.debts.append(Debt(id: id, creditorId: creditorId))
-//    }
-    
-//    func selectNone() {
-//        for user in self.userList {
-//            user.isSelected = false
-//        }
-//    }
-//
-//    func selectUser(user: User) {
-//        for user in self.userList {
-//            user.isSelected = false
-//        }
-//        user.isSelected = true
-//        selectedUser = user
-//    }
-//
-//    func addItem(user: User?, item: Item) {
-//        if user != nil {
-//            user!.addItem(item: item)
-//            self.itemList = self.itemList.filter { $0.id != item.id }
-//        }
-//    }
-//
-//    func addItemList(itemList: [Item]) {
-//        self.itemList = itemList
-//    }
-//
-//    func removeItem(user: User?, item: Item) {
-//        if user != nil {
-//            user!.removeItem(item: item)
-//            self.itemList.append(item)
-//        }
-//    }
-//
-//    func addUser(user: User) {
-//        self.userList.append(user)
-//    }
-//
-//    func removeUser(user: User) {
-//        if (user == self.selectedUser) {
-//            self.selectedUser = nil
-//            user.isSelected.toggle()
-//        }
-//        for item in user.itemList {
-//            removeItem(user: user, item: item)
-//        }
-//        self.userList = self.userList.filter { $0.id != user.id }
-//    }
 }

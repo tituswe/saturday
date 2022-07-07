@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FriendsView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @State var isShowingSideMenu: Bool = false
     
@@ -63,7 +63,7 @@ struct FriendsView: View {
                         .padding(.top, 10)
                         .padding(.horizontal, 15)
                         .sheet(isPresented: $isShowingFriendRequestsView) {
-                            FriendRequestsView(isShowingFriendRequestsView: $isShowingFriendRequestsView)
+                            FriendRequestsView()
                                 .environmentObject(viewModel)
                         }
                         
@@ -122,6 +122,6 @@ struct FriendsView: View {
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
         FriendsView()
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(UserViewModel())
     }
 }

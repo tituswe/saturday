@@ -5,11 +5,11 @@
 //  Created by Titus Lowe on 6/7/22.
 //
 
-import Foundation
+import FirebaseFirestoreSwift
 
-struct Item: Identifiable {
+struct Item: Identifiable, Decodable {
     
-    let id = UUID()
+    @DocumentID var id: String?
     let name: String
     let price: Double
     

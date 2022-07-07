@@ -7,13 +7,23 @@
 
 import SwiftUI
 
+enum ItemState {
+    
+    case ADD
+    case VIEW
+    case DELETE
+    
+}
+
 struct ItemCardView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @EnvironmentObject var cartManager: CartManager
     
     let item: Item
+    
+    @State var state: ItemState = .ADD
     
     var body: some View {
         
@@ -36,15 +46,32 @@ struct ItemCardView: View {
             
             Spacer()
             
-            Button {
-                cartManager.addItemToDebt(item: item)
-            } label: {
-                Image(systemName: "plus")
-                    .padding(8)
-                    .foregroundColor(.white)
-                    .background(Color.systemBlue)
-                    .cornerRadius(20)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+            if state == .ADD {
+                Button {
+                    cartManager.addItemToTransaction(item: item)
+                } label: {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(Color.systemBlue)
+                            .frame(width: 32, height: 32)
+                        Image(systemName: "plus")
+                            .foregroundColor(.white)
+                    }
+                }
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+            } else if state == .DELETE {
+                Button {
+                    cartManager.removeItemFromTransaction(item: item)
+                } label: {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(Color.systemRed)
+                            .frame(width: 32, height: 32)
+                        Image(systemName: "minus")
+                            .foregroundColor(.white)
+                    }
+                }
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
             }
             
         }
@@ -58,7 +85,7 @@ struct ItemCardView: View {
 struct ItemCardView_Previews: PreviewProvider {
     static var previews: some View {
         ItemCardView(item: previewItem)
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(UserViewModel())
             .environmentObject(CartManager())
     }
 }

@@ -18,7 +18,7 @@ enum RequestState {
 
 struct UserRowView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
 
     let user: User
     

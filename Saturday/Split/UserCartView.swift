@@ -1,18 +1,20 @@
 //
-//  AddUserView.swift
+//  UserCartView.swift
 //  Saturday
 //
-//  Created by Titus Lowe on 29/6/22.
+//  Created by Titus Lowe on 8/7/22.
 //
 
 import SwiftUI
 
-struct AddUserView: View {
-
+struct UserCartView: View {
+    
     @EnvironmentObject var viewModel: UserViewModel
     
     @EnvironmentObject var cartManager: CartManager
-
+    
+    let user: User
+    
     var body: some View {
         
         VStack {
@@ -21,7 +23,7 @@ struct AddUserView: View {
             NavbarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
-                titleString: "Add friends to split",
+                titleString: "\(displayName()) split",
                 topLeftButtonAction: {},
                 topRightButtonAction: {})
             
@@ -31,13 +33,11 @@ struct AddUserView: View {
                 
                 LazyVStack {
                     
-                    ForEach(cartManager.allUsers) { user in
-                        
-                        AddUserRowView(user: user)
+                    ForEach(cartManager.getTransactionItems(key: user.id!), id: \.id) { item in
+                        ItemCardView(item: item, state: .DELETE)
+                            .environmentObject(viewModel)
                             .environmentObject(cartManager)
-                        
                         Divider()
-                        
                     }
                     
                 }
@@ -45,13 +45,24 @@ struct AddUserView: View {
             }
             
         }
+        .ignoresSafeArea(.all, edges: [.bottom])
         
     }
+    
+    func displayName() -> String {
+        let firstName = user.name.components(separatedBy: " ").first!
+        if firstName.suffix(1) == "s" {
+            return "\(firstName)'"
+        } else {
+            return "\(firstName)'s"
+        }
+    }
+    
 }
 
-struct AddUserView_Previews: PreviewProvider {
+struct UserCartView_Previews: PreviewProvider {
     static var previews: some View {
-        AddUserView()
+        UserCartView(user: previewUser)
             .environmentObject(UserViewModel())
             .environmentObject(CartManager())
     }

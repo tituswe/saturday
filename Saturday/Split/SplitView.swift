@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SplitView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @StateObject var cartManager = CartManager()
     
@@ -186,7 +186,7 @@ struct SplitView: View {
                         if referenceReceipt != nil {
                             
                             Button {
-                                cartManager.broadcastDebts()
+                                cartManager.broadcastTransactions()
                                 isShowingSentView = true
                             } label: {
                                 ZStack {
@@ -219,7 +219,7 @@ struct SplitView: View {
             }
             .navigationBarHidden(true)
             .sheet(isPresented: $isShowingAddUserView) {
-                AddUserView(isShowingAddUserView: $isShowingAddUserView)
+                AddUserView()
                     .environmentObject(viewModel)
                     .environmentObject(cartManager)
             }
@@ -245,6 +245,6 @@ struct SplitView: View {
 struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
         SplitView(isShowingSplitView: .constant(true))
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(UserViewModel())
     }
 }

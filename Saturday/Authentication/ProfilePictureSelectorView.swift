@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfilePictureSelectorView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @State var isShowingImagePicker: Bool = false
     
@@ -124,5 +124,6 @@ struct ProfilePictureSelectorView: View {
 struct ProfilePictureSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         ProfilePictureSelectorView()
+            .environmentObject(UserViewModel())
     }
 }

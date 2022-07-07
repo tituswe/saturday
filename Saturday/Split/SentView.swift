@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SentView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @State var isShowingHomeView: Bool = false
     
@@ -17,14 +17,15 @@ struct SentView: View {
         
         NavigationView {
             
-            ZStack {
-                
-                LinearGradient(gradient: Gradient(colors: [Color.white, Color.systemGreen]), startPoint: .topTrailing, endPoint: .bottomLeading)
-                    .ignoresSafeArea()
-                
-                Button {
-                    isShowingHomeView = true
-                } label: {
+            Button {
+                viewModel.refresh()
+                isShowingHomeView = true
+            } label: {
+                ZStack {
+                    
+                    LinearGradient(gradient: Gradient(colors: [Color.white, Color.systemGreen]), startPoint: .topTrailing, endPoint: .bottomLeading)
+                        .ignoresSafeArea()
+                    
                     VStack {
                         
                         Text("Done!")
@@ -51,21 +52,21 @@ struct SentView: View {
                         } label: {}
                         
                     }
+                    
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .navigationBarHidden(true)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationBarHidden(true)
             
         }
-        
     }
 }
 
 struct SentView_Previews: PreviewProvider {
     static var previews: some View {
         SentView()
-            .environmentObject(AuthenticationViewModel())
+            .environmentObject(UserViewModel())
     }
 }

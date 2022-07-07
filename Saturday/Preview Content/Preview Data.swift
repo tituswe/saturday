@@ -14,3 +14,20 @@ let previewUser = User(id: "DspU8DyzZYOuUh6OKAvegJjJfQq1",
                        email: "tituswe@saturday.com")
 
 let previewItem = Item(name: "Chicken Fried Rice", price: 6.50)
+
+let previewDebt = Debt(id: "5F9A5EB7-5484-4EA3-9EA7-6C116A9F9221",
+                       transactionId: "380DA8B1-CCE3-4FBB-B1F6-743D35B09931",
+                       date: "8 Jul 2022",
+                       creditorId: "DspU8DyzZYOuUh6OKAvegJjJfQq1",
+                       total: 38.7)
+
+let previewCredit = Credit(id: "5F9A5EB7-5484-4EA3-9EA7-6C116A9F9221",
+                           transactionId: "380DA8B1-CCE3-4FBB-B1F6-743D35B09931",
+                           date: "8 Jul 2022",
+                           debtorId: "DspU8DyzZYOuUh6OKAvegJjJfQq1",
+                           total: 38.7)
+
+let previewUsers = [previewUser, previewUser, previewUser, previewUser]
+
+let previewItems = [previewItem, previewItem, previewItem, previewItem]
+

@@ -1,15 +1,18 @@
 //
-//  DebtCard.swift
+//  CreditCardView.swift
 //  Saturday
 //
-//  Created by Titus Lowe on 5/7/22.
+//  Created by Titus Lowe on 7/7/22.
 //
 
 import SwiftUI
+import Kingfisher
 
-struct DebtCard: View {
+struct CreditCardView: View {
     
-//    let debt: Debt
+    @EnvironmentObject var viewModel: UserViewModel
+    
+    let credit: Credit
     
     var body: some View {
         
@@ -17,14 +20,13 @@ struct DebtCard: View {
             
             VStack {
                 
-                Text(Date.now, format: .dateTime.day().month().year())
+                Text(credit.date)
                     .font(.system(.footnote, design: .rounded))
                     .foregroundColor(.gray)
                 
                 Spacer()
                     .frame(height: 2)
-                
-                Text("You Owe Josh")
+                Text("\(debtor().name.components(separatedBy: " ").first!) owes You")
                     .font(.system(.body, design: .rounded))
                     .fontWeight(.semibold)
                 
@@ -35,13 +37,13 @@ struct DebtCard: View {
             
             VStack {
                 
-                Text("$12.50")
+                Text("$" + String(format: "%.2f", credit.total))
                     .font(.system(.title3, design: .rounded))
                     .fontWeight(.semibold)
                 
                 HStack {
                     
-                    Image("profilePicture")
+                    KFImage(URL(string: viewModel.currentUser!.profileImageUrl))
                         .resizable()
                         .scaledToFill()
                         .clipped()
@@ -49,7 +51,7 @@ struct DebtCard: View {
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.systemGreen, lineWidth: 3))
                     
-                    Image("profilePicture")
+                    KFImage(URL(string: debtor().profileImageUrl))
                         .resizable()
                         .scaledToFill()
                         .clipped()
@@ -70,10 +72,17 @@ struct DebtCard: View {
         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
     }
     
+    func debtor() -> User {
+        let uid = credit.debtorId
+        let debtor = viewModel.queryUser(withUid: uid)
+        return debtor
+    }
+    
 }
 
-struct DebtCard_Previews: PreviewProvider {
+struct CreditCardView_Previews: PreviewProvider {
     static var previews: some View {
-        DebtCard()
+        CreditCardView(credit: previewCredit)
+            .environmentObject(UserViewModel())
     }
 }

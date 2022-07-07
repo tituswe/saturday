@@ -39,7 +39,7 @@ struct AddUserRowView: View {
             
                 Button {
                     cartManager.addPayableUser(user: user)
-                    cartManager.debts[user.id!] = Debt(id: user.id!)
+                    cartManager.transactions[user.id!] = Transaction(id: user.id!)
                 } label: {
                     Text("Add")
                         .font(.system(.caption2, design: .rounded))

@@ -10,7 +10,7 @@ import Kingfisher
 
 struct UserCardView: View {
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     
     @EnvironmentObject var cartManager: CartManager
     
@@ -18,7 +18,7 @@ struct UserCardView: View {
     
     @State var isShowingDeleteButton: Bool = false
     
-    @State var isShowingCartView: Bool = false
+    @State var isShowingUserCartView: Bool = false
     
     var body: some View {
         
@@ -67,17 +67,18 @@ struct UserCardView: View {
                     }
                     .offset(x: 40, y: -32)
                     
-                } else if cartManager.getDebtItemsCount(key: user.id!) > 0 {
+                } else if cartManager.getTransactionItemsCount(key: user.id!) > 0 {
                     
                     Button {
-                        print("DEBUG: Showing cart view...")
+                        cartManager.selectUser(user: user)
+                        isShowingUserCartView = true
                     } label: {
                         ZStack {
                             Circle()
                                 .frame(width: 24, height: 24)
                                 .foregroundColor(Color.systemBlue)
                             
-                            Text("\(cartManager.getDebtItemsCount(key: user.id!))")
+                            Text("\(cartManager.getTransactionItemsCount(key: user.id!))")
                                 .font(.caption).bold()
                                 .foregroundColor(.white)
                         }
@@ -86,6 +87,11 @@ struct UserCardView: View {
                     
                 }
                 
+            }
+            .sheet(isPresented: $isShowingUserCartView) {
+                UserCartView(user: user)
+                    .environmentObject(viewModel)
+                    .environmentObject(cartManager)
             }
             
             Text(user.name.components(separatedBy: " ").first!)
@@ -102,7 +108,7 @@ struct UserCardView: View {
 struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
         UserCardView(user: previewUser)
-            .environmentObject(AuthenticationViewModel())
-            .environmentObject(CartManager(debts: [previewUser.id!: Debt(id: previewUser.id!)]))
+            .environmentObject(UserViewModel())
+            .environmentObject(CartManager(transactions: [previewUser.id!: Transaction(id: previewUser.id!)]))
     }
 }
