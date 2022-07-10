@@ -19,3 +19,13 @@ extension Color {
     static let systemViolet = Color("Violet")
     static let systemBackground = Color(uiColor: .systemBackground)
 }
+
+extension String {
+    func capitalizeFirstChar() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizeFirstChar()
+    }
+}

@@ -29,6 +29,8 @@ class UserViewModel: ObservableObject {
     @Published var creditItems = [String : [Item]]() // [transactionId : items]
     @Published var totalReceivable = 0.0
     
+    @Published var archives = [Archive]()
+    
     init() {
         print("DEBUG: Initializing new UserViewModel...")
         self.userSession = Auth.auth().currentUser
@@ -44,6 +46,8 @@ class UserViewModel: ObservableObject {
         self.fetchCredits()
         self.fetchCreditItems()
         self.updateTotalReceivable()
+        
+        self.fetchArchives()
     }
     
     func refresh() {
@@ -59,7 +63,10 @@ class UserViewModel: ObservableObject {
         self.updateTotalPayable()
         
         self.fetchCredits()
+        self.fetchCreditItems()
         self.updateTotalReceivable()
+        
+        self.fetchArchives()
     }
     
     func reset() {
@@ -142,7 +149,6 @@ class UserViewModel: ObservableObject {
         }
     }
 
-    // TODO: FIX THIS CREDITOR QUERYING FOR DEBT CARD VIEW
     func queryUser(withUid uid: String) -> User {
         guard let query = (self.users.first { $0.id == uid }) else {
             return User(id: "",
@@ -366,17 +372,19 @@ class UserViewModel: ObservableObject {
         guard let uid = self.userSession?.uid else { return }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM y"
+        formatter.dateFormat = "HH:mm E, d MMM y"
+
         let currDate = formatter.string(from: Date.now)
      
         let data = ["transactionId": transactionId,
+                    "creditorId": debt.creditorId,
                     "dateIssued": debt.date,
                     "dateSettled": currDate,
                     "total": debt.total,
-                    "creditorId": debt.creditorId,
-                    "status": "paid"] as [String : Any]
+                    "status": "paid",
+                    "type": "debt"] as [String : Any]
         
-        Firestore.firestore().collection("history").document(uid).collection("debts").document(transactionId)
+        Firestore.firestore().collection("history").document(uid).collection("archives").document(transactionId)
             .setData(data)
         
         self.debtItems[transactionId]?.forEach({ item in
@@ -394,13 +402,14 @@ class UserViewModel: ObservableObject {
             }
             
         let data2 = ["transactionId": transactionId,
+                     "debtorId": uid,
                      "dateIssued": debt.date,
                      "dateSettled": currDate,
                      "total": debt.total,
-                     "debtorId": uid,
-                     "status": "paid"] as [String : Any]
+                     "status": "paid",
+                     "type": "credit"] as [String : Any]
         
-        Firestore.firestore().collection("history").document(debt.creditorId).collection("credits").document(transactionId)
+        Firestore.firestore().collection("history").document(debt.creditorId).collection("archives").document(transactionId)
             .setData(data2)
         
         self.debtItems[transactionId]?.forEach({ item in
@@ -427,17 +436,19 @@ class UserViewModel: ObservableObject {
         guard let uid = self.userSession?.uid else { return }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM y"
+        formatter.dateFormat = "HH:mm E, d MMM y"
+
         let currDate = formatter.string(from: Date.now)
         
         let data = ["transactionId": transactionId,
+                    "debtorId": credit.debtorId,
                     "dateIssued": credit.date,
                     "dateSettled": currDate,
                     "total": credit.total,
-                    "debtorId": credit.debtorId,
-                    "status": "cancelled"] as [String : Any]
+                    "status": "cancelled",
+                    "type": "credit"] as [String : Any]
         
-        Firestore.firestore().collection("history").document(uid).collection("credits").document(transactionId)
+        Firestore.firestore().collection("history").document(uid).collection("archives").document(transactionId)
             .setData(data)
         
         self.creditItems[transactionId]?.forEach({ item in
@@ -455,13 +466,14 @@ class UserViewModel: ObservableObject {
             }
         
         let data2 = ["transactionId": transactionId,
+                     "creditorId": uid,
                      "dateIssued": credit.date,
                      "dateSettled": currDate,
                      "total": credit.total,
-                     "debtorId": credit.debtorId,
-                     "status": "cancelled"] as [String : Any]
+                     "status": "cancelled",
+                     "type": "debt"] as [String : Any]
         
-        Firestore.firestore().collection("history").document(credit.debtorId).collection("debts").document(transactionId)
+        Firestore.firestore().collection("history").document(credit.debtorId).collection("archives").document(transactionId)
             .setData(data2)
         
         self.creditItems[transactionId]?.forEach({ item in
@@ -482,4 +494,19 @@ class UserViewModel: ObservableObject {
         self.refresh()
     }
     
+    let archiveService = ArchiveService()
+    
+    func fetchArchives() {
+        guard let uid = self.userSession?.uid else { return }
+        
+        archiveService.fetchArchives(withUid: uid) { archives in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm E, d MMM y"
+            
+            let sortedArchives = archives.sorted(by: { formatter.date(from: $0.dateSettled)!.compare(formatter.date(from: $1.dateSettled)!) == .orderedDescending })
+            
+            self.archives = sortedArchives
+            print("DEBUG: Fetching archives... \(self.archives)")
+        }
+    }
 }

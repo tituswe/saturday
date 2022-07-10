@@ -23,7 +23,8 @@ struct AddUserView: View {
                 topRightButtonView: "",
                 titleString: "Add friends to split",
                 topLeftButtonAction: {},
-                topRightButtonAction: {})
+                topRightButtonAction: {}
+            )
             
             Spacer()
             

@@ -47,7 +47,8 @@ struct SplitView: View {
                     HStack(alignment: .center) {
 
                         Button {
-                            cartManager.updateAllUsers(allUsers: viewModel.friends)
+                            viewModel.refresh()
+                            cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
                             self.isShowingAddUserView = true
                         } label: {
                             Text("Add friends")

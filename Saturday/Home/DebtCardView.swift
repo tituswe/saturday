@@ -77,7 +77,7 @@ struct DebtCardView: View {
                             
                             if let user = viewModel.currentUser {
                                 
-                                KFImage(URL(string: user.profileImageUrl))
+                                KFImage(URL(string: creditor().profileImageUrl))
                                     .resizable()
                                     .scaledToFill()
                                     .clipped()
@@ -85,7 +85,7 @@ struct DebtCardView: View {
                                     .clipShape(Circle())
                                     .overlay(Circle().stroke(Color.systemGreen, lineWidth: 3))
                                 
-                                KFImage(URL(string: creditor().profileImageUrl))
+                                KFImage(URL(string: user.profileImageUrl))
                                     .resizable()
                                     .scaledToFill()
                                     .clipped()
@@ -118,7 +118,8 @@ struct DebtCardView: View {
             }
             .sheet(isPresented: $isShowingPaymentView, onDismiss: resetOffset) {
                 // TODO: Link to payment services
-                PaymentView()
+                PaymentView(debt: debt)
+                    .environmentObject(viewModel)
             }
             
         }

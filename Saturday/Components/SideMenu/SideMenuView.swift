@@ -75,7 +75,9 @@ struct SideMenuView: View {
                 }
                 
                 NavigationLink(isActive: $isShowingHistory) {
-                    Text("History")
+                    HistoryView()
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
                 } label: {
                     Text("")
                 }

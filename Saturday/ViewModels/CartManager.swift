@@ -40,9 +40,10 @@ class CartManager: ObservableObject {
         }
     }
     
-    func updateAllUsers(allUsers: [User]) {
+    func updateAllUsers(allUsers: [User], currentUser: User) {
         self.allUsers = allUsers
         self.allUsers.sort { $0.name.lowercased() < $1.name.lowercased() }
+        self.allUsers.insert(currentUser, at: 0)
     }
     
     func addPayableUser(user: User) {
@@ -138,7 +139,7 @@ class CartManager: ObservableObject {
         self.transactions.keys.forEach { debtorId in
             guard let transaction = transactions[debtorId] else { return }
             
-            if !transaction.items.isEmpty {
+            if !transaction.items.isEmpty && transaction.id != creditorId {
                 self.broadcastTransaction(debtorId: debtorId, creditorId: creditorId, transaction: transaction)
             }
         }

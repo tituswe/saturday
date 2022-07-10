@@ -31,3 +31,12 @@ let previewUsers = [previewUser, previewUser, previewUser, previewUser]
 
 let previewItems = [previewItem, previewItem, previewItem, previewItem]
 
+let previewArchive = Archive(id: "15950F8A-8C64-450B-8641-5E64D9B2D575",
+                             transactionId: "15950F8A-8C64-450B-8641-5E64D9B2D575",
+                             debtorId: "TDz4gwY81IZgqRme5tBP9R6BxAF3",
+                             creditorId: nil,
+                             dateIssued: "15:44 Sat, 9 Jul 2022",
+                             dateSettled: "15:44 Sat, 9 Jul 2022",
+                             total: 8,
+                             status: "cancelled",
+                             type: "credit")

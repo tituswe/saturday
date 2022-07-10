@@ -23,6 +23,10 @@
 		58B33130287343E000C64E78 /* SideMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B3312F287343E000C64E78 /* SideMenuHeaderView.swift */; };
 		58B331322873443400C64E78 /* SideMenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B331312873443400C64E78 /* SideMenuOptionView.swift */; };
 		58B331382873712400C64E78 /* DebtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B331372873712400C64E78 /* DebtCardView.swift */; };
+		58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174D287ABAB100B68D55 /* ArchiveService.swift */; };
+		58BA1750287ABADC00B68D55 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174F287ABADC00B68D55 /* Archive.swift */; };
+		58BA1752287ABC1300B68D55 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA1751287ABC1300B68D55 /* HistoryView.swift */; };
+		58BA1755287ABD9200B68D55 /* HistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA1754287ABD9200B68D55 /* HistoryRowView.swift */; };
 		58CE63E12874950200DF2C77 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E02874950200DF2C77 /* ImagePicker.swift */; };
 		58CE63E32874A5B300DF2C77 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E22874A5B300DF2C77 /* ImageUploader.swift */; };
 		58CE63E52874AC2400DF2C77 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E42874AC2400DF2C77 /* UserService.swift */; };
@@ -89,6 +93,10 @@
 		58B3312F287343E000C64E78 /* SideMenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeaderView.swift; sourceTree = "<group>"; };
 		58B331312873443400C64E78 /* SideMenuOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuOptionView.swift; sourceTree = "<group>"; };
 		58B331372873712400C64E78 /* DebtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtCardView.swift; sourceTree = "<group>"; };
+		58BA174D287ABAB100B68D55 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
+		58BA174F287ABADC00B68D55 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
+		58BA1751287ABC1300B68D55 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		58BA1754287ABD9200B68D55 /* HistoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRowView.swift; sourceTree = "<group>"; };
 		58CE63E02874950200DF2C77 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		58CE63E22874A5B300DF2C77 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		58CE63E42874AC2400DF2C77 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -156,6 +164,7 @@
 				58CE63E42874AC2400DF2C77 /* UserService.swift */,
 				585DD2A72876CD800079E887 /* DebtService.swift */,
 				58FA37B02876EB2F00988F37 /* CreditService.swift */,
+				58BA174D287ABAB100B68D55 /* ArchiveService.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -186,6 +195,7 @@
 				B0ADE213286CD8420039D0C1 /* NavbarView.swift */,
 				B0ADE209286CD7790039D0C1 /* Home */,
 				58CE642C2874BC8B00DF2C77 /* Friends */,
+				58BA1753287ABC1F00B68D55 /* History */,
 				58CE643C287587EC00DF2C77 /* Split */,
 				589820D628563D5F00719CCE /* Authentication */,
 				58CE64332874C9B100DF2C77 /* Components */,
@@ -228,6 +238,15 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
+		58BA1753287ABC1F00B68D55 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				58BA1751287ABC1300B68D55 /* HistoryView.swift */,
+				58BA1754287ABD9200B68D55 /* HistoryRowView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		58CE63DF287494EA00DF2C77 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +266,7 @@
 				58CE641E2874ADF500DF2C77 /* User.swift */,
 				585DD2A92876D3530079E887 /* Debt.swift */,
 				585DD2AB2876D35A0079E887 /* Credit.swift */,
+				58BA174F287ABADC00B68D55 /* Archive.swift */,
 				58CE64452875D53700DF2C77 /* Item.swift */,
 			);
 			path = Model;
@@ -451,6 +471,7 @@
 				B09838642853A89900FB93FC /* Preview Data.swift in Sources */,
 				B0ADE214286CD8420039D0C1 /* NavbarView.swift in Sources */,
 				58D8762E287789D70046D716 /* PaymentView.swift in Sources */,
+				58BA1755287ABD9200B68D55 /* HistoryRowView.swift in Sources */,
 				B0ADE200286CD6A60039D0C1 /* ItemRow.swift in Sources */,
 				B032CB582864A845003FB01F /* TextProcessor.swift in Sources */,
 				58CE644828762F7800DF2C77 /* SentView.swift in Sources */,
@@ -462,15 +483,18 @@
 				B0ADE206286CD71D0039D0C1 /* UserOld.swift in Sources */,
 				58CE6444287596DC00DF2C77 /* ItemCardView.swift in Sources */,
 				B0ADE1FA286CD67C0039D0C1 /* UserCard.swift in Sources */,
+				58BA1752287ABC1300B68D55 /* HistoryView.swift in Sources */,
 				B0ADE1EE286CD5D60039D0C1 /* SplitViewOld.swift in Sources */,
 				58B33130287343E000C64E78 /* SideMenuHeaderView.swift in Sources */,
 				585DD2A82876CD800079E887 /* DebtService.swift in Sources */,
+				58BA1750287ABADC00B68D55 /* Archive.swift in Sources */,
 				58FA37B328770D7F00988F37 /* CreditCardView.swift in Sources */,
 				B0084728285381E60081CFFF /* LogInView.swift in Sources */,
 				B0ADE216286CD9180039D0C1 /* ImagePickerOld.swift in Sources */,
 				589820DC28566AE400719CCE /* SignUpView.swift in Sources */,
 				582D832528747A58002B153E /* UserViewModel.swift in Sources */,
 				589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */,
+				58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */,
 				5886D3BE28355FB60044938C /* SaturdayApp.swift in Sources */,
 				B0ADE1FC286CD6890039D0C1 /* UserRow.swift in Sources */,
 				B0ADE1FE286CD6960039D0C1 /* ItemCard.swift in Sources */,

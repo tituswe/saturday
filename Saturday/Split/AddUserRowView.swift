@@ -26,7 +26,7 @@ struct AddUserRowView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 
-                Text(user.name)
+                Text(user.id == cartManager.userSession?.uid ? "Me" : user.name)
                     .font(.system(.subheadline, design: .rounded))
                     .fontWeight(.bold)
                 
