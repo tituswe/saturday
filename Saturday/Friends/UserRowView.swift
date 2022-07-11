@@ -11,8 +11,10 @@ import Kingfisher
 enum RequestState {
     
     case SEND
+    case SENT
     case RECEIVE
     case FRIEND
+    case PENDING
     
 }
 
@@ -50,6 +52,7 @@ struct UserRowView: View {
             if state == .SEND {
                 Button {
                     viewModel.sendFriendRequest(user: user)
+                    state = .SENT
                 } label: {
                     Text("Add Friend")
                         .font(.system(.caption2, design: .rounded))
@@ -61,9 +64,23 @@ struct UserRowView: View {
                         .cornerRadius(50)
                         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                 }
+            } else if state == .SENT {
+                Button {
+                    viewModel.retractFriendRequest(user: user)
+                    state = .SEND
+                } label: {
+                    Text("Sent")
+                        .font(.system(.caption2, design: .rounded))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 100, height: 30)
+                        .background(.gray)
+                        .cornerRadius(50)
+                        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+                }
             } else if state == .RECEIVE {
                 HStack {
-                    
                     Button {
                         viewModel.acceptFriendRequest(user: user)
                     } label: {

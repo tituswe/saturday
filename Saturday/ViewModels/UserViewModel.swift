@@ -18,6 +18,7 @@ class UserViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var friends = [User]()
     @Published var friendRequests = [User]()
+    @Published var sentFriendRequests = [User]()
     
     @Published var users = [User]()
     
@@ -38,6 +39,7 @@ class UserViewModel: ObservableObject {
         self.fetchUsers()
         self.fetchFriends()
         self.fetchFriendRequests()
+        self.fetchSentFriendRequests()
         
         self.fetchDebts()
         self.fetchDebtItems()
@@ -57,6 +59,7 @@ class UserViewModel: ObservableObject {
         self.fetchUsers()
         self.fetchFriends()
         self.fetchFriendRequests()
+        self.fetchSentFriendRequests()
         
         self.fetchDebts()
         self.fetchDebtItems()
@@ -202,11 +205,49 @@ class UserViewModel: ObservableObject {
             .document(currentUser.id!)
             .setData(data as [String : Any])
         
-        self.refresh()
+        let data2 = ["email": user.email,
+                    "username": user.username.lowercased(),
+                    "name": user.name,
+                    "profileImageUrl": user.profileImageUrl,
+                    "uid": receiverUid]
+        
+        Firestore.firestore().collection("friendRequests")
+            .document(currentUser.id!)
+            .collection("receivers")
+            .document(receiverUid)
+            .setData(data2 as [String : Any])
         
         print("DEBUG: Friend request sent!")
     }
     
+    func retractFriendRequest(user: User) {
+        guard let currentUser = currentUser else { return }
+        guard let receiverUid = user.id else { return }
+        
+        Firestore.firestore().collection("friendRequests")
+            .document(receiverUid)
+            .collection("senders")
+            .document(currentUser.id!)
+            .delete { error in
+                if let error = error {
+                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        Firestore.firestore().collection("friendRequests")
+            .document(currentUser.id!)
+            .collection("receivers")
+            .document(receiverUid)
+            .delete { error in
+                if let error = error {
+                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        print("DEBUG: Friend request retracted!")
+    }
     
     func fetchFriendRequests() {
         guard let uid = self.userSession?.uid else { return }
@@ -215,7 +256,33 @@ class UserViewModel: ObservableObject {
             self.friendRequests = friendRequests
             print("DEBUG: Fetching friend requests...")
         }
+    }
+    
+    func fetchSentFriendRequests() {
+        guard let uid = self.userSession?.uid else { return }
         
+        userService.fetchSentFriendRequests(withUid: uid) { requests in
+            self.sentFriendRequests = requests
+            print("DEBUG: Fetching sent friend requests...")
+        }
+    }
+    
+    func hasFriendRequest(user: User) -> Bool {
+        for request in friendRequests {
+            if user.id == request.id {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func hasSentFriendRequest(user: User) -> Bool {
+        for request in sentFriendRequests {
+            if user.id == request.id {
+                return true
+            }
+        }
+        return false
     }
     
     func acceptFriendRequest(user: User) {

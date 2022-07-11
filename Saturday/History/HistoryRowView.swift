@@ -22,6 +22,7 @@ struct HistoryRowView: View {
                 Text(label())
                     .font(.system(.body, design: .rounded))
                     .fontWeight(.semibold)
+                    .foregroundColor(archive.status == "cancelled" ? .gray : .black)
                 
                 Spacer()
                     .frame(height: 1.6)
@@ -38,14 +39,15 @@ struct HistoryRowView: View {
                 
                 Text("$" + String(format: "%.2f", archive.total))
                     .font(.system(.subheadline, design: .rounded))
-                    .foregroundColor(archive.type == "credit" ? .systemGreen : .systemRed)
+                    .foregroundColor(archive.status == "cancelled" ? .gray :
+                                        archive.type == "credit" ? .systemGreen : .systemRed )
                 
                 Spacer()
                     .frame(height: 1.6)
                 
                 Text(archive.status.capitalizeFirstChar())
                     .font(.system(.subheadline, design: .rounded))
-                    .foregroundColor(archive.status == "paid" ? .gray : .systemRed)
+                    .foregroundColor(.gray)
             }
             
         }

@@ -198,9 +198,10 @@
 				58BA1753287ABC1F00B68D55 /* History */,
 				58CE643C287587EC00DF2C77 /* Split */,
 				589820D628563D5F00719CCE /* Authentication */,
-				58CE64332874C9B100DF2C77 /* Components */,
+				58B3312C287343BD00C64E78 /* SideMenu */,
 				585DD2A62876CC020079E887 /* ViewModels */,
 				58CE641D2874ADC000DF2C77 /* Model */,
+				58CE64332874C9B100DF2C77 /* Components */,
 				58CE63DF287494EA00DF2C77 /* Utilities */,
 				5886D3C328355FB80044938C /* Preview Content */,
 				B0ADE1EC286CD5980039D0C1 /* SplitOld */,
@@ -285,7 +286,6 @@
 		58CE64332874C9B100DF2C77 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				58B3312C287343BD00C64E78 /* SideMenu */,
 				58CE64342874C9C600DF2C77 /* SearchBar.swift */,
 			);
 			path = Components;

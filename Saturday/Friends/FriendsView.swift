@@ -45,13 +45,16 @@ struct FriendsView: View {
                     
                     Spacer()
                     
-                    HStack {
+                    ZStack {
                         
-                        Spacer()
+                        SearchBar(text: $viewModel.searchText)
+                            .padding(.top, 10)
+                        .padding(.horizontal, 10)
                         
                         Button {
                             viewModel.fetchFriendRequests()
                             self.isShowingFriendRequestsView = true
+                            print("\(viewModel.users)")
                         } label: {
                             Text("Friend Requests")
                                 .font(.system(.caption, design: .rounded))
@@ -60,20 +63,14 @@ struct FriendsView: View {
                                 .cornerRadius(20)
                                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
                         }
-                        .padding(.top, 10)
-                        .padding(.horizontal, 15)
                         .sheet(isPresented: $isShowingFriendRequestsView) {
                             FriendRequestsView()
                                 .environmentObject(viewModel)
                         }
+                        .offset(x: 120, y: -68)
                         
                     }
-                    
-                    SearchBar(text: $viewModel.searchText)
-                        .padding(.top, 10)
-                        .padding(.horizontal, 10)
                    
-                    
                     ScrollView {
                         
                         LazyVStack {
@@ -81,7 +78,6 @@ struct FriendsView: View {
                             if viewModel.searchText.isEmpty {
                                 
                                 ForEach(viewModel.friends) { user in
-                                    
                                     UserRowView(user: user, state: .FRIEND)
                                         .environmentObject(viewModel)
                                     
@@ -93,7 +89,7 @@ struct FriendsView: View {
                                 
                                 ForEach(viewModel.searchableUsers) { user in
                                     
-                                    UserRowView(user: user)
+                                    UserRowView(user: user, state: userState(user: user))
                                         .environmentObject(viewModel)
                                     
                                     Divider()
@@ -115,6 +111,16 @@ struct FriendsView: View {
             
         }
         
+    }
+    
+    func userState(user: User) -> RequestState {
+        if viewModel.hasFriendRequest(user: user) {
+            return .RECEIVE
+        } else if viewModel.hasSentFriendRequest(user: user) {
+            return .SENT
+        } else {
+            return .SEND
+        }
     }
     
 }
