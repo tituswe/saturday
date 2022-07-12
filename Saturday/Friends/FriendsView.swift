@@ -31,46 +31,53 @@ struct FriendsView: View {
                 
                 VStack {
                     
-                    // MARK: Navigation Bar
-                    NavbarView(
-                        topLeftButtonView: "line.horizontal.3",
-                        topRightButtonView: "",
-                        titleString: "Friends",
-                        topLeftButtonAction: {
-                            withAnimation(.spring()) {
-                                isShowingSideMenu = true
+                    ZStack {
+                        
+                        // MARK: Navigation Bar
+                        NavbarView(
+                            topLeftButtonView: "line.horizontal.3",
+                            topRightButtonView: "",
+                            titleString: "Friends",
+                            topLeftButtonAction: {
+                                withAnimation(.spring()) {
+                                    isShowingSideMenu = true
+                                }
+                            },
+                            topRightButtonAction: {})
+                        
+                        HStack(alignment: .bottom) {
+                            
+                            Spacer()
+                            
+                            Button {
+                                viewModel.fetchFriendRequests()
+                                self.isShowingFriendRequestsView = true
+                                print("\(viewModel.users)")
+                            } label: {
+                                Text("Friend Requests")
+                                    .font(.system(.caption, design: .rounded))
+                                    .padding(8)
+                                    .background()
+                                    .cornerRadius(20)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
                             }
-                        },
-                        topRightButtonAction: {})
+                            .sheet(isPresented: $isShowingFriendRequestsView) {
+                                FriendRequestsView()
+                                    .environmentObject(viewModel)
+                            }
+                            
+                        }
+                        .padding(.top)
+                        .padding(.horizontal)
+                        
+                    }
                     
                     Spacer()
                     
-                    ZStack {
-                        
-                        SearchBar(text: $viewModel.searchText)
-                            .padding(.top, 10)
+                    SearchBar(text: $viewModel.searchText)
+                        .padding(.top, 10)
                         .padding(.horizontal, 10)
-                        
-                        Button {
-                            viewModel.fetchFriendRequests()
-                            self.isShowingFriendRequestsView = true
-                            print("\(viewModel.users)")
-                        } label: {
-                            Text("Friend Requests")
-                                .font(.system(.caption, design: .rounded))
-                                .padding(8)
-                                .background()
-                                .cornerRadius(20)
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
-                        }
-                        .sheet(isPresented: $isShowingFriendRequestsView) {
-                            FriendRequestsView()
-                                .environmentObject(viewModel)
-                        }
-                        .offset(x: 120, y: -68)
-                        
-                    }
-                   
+                    
                     ScrollView {
                         
                         LazyVStack {

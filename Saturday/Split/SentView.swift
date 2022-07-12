@@ -46,7 +46,7 @@ struct SentView: View {
                             .offset(x: 0, y: 240)
                         
                         NavigationLink(isActive: $isShowingHomeView) {
-                            HomeView()
+                            ContentView()
                                 .environmentObject(viewModel)
                                 .navigationBarHidden(true)
                         } label: {}

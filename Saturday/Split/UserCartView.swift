@@ -42,6 +42,17 @@ struct UserCartView: View {
                     
                 }
                 
+                HStack {
+                    
+                    Text("Total: $" + String(format: "%.2f", cartManager.getTransaction(key: user.id!).total))
+                        .font(.system(.body, design: .rounded))
+                        .fontWeight(.semibold)
+                        .padding()
+                    
+                    Spacer()
+                    
+                }
+                
             }
             
         }

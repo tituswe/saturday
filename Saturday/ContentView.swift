@@ -7,14 +7,19 @@ struct ContentView: View {
     
     var body: some View {
         
-        Group {
+        NavigationView {
             
-            if viewModel.userSession == nil {
-                LogInView()
-        
-            } else {
-                HomeView()
+            Group {
+                
+                if viewModel.userSession == nil {
+                    LogInView()
+            
+                } else {
+                    HomeView()
+                }
+                
             }
+            .navigationBarHidden(true)
             
         }
         

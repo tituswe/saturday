@@ -94,13 +94,24 @@ struct UserCardView: View {
                     .environmentObject(cartManager)
             }
             
-            Text(user.name.components(separatedBy: " ").first!)
+            Text(userName())
                 .font(.system(.body, design: .rounded))
                 .fontWeight(.semibold)
             
         }
         .padding(.top)
         .padding(.horizontal)
+        
+    }
+    
+    func userName() -> String {
+        let name = user.name.components(separatedBy: " ").first!
+
+        if name.count > 6 {
+            return name.prefix(5) + "..."
+        } else {
+            return name
+        }
     }
     
 }

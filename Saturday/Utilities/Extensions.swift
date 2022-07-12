@@ -29,3 +29,19 @@ extension String {
         self = self.capitalizeFirstChar()
     }
 }
+
+struct FixedClipped: ViewModifier {
+    func body(content: Content) -> some View {
+        ZStack(alignment: .leading) {
+            content.hidden().layoutPriority(1)
+            content.fixedSize(horizontal: true, vertical: false)
+        }
+        .clipped()
+    }
+}
+
+extension View {
+    func fixedClipped() -> some View {
+        self.modifier(FixedClipped())
+    }
+}

@@ -57,11 +57,11 @@ struct NavbarView: View {
                 Spacer()
             }
             
+            Divider()
+            
         }
         .padding(.horizontal, 25)
         .frame(height: 100)
-        
-        Divider()
         
     }
     

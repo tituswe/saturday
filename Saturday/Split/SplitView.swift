@@ -39,82 +39,87 @@ struct SplitView: View {
                     },
                     topRightButtonAction: {})
 
-                Spacer()
-                
-                // MARK: User Cards
-                if cartManager.payableUsers.isEmpty {
+                VStack {
                     
-                    HStack(alignment: .center) {
+                    Spacer()
+                    
+                    // MARK: User Cards
+                    if cartManager.payableUsers.isEmpty {
+                        
+                        HStack(alignment: .center) {
 
-                        Button {
-                            viewModel.refresh()
-                            cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
-                            self.isShowingAddUserView = true
-                        } label: {
-                            Text("Add friends")
-                                .font(.system(.title3, design: .rounded))
-                                .fontWeight(.bold)
-                                .foregroundColor(.gray)
-                                .frame(width: 160, height: 50)
-                                .background(.white)
-                                .cornerRadius(50)
-                                
-                        }
-                        .overlay(Capsule()
-                            .stroke(.gray,
-                                    style: StrokeStyle(lineWidth: 5,
-                                                       dash: [10])))
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
-                        
-                    }
-                    .frame(height: 120)
-                    
-                } else {
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        
-                        LazyHStack {
-                            
                             Button {
+                                viewModel.refresh()
+                                cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
                                 self.isShowingAddUserView = true
                             } label: {
-                                VStack {
-                                    ZStack {
-                                        Circle()
-                                            .frame(width: 64, height: 64)
-                                            .foregroundColor(.white)
-                                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
-
-                                        Image(systemName: "person.badge.plus")
-                                            .resizable()
-                                            .frame(width: 32, height: 32)
-                                            .foregroundColor(.gray)
-                                            .offset(x: -2, y: 1)
-                                    }
-                                    .overlay(Circle()
-                                        .stroke(.gray,
-                                                style: StrokeStyle(lineWidth: 5,
-                                                                   dash: [10])))
+                                Text("Add friends")
+                                    .font(.system(.title3, design: .rounded))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.gray)
+                                    .frame(width: 160, height: 50)
+                                    .background(.white)
+                                    .cornerRadius(50)
                                     
-                                    Text(" ")
-                                }
                             }
-                            .padding(.top)
-                            .padding(.horizontal)
-                            
-                            ForEach(cartManager.payableUsers, id: \.id) { user in
-                                UserCardView(user: user)
-                                    .environmentObject(viewModel)
-                                    .environmentObject(cartManager)
-                            }
+                            .overlay(Capsule()
+                                .stroke(.gray,
+                                        style: StrokeStyle(lineWidth: 5,
+                                                           dash: [10])))
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                             
                         }
                         
+                    } else {
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            
+                            LazyHStack {
+                                
+                                Button {
+                                    self.isShowingAddUserView = true
+                                } label: {
+                                    VStack {
+                                        ZStack {
+                                            Circle()
+                                                .frame(width: 64, height: 64)
+                                                .foregroundColor(.white)
+                                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+
+                                            Image(systemName: "person.badge.plus")
+                                                .resizable()
+                                                .frame(width: 32, height: 32)
+                                                .foregroundColor(.gray)
+                                                .offset(x: -2, y: 1)
+                                        }
+                                        .overlay(Circle()
+                                            .stroke(.gray,
+                                                    style: StrokeStyle(lineWidth: 5,
+                                                                       dash: [10])))
+                                        
+                                        Text(" ")
+                                    }
+                                }
+                                .padding(.top)
+                                .padding(.horizontal)
+                                
+                                ForEach(cartManager.payableUsers, id: \.id) { user in
+                                    UserCardView(user: user)
+                                        .environmentObject(viewModel)
+                                        .environmentObject(cartManager)
+                                }
+                                
+                            }
+                            
+                        }
+                        .padding(.horizontal)
+                    
                     }
-                    .padding(.horizontal)
-                    .frame(height: 120)
-                
+                    
+                    Spacer()
+                    
                 }
+                .frame(height: 140)
                 
                 Divider()
                 
@@ -175,7 +180,6 @@ struct SplitView: View {
                     
                 }
                 .padding(.horizontal)
-                .frame(height: 460)
                 
                 Spacer()
                 
@@ -218,6 +222,7 @@ struct SplitView: View {
                 .ignoresSafeArea()
                 
             }
+            .ignoresSafeArea(.all, edges: [.bottom])
             .navigationBarHidden(true)
             .sheet(isPresented: $isShowingAddUserView) {
                 AddUserView()

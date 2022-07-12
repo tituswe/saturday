@@ -1,21 +1,19 @@
 //
-//  SettleDebtView.swift
+//  PeekCreditView.swift
 //  Saturday
 //
-//  Created by Titus Lowe on 7/7/22.
+//  Created by Titus Lowe on 13/7/22.
 //
 
 import SwiftUI
 
-struct SettleDebtView: View {
+struct PeekCreditView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
     
-    let debt: Debt
+    let credit: Credit
     
-    @Binding var isShowingSettleDebtView: Bool
-    
-    @Binding var isShowingPaymentView: Bool
+    @Binding var isShowingPeekCreditView: Bool
     
     var body: some View {
         
@@ -25,7 +23,7 @@ struct SettleDebtView: View {
             NavbarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
-                titleString: "To pay",
+                titleString: "To receive",
                 topLeftButtonAction: {},
                 topRightButtonAction: {})
             
@@ -35,7 +33,7 @@ struct SettleDebtView: View {
                 
                 LazyVStack {
                     
-                    ForEach(viewModel.debtItems[debt.transactionId] ?? [Item](), id: \.id) { item in
+                    ForEach(viewModel.creditItems[credit.transactionId] ?? [Item](), id: \.id) { item in
                         ItemCardView(item: item, state: .VIEW)
                             .environmentObject(viewModel)
                             .environmentObject(CartManager())
@@ -46,7 +44,7 @@ struct SettleDebtView: View {
                 
                 HStack {
                     
-                    Text("Total: $" + String(format: "%.2f", debt.total))
+                    Text("Total: $" + String(format: "%.2f", credit.total))
                         .font(.system(.body, design: .rounded))
                         .fontWeight(.semibold)
                         .padding()
@@ -58,16 +56,17 @@ struct SettleDebtView: View {
             }
             
             Button {
-                isShowingSettleDebtView = false
-                isShowingPaymentView = true
+                viewModel.cacheTransaction(credit: credit)
+                viewModel.refresh()
+                isShowingPeekCreditView = false
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 50)
-                        .foregroundColor(Color.systemGreen)
+                        .foregroundColor(Color.systemRed)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .shadow(color: Color.black.opacity(0.5), radius: 5, x: 0, y: -3)
                     
-                    Text("Settle")
+                    Text("Cancel")
                         .font(.system(.title2, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -82,11 +81,9 @@ struct SettleDebtView: View {
     
 }
 
-struct SettleDebtView_Previews: PreviewProvider {
+struct PeekCreditView_Previews: PreviewProvider {
     static var previews: some View {
-        SettleDebtView(debt: previewDebt,
-                       isShowingSettleDebtView: .constant(true),
-                       isShowingPaymentView: .constant(false))
+        PeekCreditView(credit: previewCredit, isShowingPeekCreditView: .constant(true))
             .environmentObject(UserViewModel())
     }
 }

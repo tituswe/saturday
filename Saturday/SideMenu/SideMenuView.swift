@@ -45,7 +45,7 @@ struct SideMenuView: View {
                 }
                 
                 NavigationLink(isActive: $isShowingDashboard) {
-                    HomeView()
+                    ContentView()
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
                 } label: {

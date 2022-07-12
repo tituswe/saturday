@@ -106,7 +106,7 @@ struct DebtCardView: View {
             .frame(width: 350, height: 150)
             .offset(x: offset)
             .gesture(DragGesture().onChanged(onChanged(value:)).onEnded(onEnd(value:)))
-            .onLongPressGesture {
+            .onTapGesture {
                 viewModel.refresh()
                 isShowingSettleDebtView = true
             }

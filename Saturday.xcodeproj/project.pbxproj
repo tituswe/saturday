@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		580C6A19287E070E00EA8D70 /* PeekCreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580C6A18287E070E00EA8D70 /* PeekCreditView.swift */; };
 		582D832528747A58002B153E /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582D832428747A58002B153E /* UserViewModel.swift */; };
 		582D832E2874908A002B153E /* ProfilePictureSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582D832D2874908A002B153E /* ProfilePictureSelectorView.swift */; };
 		585DD2A82876CD800079E887 /* DebtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2A72876CD800079E887 /* DebtService.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		580C6A18287E070E00EA8D70 /* PeekCreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekCreditView.swift; sourceTree = "<group>"; };
 		582D832428747A58002B153E /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		582D832D2874908A002B153E /* ProfilePictureSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSelectorView.swift; sourceTree = "<group>"; };
 		585DD2A72876CD800079E887 /* DebtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtService.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				58D8762D287789D70046D716 /* PaymentView.swift */,
 				58FA37B228770D7F00988F37 /* CreditCardView.swift */,
 				58FA37B42877119500988F37 /* SettleDebtView.swift */,
+				580C6A18287E070E00EA8D70 /* PeekCreditView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				5886D3C028355FB60044938C /* ContentView.swift in Sources */,
 				585DD2AA2876D3530079E887 /* Debt.swift in Sources */,
 				582D832E2874908A002B153E /* ProfilePictureSelectorView.swift in Sources */,
+				580C6A19287E070E00EA8D70 /* PeekCreditView.swift in Sources */,
 				58D8762C28774D860046D716 /* UserCartView.swift in Sources */,
 				B0ADE1F1286CD6190039D0C1 /* CartView.swift in Sources */,
 				58CE64422875933B00DF2C77 /* SplitView.swift in Sources */,
