@@ -35,10 +35,10 @@ struct SplitView: View {
                     topRightButtonView: "",
                     titleString: "Your Split",
                     topLeftButtonAction: {
-                       isShowingSplitView = false
+                        isShowingSplitView = false
                     },
                     topRightButtonAction: {})
-
+                
                 VStack {
                     
                     Spacer()
@@ -47,7 +47,7 @@ struct SplitView: View {
                     if cartManager.payableUsers.isEmpty {
                         
                         HStack(alignment: .center) {
-
+                            
                             Button {
                                 viewModel.refresh()
                                 cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
@@ -60,7 +60,7 @@ struct SplitView: View {
                                     .frame(width: 160, height: 50)
                                     .background(.white)
                                     .cornerRadius(50)
-                                    
+                                
                             }
                             .overlay(Capsule()
                                 .stroke(.gray,
@@ -85,7 +85,7 @@ struct SplitView: View {
                                                 .frame(width: 64, height: 64)
                                                 .foregroundColor(.white)
                                                 .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
-
+                                            
                                             Image(systemName: "person.badge.plus")
                                                 .resizable()
                                                 .frame(width: 32, height: 32)
@@ -113,7 +113,7 @@ struct SplitView: View {
                             
                         }
                         .padding(.horizontal)
-                    
+                        
                     }
                     
                     Spacer()
@@ -222,7 +222,6 @@ struct SplitView: View {
                 .ignoresSafeArea()
                 
             }
-            .ignoresSafeArea(.all, edges: [.bottom])
             .navigationBarHidden(true)
             .sheet(isPresented: $isShowingAddUserView) {
                 AddUserView()

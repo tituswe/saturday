@@ -23,45 +23,52 @@ struct NavbarView: View {
     /// Home Nav bar view.
     var body: some View {
         
-        VStack (spacing: 20) {
+        ZStack {
             
-            HStack {
-                if topLeftButtonView != "" {
-                    Button(action: topLeftButtonAction) {
-                        Image(systemName: topLeftButtonView)
+            Color(.white)
+            
+            VStack (spacing: 20) {
+                
+                HStack {
+                    if topLeftButtonView != "" {
+                        Button(action: topLeftButtonAction) {
+                            Image(systemName: topLeftButtonView)
+                                .font(.title2)
+                        }
+                    } else {
+                        Text("")
                             .font(.title2)
                     }
-                } else {
-                    Text("")
-                        .font(.title2)
-                }
-                Spacer()
-                if topRightButtonView != "" {
-                    Button(action: topRightButtonAction) {
-                        Image(systemName: topRightButtonView)
+                    Spacer()
+                    if topRightButtonView != "" {
+                        Button(action: topRightButtonAction) {
+                            Image(systemName: topRightButtonView)
+                                .font(.title2)
+                        }
+                    } else {
+                        Text("")
                             .font(.title2)
                     }
-                } else {
-                    Text("")
-                        .font(.title2)
                 }
+                .foregroundColor(Color.primary)
+                .padding(.top)
+                
+                HStack {
+                    Text(titleString)
+                        .font(.system(.title, design: .rounded))
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                }
+                
             }
-            .foregroundColor(Color.primary)
-            .padding(.top)
-            
-            HStack {
-                Text(titleString)
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
-                    .padding(.bottom)
-                Spacer()
-            }
-            
-            Divider()
+            .padding(.horizontal, 25)
+            .padding(.bottom)
             
         }
-        .padding(.horizontal, 25)
         .frame(height: 100)
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+        .mask(Rectangle().padding(.bottom, -20))
         
     }
     

@@ -98,3 +98,4 @@ class TextExtractionModel {
         return itemList
     }
 }
+

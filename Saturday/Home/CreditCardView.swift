@@ -200,7 +200,7 @@ struct CreditCardView: View {
         .frame(width: 350, height: 150)
         .background()
         .cornerRadius(25)
-        .padding(10)
+        .padding(.top, 16)
         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
         
     }
