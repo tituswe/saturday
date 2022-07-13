@@ -349,6 +349,17 @@ class UserViewModel: ObservableObject {
                 }
             }
         
+        Firestore.firestore().collection("friendRequests")
+            .document(senderUid)
+            .collection("receivers")
+            .document(currentUser.id!)
+            .delete { error in
+                if let error = error {
+                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
         // Update friend request list
         self.refresh()
         
