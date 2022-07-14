@@ -53,6 +53,7 @@ struct HistoryRowView: View {
         }
         .padding(.horizontal, 24)
         .frame(height: 56)
+        .background(Color.background)
 
     }
     

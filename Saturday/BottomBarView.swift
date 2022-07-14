@@ -14,7 +14,7 @@ struct BottomBarView: View {
         ZStack {
             
             Rectangle()
-                .foregroundColor(Color.white)
+                .foregroundColor(Color.background)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: -3)
                 .mask(Rectangle().padding(.top, -20))

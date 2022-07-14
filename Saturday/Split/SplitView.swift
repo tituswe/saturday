@@ -58,13 +58,13 @@ struct SplitView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.gray)
                                     .frame(width: 160, height: 50)
-                                    .background(.white)
+                                    .background(Color.background)
                                     .cornerRadius(50)
                                 
                             }
                             .overlay(Capsule()
-                                .stroke(.gray,
-                                        style: StrokeStyle(lineWidth: 5,
+                                .stroke(Color(.lightGray),
+                                        style: StrokeStyle(lineWidth: 4,
                                                            dash: [10])))
                             .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                             
@@ -83,7 +83,7 @@ struct SplitView: View {
                                         ZStack {
                                             Circle()
                                                 .frame(width: 64, height: 64)
-                                                .foregroundColor(.white)
+                                                .foregroundColor(Color.background)
                                                 .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                                             
                                             Image(systemName: "person.badge.plus")
@@ -93,8 +93,8 @@ struct SplitView: View {
                                                 .offset(x: -2, y: 1)
                                         }
                                         .overlay(Circle()
-                                            .stroke(.gray,
-                                                    style: StrokeStyle(lineWidth: 5,
+                                            .stroke(Color(.lightGray),
+                                                    style: StrokeStyle(lineWidth: 4,
                                                                        dash: [10])))
                                         
                                         Text(" ")
@@ -140,12 +140,12 @@ struct SplitView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.gray)
                                     .frame(width: 280, height: 380)
-                                    .background(.white)
+                                    .background(Color.background)
                                     .cornerRadius(50)
                             }
                             .overlay(RoundedRectangle(cornerRadius: 50)
-                                .stroke(.gray,
-                                        style: StrokeStyle(lineWidth: 5,
+                                .stroke(Color(.lightGray),
+                                        style: StrokeStyle(lineWidth: 4,
                                                            dash: [10])))
                             .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                             
@@ -156,7 +156,7 @@ struct SplitView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray)
                                 .frame(width: 280, height: 380)
-                                .background(.white)
+                                .background(Color.background)
                                 .cornerRadius(50)
                             
                         }
@@ -222,6 +222,8 @@ struct SplitView: View {
                 .ignoresSafeArea()
                 
             }
+            .background(Color.background)
+            .ignoresSafeArea(.all, edges: [.top, .bottom])
             .navigationBarHidden(true)
             .sheet(isPresented: $isShowingAddUserView) {
                 AddUserView()
@@ -251,5 +253,6 @@ struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
         SplitView(isShowingSplitView: .constant(true))
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

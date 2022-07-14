@@ -76,7 +76,8 @@ struct SettleDebtView: View {
             .frame(maxWidth: .infinity, maxHeight: 80)
             
         }
-        .ignoresSafeArea(.all, edges: [.bottom])
+        .ignoresSafeArea(.all, edges: [.top, .bottom])
+        .background(Color.background)
         
     }
     
@@ -88,5 +89,6 @@ struct SettleDebtView_Previews: PreviewProvider {
                        isShowingSettleDebtView: .constant(true),
                        isShowingPaymentView: .constant(false))
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

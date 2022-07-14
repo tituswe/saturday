@@ -10,6 +10,7 @@ import SwiftUI
 
 extension Color {
     static let background = Color("Background")
+    static let text = Color("Text")
     static let systemRed = Color("Red")
     static let systemOrange = Color("Orange")
     static let systemYellow = Color("Yellow")

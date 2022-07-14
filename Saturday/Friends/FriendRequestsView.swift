@@ -43,6 +43,7 @@ struct FriendRequestsView: View {
             }
             
         }
+        .background(Color.background)
         
     }
     

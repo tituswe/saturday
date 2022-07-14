@@ -45,7 +45,7 @@ struct DebtCardView: View {
             ZStack {
                 
                 RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.background)
                 
                 HStack {
                     
@@ -176,5 +176,6 @@ struct DebtCardView_Previews: PreviewProvider {
     static var previews: some View {
         DebtCardView(debt: previewDebt)
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

@@ -85,6 +85,8 @@ struct UserRowView: View {
                         viewModel.acceptFriendRequest(user: user)
                     } label: {
                         Image(systemName: "checkmark")
+                            .resizable()
+                            .frame(width: 10, height: 10)
                             .foregroundColor(.white)
                             .padding()
                             .frame(width: 25, height: 25)
@@ -100,6 +102,8 @@ struct UserRowView: View {
                         viewModel.declineFriendRequest(user: user)
                     } label: {
                         Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 10, height: 10)
                             .foregroundColor(.white)
                             .padding()
                             .frame(width: 25, height: 25)
@@ -117,13 +121,16 @@ struct UserRowView: View {
 
         }
         .padding()
+        .background(Color.background)
 
     }
     
 }
 
-//struct UserRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserRowView(state: .RECEIVE)
-//    }
-//}
+struct UserRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserRowView(user: previewUser, state: .RECEIVE)
+            .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
+    }
+}

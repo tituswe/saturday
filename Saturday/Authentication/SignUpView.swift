@@ -47,16 +47,16 @@ struct SignUpView: View {
         
         ZStack {
             
-            Color.systemGreen
+            Color.systemViolet
                 .ignoresSafeArea()
             
             Circle()
                 .scale(1.7)
-                .foregroundColor(.white.opacity(0.15))
+                .foregroundColor(Color.background.opacity(0.15))
             
             Circle()
                 .scale(1.35)
-                .foregroundColor(.white)
+                .foregroundColor(Color.background)
             
             VStack {
                 
@@ -262,7 +262,7 @@ struct SignUpView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .frame(width: 100, height: 50)
-                            .background(Color.systemYellow)
+                            .background(Color.systemBlue)
                             .cornerRadius(50)
                     }
                     
@@ -369,5 +369,6 @@ struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView()
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

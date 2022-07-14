@@ -21,16 +21,16 @@ struct LogInView: View {
             
             ZStack {
                 
-                Color.systemBlue
+                Color.systemIndigo
                     .ignoresSafeArea()
                 
                 Circle()
                     .scale(1.7)
-                    .foregroundColor(.white.opacity(0.15))
+                    .foregroundColor(Color.background.opacity(0.15))
                 
                 Circle()
                     .scale(1.35)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.background)
                 
                 VStack {
                     
@@ -105,5 +105,6 @@ struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         LogInView()
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

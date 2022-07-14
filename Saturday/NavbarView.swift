@@ -25,9 +25,9 @@ struct NavbarView: View {
         
         ZStack {
             
-            Color(.white)
+            Color.background
             
-            VStack (spacing: 20) {
+            VStack(spacing: 20) {
                 
                 HStack {
                     if topLeftButtonView != "" {
@@ -64,12 +64,18 @@ struct NavbarView: View {
             }
             .padding(.horizontal, 25)
             .padding(.bottom)
+            .offset(y: hasNoButtons() ? 0 : 22)
             
         }
-        .frame(height: 100)
+        .frame(height: hasNoButtons() ? 100 : 144)
+        .ignoresSafeArea(.all, edges: [.top])
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
         .mask(Rectangle().padding(.bottom, -20))
         
+    }
+    
+    func hasNoButtons() -> Bool {
+        return topLeftButtonView == "" && topRightButtonView == ""
     }
     
 }

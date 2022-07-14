@@ -47,7 +47,7 @@ struct AddUserRowView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: 60, height: 30)
-                        .background(Color.systemBlue)
+                        .background(Color.blue)
                         .cornerRadius(50)
                         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                 }

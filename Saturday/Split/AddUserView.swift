@@ -46,6 +46,7 @@ struct AddUserView: View {
             }
             
         }
+        .background(Color.background)
         
     }
 }
@@ -55,5 +56,6 @@ struct AddUserView_Previews: PreviewProvider {
         AddUserView()
             .environmentObject(UserViewModel())
             .environmentObject(CartManager())
+            .environment(\.colorScheme, .dark)
     }
 }

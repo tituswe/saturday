@@ -126,7 +126,7 @@ struct CreditCardView: View {
             ZStack {
                 
                 RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.background)
                 
                 HStack {
                     

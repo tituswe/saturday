@@ -75,7 +75,8 @@ struct PeekCreditView: View {
             .frame(maxWidth: .infinity, maxHeight: 80)
             
         }
-        .ignoresSafeArea(.all, edges: [.bottom])
+        .ignoresSafeArea(.all, edges: [.top, .bottom])
+        .background(Color.background)
         
     }
     

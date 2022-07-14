@@ -27,7 +27,7 @@ struct HomeView: View {
             
             ZStack {
                 
-                Color(.white)
+                Color.background
                 
                 VStack {
                     
@@ -83,9 +83,9 @@ struct HomeView: View {
                 
             }
             .cornerRadius(isShowingSideMenu ? 20 : 10)
-            .offset(x: isShowingSideMenu ? 300 : 0)
+            .offset(x: isShowingSideMenu ? 300: 0, y: isShowingSideMenu ? 44 : 0)
             .scaleEffect(isShowingSideMenu ? 0.8 : 1)
-            .ignoresSafeArea(.all, edges: [.bottom])
+            .ignoresSafeArea(.all, edges: [.top, .bottom])
             
         }
         
@@ -97,5 +97,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

@@ -23,7 +23,7 @@ struct SentView: View {
             } label: {
                 ZStack {
                     
-                    LinearGradient(gradient: Gradient(colors: [Color.white, Color.systemGreen]), startPoint: .topTrailing, endPoint: .bottomLeading)
+                    LinearGradient(gradient: Gradient(colors: [Color.background, Color.systemGreen]), startPoint: .topTrailing, endPoint: .bottomLeading)
                         .ignoresSafeArea()
                     
                     VStack {
@@ -68,5 +68,6 @@ struct SentView_Previews: PreviewProvider {
     static var previews: some View {
         SentView()
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }

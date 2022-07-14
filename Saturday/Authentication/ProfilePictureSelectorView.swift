@@ -21,16 +21,16 @@ struct ProfilePictureSelectorView: View {
         
         ZStack {
             
-            Color.systemYellow
+            Color.systemViolet
                 .ignoresSafeArea()
             
             Circle()
                 .scale(1.7)
-                .foregroundColor(.white.opacity(0.15))
+                .foregroundColor(Color.background.opacity(0.15))
             
             Circle()
                 .scale(1.35)
-                .foregroundColor(.white)
+                .foregroundColor(Color.background)
             
             VStack {
                 
@@ -61,7 +61,7 @@ struct ProfilePictureSelectorView: View {
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .renderingMode(.template)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.background)
                                 .scaledToFill()
                                 .background(Color.systemBlue)
                                 .cornerRadius(50)
@@ -85,7 +85,7 @@ struct ProfilePictureSelectorView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .frame(width: 100, height: 50)
-                            .background(Color.systemGreen)
+                            .background(Color.systemBlue)
                             .cornerRadius(50)
                             .padding(.top, 15)
                     }
@@ -100,7 +100,7 @@ struct ProfilePictureSelectorView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .frame(width: 100, height: 50)
-                            .background(Color.systemYellow)
+                            .background(Color.systemBlue)
                             .cornerRadius(50)
                             .padding(.top, 15)
                     }
@@ -125,5 +125,6 @@ struct ProfilePictureSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         ProfilePictureSelectorView()
             .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
     }
 }
