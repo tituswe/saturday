@@ -2,90 +2,8 @@
 //  CreditCardView.swift
 //  Saturday
 //
-//  Created by Titus Lowe on 7/7/22.
+//  Created by Titus Lowe on 5/7/22.
 //
-//
-//import SwiftUI
-//import Kingfisher
-//
-//struct CreditCardView: View {
-//
-//    @EnvironmentObject var viewModel: UserViewModel
-//
-//    let credit: Credit
-//
-//    var body: some View {
-//
-//        HStack {
-//
-//            VStack {
-//
-//                Text(credit.date)
-//                    .font(.system(.footnote, design: .rounded))
-//                    .foregroundColor(.gray)
-//
-//                Spacer()
-//                    .frame(height: 2)
-//                Text("\(debtor().name.components(separatedBy: " ").first!) owes You")
-//                    .font(.system(.body, design: .rounded))
-//                    .fontWeight(.semibold)
-//
-//            }
-//            .padding(.leading, 25)
-//
-//            Spacer()
-//
-//            VStack {
-//
-//                Text("$" + String(format: "%.2f", credit.total))
-//                    .font(.system(.title3, design: .rounded))
-//                    .fontWeight(.semibold)
-//
-//                HStack {
-//
-//                    KFImage(URL(string: viewModel.currentUser!.profileImageUrl))
-//                        .resizable()
-//                        .scaledToFill()
-//                        .clipped()
-//                        .frame(width: 32, height: 32)
-//                        .clipShape(Circle())
-//                        .overlay(Circle().stroke(Color.systemGreen, lineWidth: 3))
-//
-//                    KFImage(URL(string: debtor().profileImageUrl))
-//                        .resizable()
-//                        .scaledToFill()
-//                        .clipped()
-//                        .frame(width: 24, height: 24)
-//                        .clipShape(Circle())
-//                        .overlay(Circle().stroke(Color.systemRed, lineWidth: 2.25))
-//
-//                }
-//
-//            }
-//            .padding(.trailing, 25)
-//
-//        }
-//        .frame(width: 350, height: 150)
-//        .background()
-//        .cornerRadius(25)
-//        .padding(10)
-//        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-//    }
-//
-//    func debtor() -> User {
-//        let uid = credit.debtorId
-//        let debtor = viewModel.queryUser(withUid: uid)
-//        return debtor
-//    }
-//
-//}
-//
-//struct CreditCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CreditCardView(credit: previewCredit)
-//            .environmentObject(UserViewModel())
-//    }
-//}
 
 import SwiftUI
 import Kingfisher
@@ -111,6 +29,7 @@ struct CreditCardView: View {
             HStack {
                 
                 Spacer()
+                    .frame(width: 256)
                 
                 Button {
                     viewModel.cacheTransaction(credit: credit)
@@ -120,7 +39,8 @@ struct CreditCardView: View {
                         .font(.title2)
                         .foregroundColor(.white)
                 }
-                .frame(width: 80, height: 120)
+                .frame(width: 40, height: 80)
+                
             }
             
             ZStack {
@@ -130,56 +50,58 @@ struct CreditCardView: View {
                 
                 HStack {
                     
-                    VStack {
+                    KFImage(URL(string: debtor().profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .frame(width: 64, height: 64)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.background, lineWidth: 3))
+                    
+                    VStack(alignment: .leading) {
                         
                         Text(credit.date)
-                            .font(.system(.footnote, design: .rounded))
-                            .foregroundColor(.gray)
+                            .font(.system(size: 9))
+                            .foregroundColor(Color.gray)
+                            .padding(.leading, 4)
                         
-                        Spacer()
-                            .frame(height: 2)
+                        Button {
+                           print("TODO: Send notification reminder")
+                        } label: {
+                            Text("Send a reminder")
+                                .font(.system(size: 10))
+                                .foregroundColor(Color.white)
+                                .frame(width: 112, height: 24)
+                                .background(Color.systemViolet)
+                                .cornerRadius(10)
+                        }
                         
-                        Text("\(debtor().name.components(separatedBy: " ").first!) owes You")
-                            .font(.system(.body, design: .rounded))
-                            .fontWeight(.semibold)
-                        
-                    }
-                    .padding(.leading, 25)
-                    
-                    Spacer()
-                    
-                    VStack {
-                        
-                        Text("$" + String(format: "%.2f", credit.total))
-                            .font(.system(.title3, design: .rounded))
-                            .fontWeight(.semibold)
-                        
-                        HStack {
-                            
-                            if let user = viewModel.currentUser {
-                                
-                                KFImage(URL(string: user.profileImageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 32, height: 32)
-                                    .clipShape(Circle())
-                                    .overlay(Circle().stroke(Color.systemGreen, lineWidth: 3))
-                                
-                                KFImage(URL(string: debtor().profileImageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 24, height: 24)
-                                    .clipShape(Circle())
-                                    .overlay(Circle().stroke(Color.systemRed, lineWidth: 2.25))
-                                
-                            }
-                            
+                        Button {
+                            viewModel.refresh()
+                            isShowingPeekCreditView = true
+                        } label: {
+                            Text("Preview")
+                                .font(.system(size: 10))
+                                .foregroundColor(Color.white)
+                                .frame(width: 112, height: 24)
+                                .background(Color.systemIndigo)
+                                .cornerRadius(10)
                         }
                         
                     }
-                    .padding(.trailing, 25)
+                    .padding(.horizontal, 8)
+                    
+                    VStack(alignment: .trailing) {
+                        
+                        Text(userName())
+                            .font(.system(size: 16))
+                            .foregroundColor(Color.gray)
+                        
+                        Text("$" + String(format: "%.2f", credit.total))
+                            .font(.system(size: 20))
+                        
+                    }
+                    .frame(width: 80)
                     
                 }
                 
@@ -187,21 +109,17 @@ struct CreditCardView: View {
             .frame(width: 350, height: 150)
             .offset(x: offset)
             .gesture(DragGesture().onChanged(onChanged(value:)).onEnded(onEnd(value:)))
-            .onTapGesture {
-                viewModel.refresh()
-                isShowingPeekCreditView = true
-            }
             .sheet(isPresented: $isShowingPeekCreditView) {
                 PeekCreditView(credit: credit, isShowingPeekCreditView: $isShowingPeekCreditView)
                     .environmentObject(viewModel)
             }
             
         }
-        .frame(width: 350, height: 150)
-        .background()
+        .frame(width: 320, height: 96)
+        .background(Color.background)
         .cornerRadius(25)
         .padding(.top, 16)
-        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
         
     }
     
@@ -209,6 +127,16 @@ struct CreditCardView: View {
         let uid = credit.debtorId
         let debtor = viewModel.queryUser(withUid: uid)
         return debtor
+    }
+    
+    func userName() -> String {
+        let name = debtor().name.components(separatedBy: " ").first!
+
+        if name.count > 6 {
+            return name.prefix(5) + "..."
+        } else {
+            return name
+        }
     }
     
     func resetOffset() {
@@ -231,10 +159,10 @@ struct CreditCardView: View {
                     offset = -1000
                     viewModel.cacheTransaction(credit: credit)
                     viewModel.refresh()
-                } else if -offset > 50 {
+                } else if -offset > 48 {
                     // Updating is swiping
                     isSwiped = true
-                    offset = -90
+                    offset = -88
                 } else {
                     isSwiped = false
                     offset = 0

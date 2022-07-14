@@ -61,7 +61,8 @@ struct HistoryView: View {
                     }
                     
                     // MARK: Bottom Bar
-                    BottomBarView()
+                    BottomBarView(viewState: .HISTORY)
+                        .environmentObject(viewModel)
                     
                 }
                 

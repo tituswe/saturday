@@ -11,13 +11,16 @@ struct PaymentView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
     
+    @Environment(\.openURL) var openURL
+    
     let debt: Debt
     
     var body: some View {
         // TODO: Link to payment services
         Button {
-            viewModel.cacheTransaction(debt: debt)
-            viewModel.refresh()
+            if let url = URL(string: "applestore://") {
+                openURL(url)
+            }
         } label: {
             Text("Pay up")
         }

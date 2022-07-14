@@ -1,5 +1,5 @@
 //
-//  DebtCard.swift
+//  DebtCardView.swift
 //  Saturday
 //
 //  Created by Titus Lowe on 5/7/22.
@@ -31,15 +31,17 @@ struct DebtCardView: View {
             HStack {
                 
                 Spacer()
+                    .frame(width: 256)
                 
                 Button {
                     isShowingPaymentView = true
                 } label: {
                     Image(systemName: "creditcard.fill")
-                        .font(.title2)
+                        .font(.title3)
                         .foregroundColor(.white)
                 }
-                .frame(width: 80, height: 120)
+                .frame(width: 40, height: 80)
+                
             }
             
             ZStack {
@@ -49,56 +51,58 @@ struct DebtCardView: View {
                 
                 HStack {
                     
-                    VStack {
+                    KFImage(URL(string: creditor().profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .frame(width: 64, height: 64)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.background, lineWidth: 3))
+                    
+                    VStack(alignment: .leading) {
                         
                         Text(debt.date)
-                            .font(.system(.footnote, design: .rounded))
-                            .foregroundColor(.gray)
+                            .font(.system(size: 9))
+                            .foregroundColor(Color.gray)
+                            .padding(.leading, 4)
                         
-                        Spacer()
-                            .frame(height: 2)
+                        Button {
+                           print("TODO: Send notification reminder")
+                        } label: {
+                            Text("Send a reminder")
+                                .font(.system(size: 10))
+                                .foregroundColor(Color.white)
+                                .frame(width: 112, height: 24)
+                                .background(Color.systemViolet)
+                                .cornerRadius(10)
+                        }
                         
-                        Text("You owe \(creditor().name.components(separatedBy: " ").first!)")
-                            .font(.system(.body, design: .rounded))
-                            .fontWeight(.semibold)
-                        
-                    }
-                    .padding(.leading, 25)
-                    
-                    Spacer()
-                    
-                    VStack {
-                        
-                        Text("$" + String(format: "%.2f", debt.total))
-                            .font(.system(.title3, design: .rounded))
-                            .fontWeight(.semibold)
-                        
-                        HStack {
-                            
-                            if let user = viewModel.currentUser {
-                                
-                                KFImage(URL(string: creditor().profileImageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 32, height: 32)
-                                    .clipShape(Circle())
-                                    .overlay(Circle().stroke(Color.systemGreen, lineWidth: 3))
-                                
-                                KFImage(URL(string: user.profileImageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 24, height: 24)
-                                    .clipShape(Circle())
-                                    .overlay(Circle().stroke(Color.systemRed, lineWidth: 2.25))
-                                
-                            }
-                            
+                        Button {
+                            viewModel.refresh()
+                            isShowingSettleDebtView = true
+                        } label: {
+                            Text("Settle up")
+                                .font(.system(size:10))
+                                .foregroundColor(Color.white)
+                                .frame(width: 112, height: 24)
+                                .background(Color.systemIndigo)
+                                .cornerRadius(10)
                         }
                         
                     }
-                    .padding(.trailing, 25)
+                    .padding(.horizontal, 8)
+                    
+                    VStack(alignment: .trailing) {
+                        
+                        Text(userName())
+                            .font(.system(size: 16))
+                            .foregroundColor(Color.gray)
+                        
+                        Text("$" + String(format: "%.2f", debt.total))
+                            .font(.system(size: 20))
+                        
+                    }
+                    .frame(width: 80)
                     
                 }
                 
@@ -106,10 +110,6 @@ struct DebtCardView: View {
             .frame(width: 350, height: 150)
             .offset(x: offset)
             .gesture(DragGesture().onChanged(onChanged(value:)).onEnded(onEnd(value:)))
-            .onTapGesture {
-                viewModel.refresh()
-                isShowingSettleDebtView = true
-            }
             .sheet(isPresented: $isShowingSettleDebtView) {
                 SettleDebtView(debt: debt,
                                isShowingSettleDebtView: $isShowingSettleDebtView,
@@ -123,11 +123,11 @@ struct DebtCardView: View {
             }
             
         }
-        .frame(width: 350, height: 150)
-        .background()
+        .frame(width: 320, height: 96)
+        .background(Color.background)
         .cornerRadius(25)
         .padding(.top, 16)
-        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
         
     }
     
@@ -135,6 +135,16 @@ struct DebtCardView: View {
         let uid = debt.creditorId
         let creditor = viewModel.queryUser(withUid: uid)
         return creditor
+    }
+    
+    func userName() -> String {
+        let name = creditor().name.components(separatedBy: " ").first!
+
+        if name.count > 6 {
+            return name.prefix(5) + "..."
+        } else {
+            return name
+        }
     }
     
     func resetOffset() {
@@ -156,10 +166,10 @@ struct DebtCardView: View {
                 if -value.translation.width > UIScreen.main.bounds.width / 2 {
                     offset = -1000
                     isShowingPaymentView = true
-                } else if -offset > 50 {
+                } else if -offset > 48 {
                     // Updating is swiping
                     isSwiped = true
-                    offset = -90
+                    offset = -88
                 } else {
                     isSwiped = false
                     offset = 0
@@ -176,6 +186,6 @@ struct DebtCardView_Previews: PreviewProvider {
     static var previews: some View {
         DebtCardView(debt: previewDebt)
             .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
+//            .environment(\.colorScheme, .dark)
     }
 }

@@ -110,7 +110,8 @@ struct FriendsView: View {
                     }
                     
                     // MARK: Bottom Bar
-                    BottomBarView()
+                    BottomBarView(viewState: .FRIENDS)
+                        .environmentObject(viewModel)
                     
                 }
                 
