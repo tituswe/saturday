@@ -44,7 +44,6 @@
 		58CE64302874BD2E00DF2C77 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE642F2874BD2E00DF2C77 /* FriendsView.swift */; };
 		58CE64322874BD7600DF2C77 /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE64312874BD7600DF2C77 /* UserRowView.swift */; };
 		58CE64352874C9C600DF2C77 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE64342874C9C600DF2C77 /* SearchBar.swift */; };
-		58CE64372874D48500DF2C77 /* FriendRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE64362874D48500DF2C77 /* FriendRequestsView.swift */; };
 		58CE643B287583E900DF2C77 /* AddUserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE643A287583E800DF2C77 /* AddUserRowView.swift */; };
 		58CE643E2875882000DF2C77 /* AddUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE643D2875882000DF2C77 /* AddUserView.swift */; };
 		58CE644028758CB900DF2C77 /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE643F28758CB800DF2C77 /* UserCardView.swift */; };
@@ -113,7 +112,6 @@
 		58CE642F2874BD2E00DF2C77 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		58CE64312874BD7600DF2C77 /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
 		58CE64342874C9C600DF2C77 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		58CE64362874D48500DF2C77 /* FriendRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsView.swift; sourceTree = "<group>"; };
 		58CE643A287583E800DF2C77 /* AddUserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRowView.swift; sourceTree = "<group>"; };
 		58CE643D2875882000DF2C77 /* AddUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserView.swift; sourceTree = "<group>"; };
 		58CE643F28758CB800DF2C77 /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
@@ -202,6 +200,7 @@
 				589820D92856637300719CCE /* SaturdayLogo.swift */,
 				58AFC05D287EEC82008AB208 /* BottomBarView.swift */,
 				588848E228815525000CD17B /* NavBarView.swift */,
+				5843E77F2880892500FEFE66 /* Temp.swift */,
 				B0ADE209286CD7790039D0C1 /* Home */,
 				58CE642C2874BC8B00DF2C77 /* Friends */,
 				58BA1753287ABC1F00B68D55 /* History */,
@@ -286,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				58CE642F2874BD2E00DF2C77 /* FriendsView.swift */,
-				58CE64362874D48500DF2C77 /* FriendRequestsView.swift */,
 				58CE64312874BD7600DF2C77 /* UserRowView.swift */,
 			);
 			path = Friends;
@@ -370,12 +368,11 @@
 			isa = PBXGroup;
 			children = (
 				B0ADE20A286CD7870039D0C1 /* HomeView.swift */,
-				5843E77F2880892500FEFE66 /* Temp.swift */,
+				58FA37B228770D7F00988F37 /* CreditCardView.swift */,
+				580C6A18287E070E00EA8D70 /* PeekCreditView.swift */,
 				58B331372873712400C64E78 /* DebtCardView.swift */,
 				58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */,
-				58FA37B228770D7F00988F37 /* CreditCardView.swift */,
 				58FA37B42877119500988F37 /* SettleDebtView.swift */,
-				580C6A18287E070E00EA8D70 /* PeekCreditView.swift */,
 				58D8762D287789D70046D716 /* PaymentView.swift */,
 			);
 			path = Home;
@@ -517,7 +514,6 @@
 				B032CB562864A384003FB01F /* TextExtractionModel.swift in Sources */,
 				B0ADE210286CD7B10039D0C1 /* Transaction.swift in Sources */,
 				58FA37B12876EB2F00988F37 /* CreditService.swift in Sources */,
-				58CE64372874D48500DF2C77 /* FriendRequestsView.swift in Sources */,
 				58CE63E52874AC2400DF2C77 /* UserService.swift in Sources */,
 				588848E328815525000CD17B /* NavBarView.swift in Sources */,
 				58B331382873712400C64E78 /* DebtCardView.swift in Sources */,

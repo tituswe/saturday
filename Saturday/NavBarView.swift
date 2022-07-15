@@ -29,7 +29,7 @@ struct NavBarView: View {
                         Button(action: topLeftButtonAction) {
                             Image(systemName: topLeftButtonView)
                                 .font(.title3)
-                                .foregroundColor(Color.background)
+                                .foregroundColor(Color.white)
                         }
                     } else {
                         Text("")
@@ -40,7 +40,7 @@ struct NavBarView: View {
                     
                     Text(titleString)
                         .font(.title3)
-                        .foregroundColor(Color.background)
+                        .foregroundColor(Color.white)
                     
                     Spacer()
                     
@@ -48,7 +48,7 @@ struct NavBarView: View {
                         Button(action: topRightButtonAction) {
                             Image(systemName: topRightButtonView)
                                 .font(.title3)
-                                .foregroundColor(Color.background)
+                                .foregroundColor(Color.white)
                         }
                     } else {
                         Text("")

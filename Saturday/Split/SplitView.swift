@@ -25,7 +25,10 @@ struct SplitView: View {
     
     var body: some View {
         
-        NavigationView {
+        ZStack {
+            
+            LinearGradient(gradient: Gradient(colors: [Color.systemGreen, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .ignoresSafeArea()
             
             VStack {
                 
@@ -33,206 +36,220 @@ struct SplitView: View {
                 NavBarView(
                     topLeftButtonView: "arrow.backward",
                     topRightButtonView: "",
-                    titleString: "Your Split",
+                    titleString: "Split",
                     topLeftButtonAction: {
                         isShowingSplitView = false
                     },
                     topRightButtonAction: {})
                 
+                // MARK: Split
                 VStack {
                     
-                    Spacer()
-                    
-                    // MARK: User Cards
-                    if cartManager.payableUsers.isEmpty {
+                    VStack(spacing: 4) {
                         
-                        HStack(alignment: .center) {
+                        HStack {
                             
-                            Button {
-                                viewModel.refresh()
-                                cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
-                                self.isShowingAddUserView = true
-                            } label: {
-                                Text("Add friends")
-                                    .font(.system(.title3, design: .rounded))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.gray)
-                                    .frame(width: 160, height: 50)
-                                    .background(Color.background)
-                                    .cornerRadius(50)
-                                
-                            }
-                            .overlay(Capsule()
-                                .stroke(Color(.lightGray),
-                                        style: StrokeStyle(lineWidth: 4,
-                                                           dash: [10])))
-                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                            Text("YOUR SPLIT")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color.gray)
+                                .padding(.horizontal, 24)
                             
                         }
                         
-                    } else {
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            
-                            LazyHStack {
-                                
-                                Button {
-                                    self.isShowingAddUserView = true
-                                } label: {
-                                    VStack {
-                                        ZStack {
-                                            Circle()
-                                                .frame(width: 64, height: 64)
-                                                .foregroundColor(Color.background)
-                                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
-                                            
-                                            Image(systemName: "person.badge.plus")
-                                                .resizable()
-                                                .frame(width: 32, height: 32)
-                                                .foregroundColor(.gray)
-                                                .offset(x: -2, y: 1)
-                                        }
-                                        .overlay(Circle()
-                                            .stroke(Color(.lightGray),
-                                                    style: StrokeStyle(lineWidth: 4,
-                                                                       dash: [10])))
-                                        
-                                        Text(" ")
-                                    }
-                                }
-                                .padding(.top)
-                                .padding(.horizontal)
-                                
-                                ForEach(cartManager.payableUsers, id: \.id) { user in
-                                    UserCardView(user: user)
-                                        .environmentObject(viewModel)
-                                        .environmentObject(cartManager)
-                                }
-                                
-                            }
-                            
-                        }
-                        .padding(.horizontal)
+                        RoundedRectangle(cornerRadius: 25)
+                            .frame(width: 72, height: 2.4)
+                            .foregroundColor(Color.systemViolet)
                         
                     }
-                    
-                    Spacer()
-                    
-                }
-                .frame(height: 140)
-                
-                Divider()
-                
-                Spacer()
-                
-                // MARK: Item Cards
-                ZStack {
-                    
-                    if cartManager.payableItems.isEmpty {
+                    .padding(.top, 16)
+                    .padding(.bottom, 8)
                         
-                        if referenceReceipt == nil {
+                    Divider()
+                    
+                    VStack {
+                        
+                        // MARK: User Cards
+                        if cartManager.payableUsers.isEmpty {
                             
-                            Button {
-                                isShowingImagePicker = true
-                            } label: {
-                                Text("Upload a receipt")
-                                    .font(.system(.title3, design: .rounded))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.gray)
-                                    .frame(width: 280, height: 380)
-                                    .background(Color.background)
-                                    .cornerRadius(50)
+                            HStack(alignment: .center) {
+                                
+                                Button {
+                                    viewModel.refresh()
+                                    cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
+                                    self.isShowingAddUserView = true
+                                } label: {
+                                    Text("Add friends")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.gray)
+                                        .frame(width: 120, height: 40)
+                                        .background(Color.background)
+                                        .cornerRadius(50)
+                                    
+                                }
+                                .overlay(Capsule()
+                                    .stroke(Color(.lightGray),
+                                            style: StrokeStyle(lineWidth: 3,
+                                                               dash: [10])))
+                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                
                             }
-                            .overlay(RoundedRectangle(cornerRadius: 50)
-                                .stroke(Color(.lightGray),
-                                        style: StrokeStyle(lineWidth: 4,
-                                                           dash: [10])))
-                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                             
                         } else {
                             
-                            Text("No more items!")
-                                .font(.system(.title3, design: .rounded))
-                                .fontWeight(.bold)
-                                .foregroundColor(.gray)
-                                .frame(width: 280, height: 380)
-                                .background(Color.background)
-                                .cornerRadius(50)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                
+                                LazyHStack {
+                                    
+                                    Button {
+                                        self.isShowingAddUserView = true
+                                    } label: {
+                                        VStack {
+                                            ZStack {
+                                                Circle()
+                                                    .frame(width: 48, height: 48)
+                                                    .foregroundColor(Color.background)
+                                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                                
+                                                Image(systemName: "person.badge.plus")
+                                                    .resizable()
+                                                    .frame(width: 20, height: 20)
+                                                    .foregroundColor(.gray)
+                                                    .offset(x: -1.5, y: 1)
+                                            }
+                                            .overlay(Circle()
+                                                .stroke(Color(.lightGray),
+                                                        style: StrokeStyle(lineWidth: 2,
+                                                                           dash: [5])))
+                                            
+                                            Text(" ")
+                                        }
+                                    }
+                                    .padding(.top)
+                                    .padding(.horizontal)
+                                    
+                                    ForEach(cartManager.payableUsers, id: \.id) { user in
+                                        UserCardView(user: user)
+                                            .environmentObject(viewModel)
+                                            .environmentObject(cartManager)
+                                    }
+                                    
+                                }
+                                
+                            }
+                            .padding(.horizontal)
                             
                         }
                         
+                    }
+                    .frame(height: 120)
+                    
+                    Divider()
+                    
+                    Spacer()
+                    
+                    // MARK: Item Cards
+                    ZStack {
                         
-                    } else {
-                        
-                        ScrollView {
-                            LazyVStack {
-                                ForEach(cartManager.payableItems, id: \.id) { item in
-                                    // TODO: Make Item Cards
-                                    ItemCardView(item: item)
-                                        .environmentObject(viewModel)
-                                        .environmentObject(cartManager)
-                                    Divider()
+                        if cartManager.payableItems.isEmpty {
+                            
+                            if referenceReceipt == nil {
+                                
+                                Button {
+                                    isShowingImagePicker = true
+                                } label: {
+                                    Text("Upload a receipt")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.gray)
+                                        .frame(width: 280, height: 320)
+                                        .background(Color.background)
+                                        .cornerRadius(50)
+                                }
+                                .overlay(RoundedRectangle(cornerRadius: 50)
+                                    .stroke(Color(.lightGray),
+                                            style: StrokeStyle(lineWidth: 3,
+                                                               dash: [10])))
+                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                
+                            } else {
+                                
+                                Text("No more items!")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.gray)
+                                    .frame(width: 280, height: 320)
+                                    .background(Color.background)
+                                    .cornerRadius(50)
+                                
+                            }
+                            
+                            
+                        } else {
+                            
+                            ScrollView {
+                                LazyVStack {
+                                    ForEach(cartManager.payableItems, id: \.id) { item in
+                                        // TODO: Make Item Cards
+                                        ItemCardView(item: item)
+                                            .environmentObject(viewModel)
+                                            .environmentObject(cartManager)
+                                        Divider()
+                                    }
                                 }
                             }
+                            
                         }
                         
                     }
+                    .padding(.horizontal)
+                    
+                    Spacer()
                     
                 }
-                .padding(.horizontal)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.background)
+                .cornerRadius(50, corners:[.topLeft, .topRight])
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: -3)
+                .padding(.top, 8)
+                .sheet(isPresented: $isShowingAddUserView) {
+                    AddUserView()
+                        .environmentObject(viewModel)
+                        .environmentObject(cartManager)
+                }
+                .sheet(isPresented: $isShowingImagePicker, onDismiss: extractItems) {
+                    ImagePicker(selectedImage: $referenceReceipt)
+                }
                 
                 Spacer()
+                    .frame(height: 2)
                 
-                // MARK: Bottom Bar
-                ZStack {
+                // MARK: Bottom bar
+                HStack {
                     
-                    if cartManager.payableItems.isEmpty {
-                        
-                        if referenceReceipt != nil {
-                            
-                            Button {
-                                cartManager.broadcastTransactions()
-                                isShowingSentView = true
-                            } label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 50)
-                                        .foregroundColor(Color.systemGreen)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                        .shadow(color: Color.black.opacity(0.5), radius: 5, x: 0, y: -3)
-                                    
-                                    Text("Send split!")
-                                        .font(.system(.title2, design: .rounded))
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            
-                            NavigationLink(isActive: $isShowingSentView) {
-                                SentView()
-                                    .environmentObject(viewModel)
-                                    .navigationBarHidden(true)
-                            } label: {}
-                            
+                    Button {
+                        if splitDone() {
+                            cartManager.broadcastTransactions()
+                            isShowingSentView = true
                         }
-                        
+                    } label: {
+                        Text("Send!")
+                            .font(.system(size: 16))
+                            .fontWeight(splitDone() ? .bold : .regular)
+                            .foregroundColor(splitDone() ? Color.black : Color.gray)
+                            .frame(width: 88, height: 40)
+                            .background(Color.background)
+                            .cornerRadius(25)
                     }
                     
+                    NavigationLink(isActive: $isShowingSentView) {
+                        SentView()
+                            .environmentObject(viewModel)
+                            .navigationBarHidden(true)
+                    } label: {}
                 }
-                .frame(maxWidth: .infinity, maxHeight: 80)
-                .ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: 88)
+                .background(Color.background)
                 
             }
-            .background(Color.background)
-            .ignoresSafeArea(.all, edges: [.top, .bottom])
-            .navigationBarHidden(true)
-            .sheet(isPresented: $isShowingAddUserView) {
-                AddUserView()
-                    .environmentObject(viewModel)
-                    .environmentObject(cartManager)
-            }
-            .sheet(isPresented: $isShowingImagePicker, onDismiss: extractItems) {
-                ImagePicker(selectedImage: $referenceReceipt)
-            }
+            .ignoresSafeArea(.all, edges: [.bottom])
             
         }
         
@@ -247,12 +264,16 @@ struct SplitView: View {
         print("DEBUG: Extracted items from receipt!")
     }
     
+    func splitDone() -> Bool {
+        return !cartManager.payableUsers.isEmpty && cartManager.payableItems.isEmpty
+    }
+    
 }
 
 struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
         SplitView(isShowingSplitView: .constant(true))
             .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
+//            .environment(\.colorScheme, .dark)
     }
 }

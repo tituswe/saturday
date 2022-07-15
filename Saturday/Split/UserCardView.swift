@@ -31,7 +31,7 @@ struct UserCardView: View {
                     .resizable()
                     .scaledToFill()
                     .clipShape(Circle())
-                    .frame(width: 64, height: 64)
+                    .frame(width: 48, height: 48)
                     .overlay(Circle()
                         .stroke(isShowingDeleteButton
                                 ? Color.systemRed.opacity(0.8)
@@ -55,17 +55,17 @@ struct UserCardView: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .frame(width: 24, height: 24)
+                                .frame(width: 16, height: 16)
                                 .foregroundColor(Color.systemRed)
                             
                             Image(systemName: "xmark")
                                 .resizable()
-                                .frame(width: 10, height: 10)
+                                .frame(width: 8, height: 8)
                                 .foregroundColor(.white)
                                 
                         }
                     }
-                    .offset(x: 40, y: -32)
+                    .offset(x: 32, y: -24)
                     
                 } else if cartManager.getTransactionItemsCount(key: user.id!) > 0 {
                     
@@ -75,7 +75,7 @@ struct UserCardView: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .frame(width: 24, height: 24)
+                                .frame(width: 16, height: 16)
                                 .foregroundColor(Color.systemBlue)
                             
                             Text("\(cartManager.getTransactionItemsCount(key: user.id!))")
@@ -83,7 +83,7 @@ struct UserCardView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .offset(x: 40, y: -32)
+                    .offset(x: 32, y: -24)
                     
                 }
                 
@@ -95,8 +95,7 @@ struct UserCardView: View {
             }
             
             Text(userName())
-                .font(.system(.body, design: .rounded))
-                .fontWeight(.semibold)
+                .font(.system(size: 14))
             
         }
         .padding(.top)

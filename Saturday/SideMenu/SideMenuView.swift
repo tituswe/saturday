@@ -13,14 +13,6 @@ struct SideMenuView: View {
     
     @Binding var isShowingSideMenu: Bool
     
-    @State var isShowingDashboard: Bool = false
-    
-    @State var isShowingFriends: Bool = false
-    
-    @State var isShowingHistory: Bool = false
-    
-    @State var isShowingDarkMode: Bool = false
-    
     @State var isLoggingOut: Bool = false
     
     var body: some View {
@@ -39,47 +31,15 @@ struct SideMenuView: View {
                 
                 // MARK: Cell Items
                 Button {
-                    isShowingDashboard = true
+                    print("TODO: Profile View")
                 } label: {
-                    SideMenuOptionView(title: "Dashboard", imageName: "house")
-                }
-                
-                NavigationLink(isActive: $isShowingDashboard) {
-                    ContentView()
-                        .environmentObject(viewModel)
-                        .navigationBarHidden(true)
-                } label: {
-                    Text("")
+                    SideMenuOptionView(title: "Profile", imageName: "person")
                 }
                 
                 Button {
-                    viewModel.fetchFriends()
-                    viewModel.fetchUsers()
-                    isShowingFriends = true
+                    print("TODO: Help View")
                 } label: {
-                    SideMenuOptionView(title: "Friends", imageName: "person.2")
-                }
-                
-                NavigationLink(isActive: $isShowingFriends) {
-                    FriendsView()
-                        .environmentObject(viewModel)
-                        .navigationBarHidden(true)
-                } label: {
-                    Text("")
-                }
-                
-                Button {
-                    isShowingHistory = true
-                } label: {
-                    SideMenuOptionView(title: "History", imageName: "clock")
-                }
-                
-                NavigationLink(isActive: $isShowingHistory) {
-                    HistoryView()
-                        .environmentObject(viewModel)
-                        .navigationBarHidden(true)
-                } label: {
-                    Text("")
+                    SideMenuOptionView(title: "Help", imageName: "questionmark.circle")
                 }
                 
                 Button {

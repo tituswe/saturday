@@ -7,13 +7,24 @@
 
 import SwiftUI
 
+enum FriendState {
+    
+    case FRIEND
+    case REQUEST
+    
+}
+
 struct FriendsView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
     
+    @State var isShowingSplitView: Bool = false
+    
     @State var isShowingSideMenu: Bool = false
     
-    @State var isShowingFriendRequestsView: Bool = false
+    @State var friendState: FriendState = .FRIEND
+    
+    @State var friendStateOffset = CGFloat(-89)
     
     var body: some View {
         
@@ -23,103 +34,155 @@ struct FriendsView: View {
             if isShowingSideMenu {
                 SideMenuView(isShowingSideMenu: $isShowingSideMenu)
                     .environmentObject(viewModel)
+            } else {
+                LinearGradient(gradient: Gradient(colors: [Color.systemIndigo, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .ignoresSafeArea()
             }
             
-            ZStack {
+            VStack {
                 
-                Color.background
+                // MARK: Navigation Bar
+                NavBarView(
+                    topLeftButtonView: "line.horizontal.3",
+                    topRightButtonView: "",
+                    titleString: "Your Friends",
+                    topLeftButtonAction: {
+                        viewModel.refresh()
+                        withAnimation(.spring()) {
+                            isShowingSideMenu = true
+                        }
+                    },
+                    topRightButtonAction: {})
                 
+                // MARK: Friends List
                 VStack {
                     
-                    ZStack {
+                    VStack(spacing: 4) {
                         
-                        // MARK: Navigation Bar
-                        NavBarView(
-                            topLeftButtonView: "line.horizontal.3",
-                            topRightButtonView: "",
-                            titleString: "Friends",
-                            topLeftButtonAction: {
-                                withAnimation(.spring()) {
-                                    isShowingSideMenu = true
-                                }
-                            },
-                            topRightButtonAction: {})
-                        
-                        HStack(alignment: .bottom) {
-                            
-                            Spacer()
+                        HStack {
                             
                             Button {
-                                viewModel.fetchFriendRequests()
-                                self.isShowingFriendRequestsView = true
-                                print("\(viewModel.users)")
+                                friendState = .FRIEND
+                                withAnimation {
+                                    friendStateOffset = -89
+                                }
                             } label: {
-                                Text("Friend Requests")
-                                    .font(.system(.caption, design: .rounded))
-                                    .padding(8)
-                                    .background(Color.background)
-                                    .cornerRadius(20)
-                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
+                                Text("FRIENDS")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.gray)
+                                    .padding(.horizontal, 24)
                             }
-                            .sheet(isPresented: $isShowingFriendRequestsView) {
-                                FriendRequestsView()
-                                    .environmentObject(viewModel)
+                            
+                            
+                            Spacer()
+                                .frame(width: 48)
+                            
+                            Button {
+                                friendState = .REQUEST
+                                withAnimation {
+                                    friendStateOffset = 82
+                                }
+                            } label: {
+                                Text("REQUESTS")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.gray)
+                                    .padding(.horizontal, 24)
                             }
                             
                         }
-                        .padding(.top)
-                        .padding(.horizontal)
+                        
+                        RoundedRectangle(cornerRadius: 25)
+                            .frame(width: 72, height: 2.4)
+                            .foregroundColor(Color.systemViolet)
+                            .offset(x: friendStateOffset)
                         
                     }
+                    .padding(.top, 16)
+                    .padding(.bottom, 8)
                     
-                    Spacer()
                     
                     SearchBar(text: $viewModel.searchText)
-                        .padding(.top, 10)
                         .padding(.horizontal, 10)
                     
                     ScrollView {
                         
                         LazyVStack {
                             
-                            if viewModel.searchText.isEmpty {
-                                
-                                ForEach(viewModel.friends) { user in
-                                    UserRowView(user: user, state: .FRIEND)
-                                        .environmentObject(viewModel)
-                                    
-                                    Divider()
-                                    
+                            switch friendState {
+
+                            case .FRIEND:
+                                if viewModel.searchText.isEmpty {
+                                    ForEach(viewModel.friends) { user in
+                                        
+                                        UserRowView(user: user, state: .FRIEND)
+                                            .environmentObject(viewModel)
+                                        
+                                        Divider()
+                                            .padding(.horizontal, 24)
+                                        
+                                    }
+                                } else {
+                                    ForEach(viewModel.searchableUsers) { user in
+                                        
+                                        UserRowView(user: user, state: userState(user: user))
+                                            .environmentObject(viewModel)
+                                        
+                                        Divider()
+                                            .padding(.horizontal, 24)
+                                        
+                                    }
                                 }
-                                
-                            } else {
-                                
-                                ForEach(viewModel.searchableUsers) { user in
-                                    
-                                    UserRowView(user: user, state: userState(user: user))
-                                        .environmentObject(viewModel)
-                                    
-                                    Divider()
-                                    
+
+                            case .REQUEST:
+                                if viewModel.searchText.isEmpty {
+                                    ForEach(viewModel.friendRequests) { user in
+                                        
+                                        UserRowView(user: user, state: .RECEIVE)
+                                            .environmentObject(viewModel)
+                                        
+                                        Divider()
+                                            .padding(.horizontal, 24)
+                                        
+                                    }
+                                } else {
+                                    ForEach(viewModel.searchableRequests) { user in
+                                        
+                                        UserRowView(user: user, state: .RECEIVE)
+                                            .environmentObject(viewModel)
+                                        
+                                        Divider()
+                                            .padding(.horizontal, 24)
+                                        
+                                    }
                                 }
-                                
+
                             }
                             
                         }
                         
                     }
                     
-                    // MARK: Bottom Bar
-                    BottomBarView(viewState: .FRIENDS)
-                        .environmentObject(viewModel)
+                    Spacer()
                     
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.background)
+                .cornerRadius(50, corners:[.topLeft, .topRight])
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: -3)
+                .padding(.top, 8)
+                
+                Spacer()
+                    .frame(height: 2)
+                
+                // MARK: Bottom bar
+                BottomBarView(viewState: .FRIENDS)
+                    .environmentObject(viewModel)
                 
             }
             .cornerRadius(isShowingSideMenu ? 20 : 10)
-            .offset(x: isShowingSideMenu ? 300: 0, y: isShowingSideMenu ? 44 : 0)
+            .offset(x: isShowingSideMenu ? 300: 0)
             .scaleEffect(isShowingSideMenu ? 0.8 : 1)
-            .ignoresSafeArea(.all, edges: [.top, .bottom])
+            .ignoresSafeArea(.all, edges: [.bottom])
             
         }
         

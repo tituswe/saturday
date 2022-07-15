@@ -22,16 +22,15 @@ struct AddUserRowView: View {
                 .resizable()
                 .scaledToFill()
                 .clipShape(Circle())
-                .frame(width: 56, height: 56)
+                .frame(width: 48, height: 48)
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
                 
                 Text(user.id == cartManager.userSession?.uid ? "Me" : user.name)
-                    .font(.system(.subheadline, design: .rounded))
-                    .fontWeight(.bold)
+                    .font(.subheadline)
                 
                 Text("@\(user.username)")
-                    .font(.system(.subheadline, design: .rounded))
+                    .font(.subheadline)
                     .foregroundColor(.gray)
             }
             
@@ -42,18 +41,20 @@ struct AddUserRowView: View {
                     cartManager.transactions[user.id!] = Transaction(id: user.id!)
                 } label: {
                     Text("Add")
-                        .font(.system(.caption2, design: .rounded))
+                        .font(.system(size: 10))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding()
-                        .frame(width: 60, height: 30)
+                        .frame(width: 56, height: 24)
                         .background(Color.blue)
                         .cornerRadius(50)
                         .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
                 }
 
         }
-        .padding()
+        .padding(.vertical, 8)
+        .padding(.horizontal, 24)
+        .background(Color.background)
 
     }
     

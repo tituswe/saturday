@@ -88,7 +88,7 @@ struct BottomBarView: View {
             } label: {
                 ZStack {
                     Circle()
-                        .foregroundColor(Color.systemGreen.opacity(0.8))
+                        .foregroundColor(viewState == .SPLIT ? Color.gray : Color.systemGreen.opacity(0.8))
                         .frame(width: 36, height: 36)
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                     Image(systemName: "plus")

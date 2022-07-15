@@ -189,6 +189,15 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    var searchableRequests: [User] {
+        let lowercasedQuery = searchText.lowercased()
+        
+        return friendRequests.filter({
+            $0.username.contains(lowercasedQuery) ||
+            $0.name.lowercased().contains(lowercasedQuery)
+        })
+    }
+    
     func sendFriendRequest(user: User) {
         guard let currentUser = currentUser else { return }
         guard let receiverUid = user.id else { return }

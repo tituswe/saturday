@@ -18,13 +18,18 @@ struct AddUserView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavBarView(
-                topLeftButtonView: "",
-                topRightButtonView: "",
-                titleString: "Add friends to split",
-                topLeftButtonAction: {},
-                topRightButtonAction: {}
-            )
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color.systemGreen, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                
+                NavBarView(
+                    topLeftButtonView: "",
+                    topRightButtonView: "",
+                    titleString: "Add friends to split",
+                    topLeftButtonAction: {},
+                    topRightButtonAction: {}
+                )
+            }
+            .frame(height: 60)
             
             Spacer()
             
@@ -56,6 +61,6 @@ struct AddUserView_Previews: PreviewProvider {
         AddUserView()
             .environmentObject(UserViewModel())
             .environmentObject(CartManager())
-            .environment(\.colorScheme, .dark)
+//            .environment(\.colorScheme, .dark)
     }
 }

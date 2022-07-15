@@ -20,12 +20,18 @@ struct UserCartView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavBarView(
-                topLeftButtonView: "",
-                topRightButtonView: "",
-                titleString: "\(displayName()) split",
-                topLeftButtonAction: {},
-                topRightButtonAction: {})
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color.systemGreen, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                
+                NavBarView(
+                    topLeftButtonView: "",
+                    topRightButtonView: "",
+                    titleString: "\(displayName()) Split",
+                    topLeftButtonAction: {},
+                    topRightButtonAction: {}
+                )
+            }
+            .frame(height: 60)
             
             Spacer()
             
@@ -42,11 +48,11 @@ struct UserCartView: View {
                     
                 }
                 
+                Divider()
+                
                 HStack {
                     
                     Text("Total: $" + String(format: "%.2f", cartManager.getTransaction(key: user.id!).total))
-                        .font(.system(.body, design: .rounded))
-                        .fontWeight(.semibold)
                         .padding()
                     
                     Spacer()

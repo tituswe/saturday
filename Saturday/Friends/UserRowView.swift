@@ -34,16 +34,15 @@ struct UserRowView: View {
                 .resizable()
                 .scaledToFill()
                 .clipShape(Circle())
-                .frame(width: 56, height: 56)
+                .frame(width: 40, height: 40)
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
                 
                 Text(user.name)
-                    .font(.system(.subheadline, design: .rounded))
-                    .fontWeight(.bold)
+                    .font(.subheadline)
                 
                 Text("@\(user.username)")
-                    .font(.system(.subheadline, design: .rounded))
+                    .font(.subheadline)
                     .foregroundColor(.gray)
             }
             
@@ -120,7 +119,8 @@ struct UserRowView: View {
             
 
         }
-        .padding()
+        .padding(.vertical, 8)
+        .padding(.horizontal, 24)
         .background(Color.background)
 
     }

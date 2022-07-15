@@ -32,14 +32,13 @@ struct ItemCardView: View {
             VStack(alignment: .leading) {
                 
                 Text(item.name)
-                    .font(.system(.body, design: .rounded))
-                    .fontWeight(.semibold)
+                    .font(.system(size: 14))
                 
                 Spacer()
                     .frame(height: 1.6)
                 
                 Text("$" + String(format: "%.2f", item.price))
-                    .font(.system(.subheadline, design: .rounded))
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
             }
             .padding(.leading, 8)
@@ -53,8 +52,9 @@ struct ItemCardView: View {
                     ZStack {
                         Circle()
                             .foregroundColor(Color.systemBlue)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 24, height: 24)
                         Image(systemName: "plus")
+                            .font(.system(size: 14))
                             .foregroundColor(.white)
                     }
                 }
@@ -66,8 +66,9 @@ struct ItemCardView: View {
                     ZStack {
                         Circle()
                             .foregroundColor(Color.systemRed)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 24, height: 24)
                         Image(systemName: "minus")
+                            .font(.system(size: 14))
                             .foregroundColor(.white)
                     }
                 }
@@ -76,7 +77,7 @@ struct ItemCardView: View {
             
         }
         .padding(.horizontal, 24)
-        .frame(height: 56)
+        .frame(height: 48)
         
     }
     

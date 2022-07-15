@@ -29,7 +29,7 @@ struct SentView: View {
                     VStack {
                         
                         Text("Done!")
-                            .font(.system(.largeTitle, design: .rounded))
+                            .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .overlay(
@@ -40,7 +40,7 @@ struct SentView: View {
                             )
                         
                         Text("Tap back to dashboard")
-                            .font(.system(.title2, design: .rounded))
+                            .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .offset(x: 0, y: 240)

@@ -8,6 +8,14 @@
 import SwiftUI
 import Kingfisher
 
+enum HomeState {
+    
+    case CREDITS
+    case DEBTS
+    case HISTORY
+    
+}
+
 struct HomeView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
