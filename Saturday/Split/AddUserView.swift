@@ -18,7 +18,7 @@ struct AddUserView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavbarView(
+            NavBarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
                 titleString: "Add friends to split",

@@ -30,7 +30,7 @@ struct HistoryView: View {
                 VStack {
                     
                     // MARK: Navigation Bar
-                    NavbarView(
+                    NavBarView(
                         topLeftButtonView: "line.horizontal.3",
                         topRightButtonView: "",
                         titleString: "History",

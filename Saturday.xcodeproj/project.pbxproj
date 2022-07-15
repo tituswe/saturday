@@ -11,7 +11,6 @@
 		582D832528747A58002B153E /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582D832428747A58002B153E /* UserViewModel.swift */; };
 		582D832E2874908A002B153E /* ProfilePictureSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582D832D2874908A002B153E /* ProfilePictureSelectorView.swift */; };
 		5843E7802880892500FEFE66 /* Temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843E77F2880892500FEFE66 /* Temp.swift */; };
-		5843E78228808F8400FEFE66 /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843E78128808F8400FEFE66 /* NavBarView.swift */; };
 		585DD2A82876CD800079E887 /* DebtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2A72876CD800079E887 /* DebtService.swift */; };
 		585DD2AA2876D3530079E887 /* Debt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2A92876D3530079E887 /* Debt.swift */; };
 		585DD2AC2876D35A0079E887 /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2AB2876D35A0079E887 /* Credit.swift */; };
@@ -20,6 +19,7 @@
 		5886D3C228355FB80044938C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5886D3C128355FB80044938C /* Assets.xcassets */; };
 		5886D3C528355FB80044938C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5886D3C428355FB80044938C /* Preview Assets.xcassets */; };
 		5886D3CC283567CD0044938C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886D3CB283567CD0044938C /* Extensions.swift */; };
+		588848E328815525000CD17B /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588848E228815525000CD17B /* NavBarView.swift */; };
 		589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820D92856637300719CCE /* SaturdayLogo.swift */; };
 		589820DC28566AE400719CCE /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820DB28566AE300719CCE /* SignUpView.swift */; };
 		58AFC05E287EEC82008AB208 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AFC05D287EEC82008AB208 /* BottomBarView.swift */; };
@@ -84,7 +84,6 @@
 		582D832428747A58002B153E /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		582D832D2874908A002B153E /* ProfilePictureSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSelectorView.swift; sourceTree = "<group>"; };
 		5843E77F2880892500FEFE66 /* Temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temp.swift; sourceTree = "<group>"; };
-		5843E78128808F8400FEFE66 /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		585DD2A72876CD800079E887 /* DebtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtService.swift; sourceTree = "<group>"; };
 		585DD2A92876D3530079E887 /* Debt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debt.swift; sourceTree = "<group>"; };
 		585DD2AB2876D35A0079E887 /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		5886D3C128355FB80044938C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5886D3C428355FB80044938C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5886D3CB283567CD0044938C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		588848E228815525000CD17B /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		589820D92856637300719CCE /* SaturdayLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaturdayLogo.swift; sourceTree = "<group>"; };
 		589820DB28566AE300719CCE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		58AFC05D287EEC82008AB208 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
@@ -200,8 +200,8 @@
 				5886D3BD28355FB60044938C /* SaturdayApp.swift */,
 				5886D3BF28355FB60044938C /* ContentView.swift */,
 				589820D92856637300719CCE /* SaturdayLogo.swift */,
-				5843E78128808F8400FEFE66 /* NavBarView.swift */,
 				58AFC05D287EEC82008AB208 /* BottomBarView.swift */,
+				588848E228815525000CD17B /* NavBarView.swift */,
 				B0ADE209286CD7790039D0C1 /* Home */,
 				58CE642C2874BC8B00DF2C77 /* Friends */,
 				58BA1753287ABC1F00B68D55 /* History */,
@@ -519,7 +519,7 @@
 				58FA37B12876EB2F00988F37 /* CreditService.swift in Sources */,
 				58CE64372874D48500DF2C77 /* FriendRequestsView.swift in Sources */,
 				58CE63E52874AC2400DF2C77 /* UserService.swift in Sources */,
-				5843E78228808F8400FEFE66 /* NavBarView.swift in Sources */,
+				588848E328815525000CD17B /* NavBarView.swift in Sources */,
 				58B331382873712400C64E78 /* DebtCardView.swift in Sources */,
 				58CE643B287583E900DF2C77 /* AddUserRowView.swift in Sources */,
 				58CE644028758CB900DF2C77 /* UserCardView.swift in Sources */,

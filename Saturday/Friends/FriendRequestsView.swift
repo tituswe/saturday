@@ -16,7 +16,7 @@ struct FriendRequestsView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavbarView(
+            NavBarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
                 titleString: "Friend Requests",

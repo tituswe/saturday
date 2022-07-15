@@ -30,7 +30,7 @@ struct SplitView: View {
             VStack {
                 
                 // MARK: Navigation Bar
-                NavbarView(
+                NavBarView(
                     topLeftButtonView: "arrow.backward",
                     topRightButtonView: "",
                     titleString: "Your Split",

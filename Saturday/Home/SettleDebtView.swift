@@ -22,7 +22,7 @@ struct SettleDebtView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavbarView(
+            NavBarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
                 titleString: "To pay",

@@ -4,7 +4,6 @@
 //
 //  Created by Titus Lowe on 15/7/22.
 //
-
 import SwiftUI
 
 struct NavBarView: View {

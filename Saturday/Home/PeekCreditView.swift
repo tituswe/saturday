@@ -20,7 +20,7 @@ struct PeekCreditView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavbarView(
+            NavBarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
                 titleString: "To receive",

@@ -20,7 +20,7 @@ struct UserCartView: View {
         VStack {
             
             // MARK: Navigation Bar
-            NavbarView(
+            NavBarView(
                 topLeftButtonView: "",
                 topRightButtonView: "",
                 titleString: "\(displayName()) split",
