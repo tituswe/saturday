@@ -41,11 +41,36 @@ struct BottomBarView: View {
                     .font(.system(size: 24))
             }
             .foregroundColor(Color.text)
-            .frame(width: 88)
+            .frame(width: 112)
             .padding(.bottom, 8)
             
             NavigationLink(isActive: $isShowingDashboard) {
                 ContentView()
+                    .environmentObject(viewModel)
+                    .navigationBarHidden(true)
+            } label: {}
+            
+            Button {
+                if viewState != .SPLIT {
+                    viewModel.refresh()
+                    isShowingSplitView = true
+                }
+            } label: {
+                ZStack {
+                    Circle()
+                        .foregroundColor(viewState == .SPLIT ? Color.gray : Color.systemGreen.opacity(0.8))
+                        .frame(width: 44, height: 44)
+                        .shadow(color: Color.black.opacity(0.6), radius: 5, x: 0, y: 3)
+                    Image(systemName: "plus")
+                        .font(.system(size: 24))
+                }
+            }
+            .foregroundColor(Color.white)
+            .frame(width: 112)
+            .padding(.bottom, 8)
+            
+            NavigationLink(isActive: $isShowingSplitView) {
+                SplitView(isShowingSplitView: $isShowingSplitView)
                     .environmentObject(viewModel)
                     .navigationBarHidden(true)
             } label: {}
@@ -60,7 +85,7 @@ struct BottomBarView: View {
                     .font(.system(size: 24))
             }
             .foregroundColor(Color.text)
-            .frame(width: 88)
+            .frame(width: 112)
             .padding(.bottom, 8)
             
             NavigationLink(isActive: $isShowingFriends) {
@@ -68,43 +93,7 @@ struct BottomBarView: View {
                     .environmentObject(viewModel)
                     .navigationBarHidden(true)
             } label: {}
-            
-            Button {
-                //                viewModel.refresh()
-                //                isShowingHistory = true
-            } label: {
-                Image(systemName: "clock")
-                    .font(.system(size: 24))
-            }
-            .foregroundColor(Color.text)
-            .frame(width: 88)
-            .padding(.bottom, 8)
-            
-            Button {
-                if viewState != .SPLIT {
-                    viewModel.refresh()
-                    isShowingSplitView = true
-                }
-            } label: {
-                ZStack {
-                    Circle()
-                        .foregroundColor(viewState == .SPLIT ? Color.gray : Color.systemGreen.opacity(0.8))
-                        .frame(width: 36, height: 36)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    Image(systemName: "plus")
-                        .font(.system(size: 24))
-                }
-            }
-            .foregroundColor(Color.white)
-            .frame(width: 88)
-            .padding(.bottom, 8)
-            
-            NavigationLink(isActive: $isShowingSplitView) {
-                SplitView(isShowingSplitView: $isShowingSplitView)
-                    .environmentObject(viewModel)
-                    .navigationBarHidden(true)
-            } label: {}
-            
+     
         }
         .frame(maxWidth: .infinity, maxHeight: 88)
         .background(Color.background)

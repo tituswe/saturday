@@ -29,8 +29,6 @@
 		58B331382873712400C64E78 /* DebtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B331372873712400C64E78 /* DebtCardView.swift */; };
 		58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174D287ABAB100B68D55 /* ArchiveService.swift */; };
 		58BA1750287ABADC00B68D55 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174F287ABADC00B68D55 /* Archive.swift */; };
-		58BA1752287ABC1300B68D55 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA1751287ABC1300B68D55 /* HistoryView.swift */; };
-		58BA1755287ABD9200B68D55 /* HistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA1754287ABD9200B68D55 /* HistoryRowView.swift */; };
 		58BF9C8B2880AD0C00756B58 /* HistoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */; };
 		58CE63E12874950200DF2C77 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E02874950200DF2C77 /* ImagePicker.swift */; };
 		58CE63E32874A5B300DF2C77 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E22874A5B300DF2C77 /* ImageUploader.swift */; };
@@ -102,8 +100,6 @@
 		58B331372873712400C64E78 /* DebtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtCardView.swift; sourceTree = "<group>"; };
 		58BA174D287ABAB100B68D55 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
 		58BA174F287ABADC00B68D55 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
-		58BA1751287ABC1300B68D55 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		58BA1754287ABD9200B68D55 /* HistoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRowView.swift; sourceTree = "<group>"; };
 		58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCardView.swift; sourceTree = "<group>"; };
 		58CE63E02874950200DF2C77 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		58CE63E22874A5B300DF2C77 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
@@ -203,7 +199,6 @@
 				5843E77F2880892500FEFE66 /* Temp.swift */,
 				B0ADE209286CD7790039D0C1 /* Home */,
 				58CE642C2874BC8B00DF2C77 /* Friends */,
-				58BA1753287ABC1F00B68D55 /* History */,
 				58CE643C287587EC00DF2C77 /* Split */,
 				589820D628563D5F00719CCE /* Authentication */,
 				58B3312C287343BD00C64E78 /* SideMenu */,
@@ -245,15 +240,6 @@
 				58B331312873443400C64E78 /* SideMenuOptionView.swift */,
 			);
 			path = SideMenu;
-			sourceTree = "<group>";
-		};
-		58BA1753287ABC1F00B68D55 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				58BA1751287ABC1300B68D55 /* HistoryView.swift */,
-				58BA1754287ABD9200B68D55 /* HistoryRowView.swift */,
-			);
-			path = History;
 			sourceTree = "<group>";
 		};
 		58CE63DF287494EA00DF2C77 /* Utilities */ = {
@@ -482,7 +468,6 @@
 				5886D3CC283567CD0044938C /* Extensions.swift in Sources */,
 				B09838642853A89900FB93FC /* Preview Data.swift in Sources */,
 				58D8762E287789D70046D716 /* PaymentView.swift in Sources */,
-				58BA1755287ABD9200B68D55 /* HistoryRowView.swift in Sources */,
 				B0ADE200286CD6A60039D0C1 /* ItemRow.swift in Sources */,
 				B032CB582864A845003FB01F /* TextProcessor.swift in Sources */,
 				58CE644828762F7800DF2C77 /* SentView.swift in Sources */,
@@ -494,7 +479,6 @@
 				B0ADE206286CD71D0039D0C1 /* UserOld.swift in Sources */,
 				58CE6444287596DC00DF2C77 /* ItemCardView.swift in Sources */,
 				B0ADE1FA286CD67C0039D0C1 /* UserCard.swift in Sources */,
-				58BA1752287ABC1300B68D55 /* HistoryView.swift in Sources */,
 				B0ADE1EE286CD5D60039D0C1 /* SplitViewOld.swift in Sources */,
 				58B33130287343E000C64E78 /* SideMenuHeaderView.swift in Sources */,
 				585DD2A82876CD800079E887 /* DebtService.swift in Sources */,

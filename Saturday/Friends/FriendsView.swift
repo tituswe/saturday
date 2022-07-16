@@ -44,7 +44,7 @@ struct FriendsView: View {
                 // MARK: Navigation Bar
                 NavBarView(
                     topLeftButtonView: "line.horizontal.3",
-                    topRightButtonView: "",
+                    topRightButtonView: "gearshape",
                     titleString: "Your Friends",
                     topLeftButtonAction: {
                         viewModel.refresh()

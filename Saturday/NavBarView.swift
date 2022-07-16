@@ -32,8 +32,9 @@ struct NavBarView: View {
                                 .foregroundColor(Color.white)
                         }
                     } else {
-                        Text("")
-                            .font(.title2)
+                        Image(systemName: "circle")
+                            .font(.title3)
+                            .foregroundColor(Color.clear)
                     }
                     
                     Spacer()
@@ -51,8 +52,9 @@ struct NavBarView: View {
                                 .foregroundColor(Color.white)
                         }
                     } else {
-                        Text("")
-                            .font(.title2)
+                        Image(systemName: "circle")
+                            .font(.title3)
+                            .foregroundColor(Color.clear)
                     }
                     
                 }

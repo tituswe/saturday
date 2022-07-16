@@ -61,3 +61,11 @@ extension View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
 }
+
+extension Calendar {
+    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let numberOfDays = dateComponents([.day], from: from, to: to) 
+        
+        return numberOfDays.day!
+    }
+}

@@ -35,13 +35,12 @@ struct SentView: View {
                             .overlay(
                                 Circle()
                                     .stroke(.white,
-                                            style: StrokeStyle(lineWidth: 6, dash: [10]))
+                                            style: StrokeStyle(lineWidth: 4, dash: [10]))
                                     .frame(width: 160, height: 160)
                             )
                         
                         Text("Tap back to dashboard")
                             .font(.title2)
-                            .fontWeight(.bold)
                             .foregroundColor(.white)
                             .offset(x: 0, y: 240)
                         

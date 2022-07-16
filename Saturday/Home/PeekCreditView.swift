@@ -19,13 +19,20 @@ struct PeekCreditView: View {
         
         VStack {
             
-            // MARK: Navigation Bar
-            NavBarView(
-                topLeftButtonView: "",
-                topRightButtonView: "",
-                titleString: "To receive",
-                topLeftButtonAction: {},
-                topRightButtonAction: {})
+            ZStack {
+                
+                LinearGradient(gradient: Gradient(colors: [Color.systemViolet, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .frame(height: 56)
+                
+                // MARK: Navigation Bar
+                NavBarView(
+                    topLeftButtonView: "",
+                    topRightButtonView: "",
+                    titleString: "To receive",
+                    topLeftButtonAction: {},
+                    topRightButtonAction: {})
+                
+            }
             
             Spacer()
             
@@ -67,15 +74,14 @@ struct PeekCreditView: View {
                         .shadow(color: Color.black.opacity(0.5), radius: 5, x: 0, y: -3)
                     
                     Text("Cancel")
-                        .font(.system(.title2, design: .rounded))
-                        .fontWeight(.bold)
+                        .font(.title2)
                         .foregroundColor(.white)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: 80)
             
         }
-        .ignoresSafeArea(.all, edges: [.top, .bottom])
+        .ignoresSafeArea(.all, edges: [.bottom])
         .background(Color.background)
         
     }

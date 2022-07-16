@@ -230,13 +230,15 @@ struct SplitView: View {
                             isShowingSentView = true
                         }
                     } label: {
-                        Text("Send!")
-                            .font(.system(size: 16))
-                            .fontWeight(splitDone() ? .bold : .regular)
-                            .foregroundColor(splitDone() ? Color.black : Color.gray)
-                            .frame(width: 88, height: 40)
-                            .background(Color.background)
-                            .cornerRadius(25)
+                        ZStack {
+                            Circle()
+                                .foregroundColor(splitDone() ? Color.systemGreen.opacity(0.8) : Color.gray)
+                                .frame(width: 44, height: 44)
+                                .shadow(color: Color.black.opacity(0.6), radius: 5, x: 0, y: 3)
+                            Image(systemName: "arrow.up")
+                                .font(.system(size: 24))
+                                .foregroundColor(Color.white)
+                        }
                     }
                     
                     NavigationLink(isActive: $isShowingSentView) {

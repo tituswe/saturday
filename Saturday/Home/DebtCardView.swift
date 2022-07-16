@@ -48,6 +48,11 @@ struct DebtCardView: View {
                 
                 RoundedRectangle(cornerRadius: 25)
                     .foregroundColor(Color.background)
+                    .frame(width: 320, height: 96)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(overdue() ? Color.systemRed : Color.clear, lineWidth: 8)
+                    )
                 
                 HStack {
                     
@@ -62,7 +67,7 @@ struct DebtCardView: View {
                     VStack(alignment: .leading) {
                         
                         Text(debt.date)
-                            .font(.system(size: 9))
+                            .font(.system(size: 8))
                             .foregroundColor(Color.gray)
                             .padding(.leading, 4)
                         
@@ -126,9 +131,17 @@ struct DebtCardView: View {
         .frame(width: 320, height: 96)
         .background(Color.background)
         .cornerRadius(25)
-        .padding(.top, 16)
+        .padding(.vertical, 8)
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
         
+    }
+    
+    func overdue() -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm E, d MMM y"
+        
+        guard let debtDate = dateFormatter.date(from: debt.date) else { return false }
+        return Calendar.current.numberOfDaysBetween(debtDate, and: Date.now) > 6
     }
     
     func creditor() -> User {
