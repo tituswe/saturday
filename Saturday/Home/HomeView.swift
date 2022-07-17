@@ -30,9 +30,7 @@ struct HomeView: View {
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
     
-    init(){
-           UINavigationBar.setAnimationsEnabled(false)
-       }
+    @State var timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
 
     var body: some View {
         
@@ -84,6 +82,8 @@ struct HomeView: View {
                         
                         Text("TODO")
                             .font(.title3)
+                            .transition(.opacity)
+//                            .id("Payable \(viewModel.totalReceivable)")
                         
                         
                         Text("NET MONTH BALANCE")
@@ -104,6 +104,8 @@ struct HomeView: View {
                             .foregroundColor(Color.systemGreen)
                         
                         Text("$" + String(format: "%.2f", viewModel.totalReceivable))
+                            .transition(.opacity)
+                            .id("Payable \(viewModel.totalReceivable)")
                         
                     }
                     .frame(width: 68)
@@ -115,6 +117,8 @@ struct HomeView: View {
                             .foregroundColor(Color.systemRed)
                         
                         Text("$" + String(format: "%.2f", viewModel.totalPayable))
+                            .transition(.opacity)
+                            .id("Payable \(viewModel.totalPayable)")
                         
                     }
                     .frame(width: 68)
@@ -190,22 +194,18 @@ struct HomeView: View {
                             
                             DispatchQueue.main.async {
                                 
-                                if refresh.startOffset == 0 {
-                                    refresh.startOffset = reader.frame(in: .global).minY + 120
-                                }
-                                
                                 refresh.offset = reader.frame(in: .global).minY
                                 
-                                if refresh.offset - refresh.startOffset > 40 && !refresh.started {
+                                if refresh.offset > 410 && !refresh.started {
                                     refresh.started = true
                                 }
                                 
-                                if refresh.startOffset - refresh.offset < 25 && refresh.started && !refresh.released {
+                                if refresh.offset > 410 && refresh.started && !refresh.released {
                                     withAnimation(Animation.linear) {
                                         refresh.released = true
-                                        refresh.offset = 25
+                                        refresh.offset = 410
                                     }
-//                                    updateData()
+                                    updateData()
                                 }
                                 
                             }
@@ -280,7 +280,11 @@ struct HomeView: View {
             .offset(x: isShowingSideMenu ? 300: 0)
             .scaleEffect(isShowingSideMenu ? 0.8 : 1)
             .ignoresSafeArea(.all, edges: [.bottom])
-            
+            .onReceive(timer) { _ in
+                withAnimation(.easeIn(duration: 1)) {
+                    viewModel.refresh()
+                }
+            }
             
         }
         
@@ -292,7 +296,6 @@ struct HomeView: View {
                 viewModel.refresh()
                 refresh.released = false
                 refresh.started = false
-                print("DEBUG: Refreshed!")
             }
         }
     }

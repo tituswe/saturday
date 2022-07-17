@@ -35,7 +35,7 @@ struct ProfilePictureSelectorView: View {
             VStack {
                 
                 Text("Add a profile picture")
-                    .font(.system(.largeTitle, design: .rounded))
+                    .font(.largeTitle)
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -81,7 +81,6 @@ struct ProfilePictureSelectorView: View {
                         }
                     } label: {
                         Text("Continue")
-                            .font(.system(.body, design: .rounded))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .frame(width: 100, height: 50)
@@ -92,11 +91,10 @@ struct ProfilePictureSelectorView: View {
                 } else {
                     Button {
                         withAnimation(.spring()) {
-                            viewModel.uploadProfileImage(UIImage(systemName: "circle.circle.fill")!)
+                            viewModel.uploadProfileImage(UIImage(systemName: "person.circle")!)
                         }
                     } label: {
                         Text("Skip")
-                            .font(.system(.body, design: .rounded))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .frame(width: 100, height: 50)

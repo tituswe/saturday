@@ -85,21 +85,20 @@ class UserViewModel: ObservableObject {
     func login(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("DEBUG: Failed to sign in with error \(error.localizedDescription)")
+                print("ERROR: Failed to sign in with error \(error.localizedDescription)")
                 return
             }
             
             guard let user = result?.user else { return }
             self.userSession = user
             self.refresh()
-            print("DEBUG: Did log user in... \(user.displayName ?? "")")
         }
     }
     
     func register(withEmail email: String, password: String, name: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("DEBUG: Failed to register with error \(error.localizedDescription)")
+                print("ERROR: Failed to register with error \(error.localizedDescription)")
                 return
             }
             
@@ -112,7 +111,7 @@ class UserViewModel: ObservableObject {
                         "uid": user.uid]
             
             Firestore.firestore().collection("users")
-                .document(user.uid)
+                .document(name.lowercased() + user.uid)
                 .setData(data) { _ in
                     self.didAuthenticateUser = true
                 }
@@ -148,7 +147,6 @@ class UserViewModel: ObservableObject {
         
         userService.fetchUser(withUid: uid) { user in
             self.currentUser = user
-            print("DEBUG: Fetching data from \(user.name)")
         }
     }
 
@@ -198,6 +196,15 @@ class UserViewModel: ObservableObject {
         })
     }
     
+    func fetchFriends() {
+        guard let uid = self.userSession?.uid else { return }
+        
+        userService.fetchFriends(withUid: uid) { friends in
+            self.friends = friends
+        }
+//        self.friends.sort { $0.name.lowercased() < $1.name.lowercased() }
+    }
+    
     func sendFriendRequest(user: User) {
         guard let currentUser = currentUser else { return }
         guard let receiverUid = user.id else { return }
@@ -226,7 +233,6 @@ class UserViewModel: ObservableObject {
             .document(receiverUid)
             .setData(data2 as [String : Any])
         
-        print("DEBUG: Friend request sent!")
     }
     
     func retractFriendRequest(user: User) {
@@ -239,7 +245,7 @@ class UserViewModel: ObservableObject {
             .document(currentUser.id!)
             .delete { error in
                 if let error = error {
-                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
                     return
                 }
             }
@@ -250,12 +256,10 @@ class UserViewModel: ObservableObject {
             .document(receiverUid)
             .delete { error in
                 if let error = error {
-                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
                     return
                 }
             }
-        
-        print("DEBUG: Friend request retracted!")
     }
     
     func fetchFriendRequests() {
@@ -263,7 +267,6 @@ class UserViewModel: ObservableObject {
         
         userService.fetchFriendRequests(withUid: uid) { friendRequests in
             self.friendRequests = friendRequests
-            print("DEBUG: Fetching friend requests...")
         }
     }
     
@@ -272,7 +275,6 @@ class UserViewModel: ObservableObject {
         
         userService.fetchSentFriendRequests(withUid: uid) { requests in
             self.sentFriendRequests = requests
-            print("DEBUG: Fetching sent friend requests...")
         }
     }
     
@@ -331,15 +333,13 @@ class UserViewModel: ObservableObject {
             .document(senderUid)
             .delete { error in
                 if let error = error {
-                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
                     return
                 }
             }
         
         // Update friend request list
         self.refresh()
-        
-        print("DEBUG: Friend request accepted!")
     }
     
     func declineFriendRequest(user: User) {
@@ -353,7 +353,7 @@ class UserViewModel: ObservableObject {
             .document(senderUid)
             .delete { error in
                 if let error = error {
-                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
                     return
                 }
             }
@@ -364,25 +364,13 @@ class UserViewModel: ObservableObject {
             .document(currentUser.id!)
             .delete { error in
                 if let error = error {
-                    print("DEBUG: Could not remove document: \(error.localizedDescription)")
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
                     return
                 }
             }
         
         // Update friend request list
         self.refresh()
-        
-        print("DEBUG: Friend request declined!")
-    }
-    
-    func fetchFriends() {
-        guard let uid = self.userSession?.uid else { return }
-        
-        userService.fetchFriends(withUid: uid) { friends in
-            self.friends = friends
-            print("DEBUG: Fetching friends...")
-        }
-        self.friends.sort { $0.name.lowercased() < $1.name.lowercased() }
     }
     
     
@@ -399,7 +387,6 @@ class UserViewModel: ObservableObject {
             let sortedDebts = debts.sorted(by: { formatter.date(from: $0.date)!.compare(formatter.date(from: $1.date)!) == .orderedAscending })
             
             self.debts = sortedDebts
-            print("DEBUG: Fetching debts... \(self.debts)")
         }
     }
     
@@ -409,7 +396,6 @@ class UserViewModel: ObservableObject {
         self.debts.forEach { debt in
             debtService.fetchItems(withUid: uid, transId: debt.transactionId) { items in
                 self.debtItems[debt.transactionId] = items
-                print("DEBUG: Fetching debt items... \(self.debtItems)")
             }
         }
     }
@@ -432,7 +418,6 @@ class UserViewModel: ObservableObject {
             let sortedCredits = credits.sorted(by: { formatter.date(from: $0.date)!.compare(formatter.date(from: $1.date)!) == .orderedAscending })
 
             self.credits = sortedCredits
-            print("DEBUG: Fetching credits... \(self.credits)")
         }
     }
     
@@ -442,7 +427,6 @@ class UserViewModel: ObservableObject {
         self.credits.forEach { credit in
             creditService.fetchItems(withUid: uid, transId: credit.transactionId) { items in
                 self.creditItems[credit.transactionId] = items
-                print("DEBUG: Fetching credit items... \(self.creditItems)")
             }
         }
     }
@@ -512,7 +496,6 @@ class UserViewModel: ObservableObject {
             .delete { error in
                 if error != nil { return }
             }
-        print("DEBUG: Cached debt!")
         
         self.refresh()
     }
@@ -576,7 +559,6 @@ class UserViewModel: ObservableObject {
             .delete { error in
                 if error != nil { return }
             }
-        print("DEBUG: Cached credit!")
         
         self.refresh()
     }
@@ -593,7 +575,6 @@ class UserViewModel: ObservableObject {
             let sortedArchives = archives.sorted(by: { formatter.date(from: $0.dateSettled)!.compare(formatter.date(from: $1.dateSettled)!) == .orderedDescending })
             
             self.archives = sortedArchives
-            print("DEBUG: Fetching archives... \(self.archives)")
         }
     }
 }

@@ -22,7 +22,6 @@ struct SideMenuOptionView: View {
             
             
             Text(title)
-                .font(.system(.body, design: .rounded))
                 .fontWeight(.semibold)
             
             Spacer()

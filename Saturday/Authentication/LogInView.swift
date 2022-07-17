@@ -15,11 +15,13 @@ struct LogInView: View {
     
     @State var password = ""
     
+    @State var isShowingSignUpView: Bool = false
+    
     var body: some View {
         
         ZStack {
             
-            Color.systemIndigo
+            LinearGradient(gradient: Gradient(colors: [Color.systemIndigo, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             
             Circle()
@@ -33,13 +35,12 @@ struct LogInView: View {
             VStack {
                 
                 Text("Login")
-                    .font(.system(.largeTitle, design: .rounded))
+                    .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
                 
                 TextField("Email", text: $email)
                     .multilineTextAlignment(.center)
-                    .font(.system(.body, design: .rounded))
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .padding()
@@ -52,7 +53,6 @@ struct LogInView: View {
                 
                 SecureField("Password", text: $password)
                     .multilineTextAlignment(.center)
-                    .font(.system(.body, design: .rounded))
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .padding()
@@ -67,7 +67,6 @@ struct LogInView: View {
                     viewModel.login(withEmail: email, password: password)
                 } label: {
                     Text("Login")
-                        .font(.system(.body, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .frame(width: 300, height: 50)
@@ -77,14 +76,21 @@ struct LogInView: View {
                 
                 HStack {
                     Text("New around here?")
-                        .font(.system(.headline, design: .rounded))
-                    NavigationLink("Sign Up", destination:
-                                    SignUpView()
-                        .environmentObject(viewModel)
-                        .navigationBarHidden(true)
-                    )
-                    .foregroundColor(Color.systemBlue)
-                    .font(.system(.subheadline, design: .rounded))
+                        .font(.headline)
+                    
+                    Button {
+                        isShowingSignUpView = true
+                    } label: {
+                        Text("Sign Up")
+                            .foregroundColor(Color.systemBlue)
+                            .font(.subheadline)
+                    }
+                    
+                    NavigationLink(isActive: $isShowingSignUpView) {
+                        SignUpView(isShowingSignUpView: $isShowingSignUpView)
+                            .environmentObject(viewModel)
+                            .navigationBarHidden(true)
+                    } label: {}
                     
                 }
                 

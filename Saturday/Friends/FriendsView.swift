@@ -27,14 +27,13 @@ struct FriendsView: View {
     @State var friendStateOffset = CGFloat(-89)
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
-   
-    init(){
-           UINavigationBar.setAnimationsEnabled(false)
-       }
+    
+    @State var timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
     
     var body: some View {
        
         NavigationView {
+            
             ZStack {
                 
                 // MARK: Side Menu Bar
@@ -117,22 +116,16 @@ struct FriendsView: View {
                                 
                                 DispatchQueue.main.async {
                                     
-                                    if refresh.startOffset == 0 {
-                                        refresh.startOffset = reader.frame(in: .global).minY
-                                    }
-                                    
                                     refresh.offset = reader.frame(in: .global).minY
                                     
-                                    print("start \(refresh.startOffset)")
-                                    print("off \(refresh.offset)")
-                                    if refresh.offset - refresh.startOffset > 40 && !refresh.started {
+                                    if refresh.offset > 255 && !refresh.started {
                                         refresh.started = true
                                     }
                                     
-                                    if refresh.startOffset - refresh.offset < 25 && refresh.started && !refresh.released {
+                                    if refresh.offset > 255 && refresh.started && !refresh.released {
                                         withAnimation(Animation.linear) {
                                             refresh.released = true
-                                            refresh.offset = 25
+                                            refresh.offset = 255
                                         }
                                         updateData()
                                     }
@@ -239,7 +232,12 @@ struct FriendsView: View {
                 
             }
             .navigationBarHidden(true)
+            .onReceive(timer) { _ in
+                viewModel.refresh()
+            }
+            
         }
+        
     }
     
     func updateData() {
@@ -248,7 +246,6 @@ struct FriendsView: View {
                 viewModel.refresh()
                 refresh.released = false
                 refresh.started = false
-                print("DEBUG: Refreshed!")
             }
         }
     }

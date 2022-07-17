@@ -42,12 +42,12 @@ struct SideMenuHeaderView: View {
                         .clipShape(Circle())
                         .padding(.bottom, 16)
                     
-                    Text(user.name) // TODO: Link to name
-                        .font(.system(.title3, design: .rounded))
+                    Text(user.name)
+                        .font(.title3)
                         .fontWeight(.semibold)
                     
-                    Text("@\(user.username)") // TODO: Link to username
-                        .font(.system(.caption, design: .rounded))
+                    Text("@\(user.username)")
+                        .font(.caption)
                         .padding(.bottom, 24)
                     
                     VStack(spacing: 12) {
@@ -55,11 +55,11 @@ struct SideMenuHeaderView: View {
                         HStack(spacing: 4) {
                             
                             Text("+$" + String(format: "%.2f", viewModel.totalReceivable))
-                                .font(.system(.subheadline, design: .rounded))
+                                .font(.subheadline)
                                 .fontWeight(.bold)
                             
                             Text("To Receive")
-                                .font(.system(.subheadline, design: .rounded))
+                                .font(.subheadline)
                             
                             Spacer()
                         }
@@ -67,11 +67,11 @@ struct SideMenuHeaderView: View {
                         HStack(spacing: 4) {
                             
                             Text("-$" + String(format: "%.2f", viewModel.totalPayable))
-                                .font(.system(.subheadline, design: .rounded))
+                                .font(.subheadline)
                                 .fontWeight(.bold)
                             
                             Text("To Pay")
-                                .font(.system(.subheadline, design: .rounded))
+                                .font(.subheadline)
                             
                             Spacer()
                             
