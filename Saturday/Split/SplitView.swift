@@ -23,6 +23,8 @@ struct SplitView: View {
     
     @State var isShowingSentView: Bool = false
     
+    @State var offset = CGFloat(-56)
+    
     var body: some View {
         
         NavigationView {
@@ -51,16 +53,37 @@ struct SplitView: View {
                             
                             HStack {
                                 
-                                Text("YOUR SPLIT")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 24)
-                                
+                                Button {
+                                    cartManager.isMultiSplit = false
+                                    cartManager.selectNone()
+                                    withAnimation(.spring()) {
+                                        offset = -56
+                                    }
+                                } label: {
+                                    Text("SINGLE")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.gray)
+                                        .padding(.horizontal, 24)
+                                }
+                               
+                                Button {
+                                    cartManager.isMultiSplit = true
+                                    cartManager.selectNone()
+                                    withAnimation(.spring()) {
+                                        offset = 57
+                                    }
+                                } label: {
+                                    Text("GROUP")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.gray)
+                                        .padding(.horizontal, 24)
+                                }
                             }
                             
                             RoundedRectangle(cornerRadius: 25)
                                 .frame(width: 72, height: 2.4)
                                 .foregroundColor(Color.systemViolet)
+                                .offset(x: offset)
                             
                         }
                         .padding(.top, 16)
@@ -173,16 +196,31 @@ struct SplitView: View {
                                     .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                                     
                                 } else {
-                                    
-                                    Text("No more items!")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(.gray)
-                                        .frame(width: 280, height: 320)
-                                        .background(Color.background)
-                                        .cornerRadius(50)
-                                    
+                                    ZStack {
+                                        VStack {
+                                            Spacer()
+                                            
+                                            TextField("Input Service Fees", text: $cartManager.serviceFees)
+                                                .keyboardType(.decimalPad)
+                                                .multilineTextAlignment(.center)
+                                                .font(.system(size: 16))
+                                                .disableAutocorrection(true)
+                                                .autocapitalization(.none)
+                                                .padding()
+                                                .frame(width: 300, height: 40)
+                                                .background(Color.black.opacity(0.05))
+                                                .cornerRadius(50)
+                                                .padding()
+                                        }
+                                        
+                                        Text("No more items!")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(.gray)
+                                            .frame(width: 280, height: 320)
+                                            .background(Color.background)
+                                            .cornerRadius(50)
+                                    }
                                 }
-                                
                                 
                             } else {
                                 
@@ -194,6 +232,21 @@ struct SplitView: View {
                                                 .environmentObject(viewModel)
                                                 .environmentObject(cartManager)
                                             Divider()
+                                        }
+                                        HStack {
+                                            Spacer()
+                                            
+                                            TextField("Service Fees", text: $cartManager.serviceFees)
+                                                .keyboardType(.decimalPad)
+                                                .multilineTextAlignment(.center)
+                                                .font(.system(size: 14))
+                                                .disableAutocorrection(true)
+                                                .autocapitalization(.none)
+                                                .padding()
+                                                .frame(width: 120, height: 40)
+                                                .background(Color.black.opacity(0.05))
+                                                .cornerRadius(50)
+                                                .padding(.trailing, 10)
                                         }
                                     }
                                 }
@@ -272,7 +325,7 @@ struct SplitView: View {
     }
     
     func splitDone() -> Bool {
-        return !cartManager.payableUsers.isEmpty && cartManager.payableItems.isEmpty
+        return !cartManager.payableUsers.isEmpty && cartManager.payableItems.isEmpty && (cartManager.serviceFees != "")
     }
     
 }

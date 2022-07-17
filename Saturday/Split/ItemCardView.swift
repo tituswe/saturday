@@ -23,6 +23,8 @@ struct ItemCardView: View {
     
     let item: Item
     
+    var user: User?
+    
     @State var state: ItemState = .ADD
     
     var body: some View {
@@ -61,7 +63,7 @@ struct ItemCardView: View {
                 .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
             } else if state == .DELETE {
                 Button {
-                    cartManager.removeItemFromTransaction(item: item)
+                    cartManager.removeItemFromTransaction(item: item, user: user!)
                 } label: {
                     ZStack {
                         Circle()

@@ -40,7 +40,7 @@ struct UserCartView: View {
                 LazyVStack {
                     
                     ForEach(cartManager.getTransactionItems(key: user.id!), id: \.id) { item in
-                        ItemCardView(item: item, state: .DELETE)
+                        ItemCardView(item: item, user: user, state: .DELETE)
                             .environmentObject(viewModel)
                             .environmentObject(cartManager)
                         Divider()

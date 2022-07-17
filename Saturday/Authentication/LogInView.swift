@@ -17,86 +17,80 @@ struct LogInView: View {
     
     var body: some View {
         
-//        NavigationView {
+        ZStack {
             
-            ZStack {
+            Color.systemIndigo
+                .ignoresSafeArea()
+            
+            Circle()
+                .scale(1.7)
+                .foregroundColor(Color.background.opacity(0.15))
+            
+            Circle()
+                .scale(1.35)
+                .foregroundColor(Color.background)
+            
+            VStack {
                 
-                Color.systemIndigo
-                    .ignoresSafeArea()
+                Text("Login")
+                    .font(.system(.largeTitle, design: .rounded))
+                    .fontWeight(.bold)
+                    .padding()
                 
-                Circle()
-                    .scale(1.7)
-                    .foregroundColor(Color.background.opacity(0.15))
+                TextField("Email", text: $email)
+                    .multilineTextAlignment(.center)
+                    .font(.system(.body, design: .rounded))
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(50)
                 
-                Circle()
-                    .scale(1.35)
-                    .foregroundColor(Color.background)
+                Spacer()
+                    .frame(height: 10)
                 
-                VStack {
-                    
+                SecureField("Password", text: $password)
+                    .multilineTextAlignment(.center)
+                    .font(.system(.body, design: .rounded))
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(50)
+                
+                Spacer()
+                    .frame(height: 10)
+                
+                Button {
+                    viewModel.login(withEmail: email, password: password)
+                } label: {
                     Text("Login")
-                        .font(.system(.largeTitle, design: .rounded))
+                        .font(.system(.body, design: .rounded))
                         .fontWeight(.bold)
-                        .padding()
-                    
-                    TextField("Email", text: $email)
-                        .multilineTextAlignment(.center)
-                        .font(.system(.body, design: .rounded))
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .padding()
+                        .foregroundColor(.white)
                         .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.05))
+                        .background(Color.systemBlue)
                         .cornerRadius(50)
-                    
-                    Spacer()
-                        .frame(height: 10)
-                    
-                    SecureField("Password", text: $password)
-                        .multilineTextAlignment(.center)
-                        .font(.system(.body, design: .rounded))
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.05))
-                        .cornerRadius(50)
-                    
-                    Spacer()
-                        .frame(height: 10)
-                    
-                    Button {
-                        viewModel.login(withEmail: email, password: password)
-                    } label: {
-                        Text("Login")
-                            .font(.system(.body, design: .rounded))
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .frame(width: 300, height: 50)
-                            .background(Color.systemBlue)
-                            .cornerRadius(50)
-                    }
-                    
-                    HStack {
-                        Text("New around here?")
-                            .font(.system(.headline, design: .rounded))
-                        NavigationLink("Sign Up", destination:
-                                        SignUpView()
-                            .environmentObject(viewModel)
-                            .navigationBarHidden(true)
-                        )
-                        .foregroundColor(Color.systemBlue)
-                        .font(.system(.subheadline, design: .rounded))
-                        
-                    }
+                }
+                
+                HStack {
+                    Text("New around here?")
+                        .font(.system(.headline, design: .rounded))
+                    NavigationLink("Sign Up", destination:
+                                    SignUpView()
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
+                    )
+                    .foregroundColor(Color.systemBlue)
+                    .font(.system(.subheadline, design: .rounded))
                     
                 }
                 
             }
-//            .navigationBarHidden(true)
             
-//        }
-        
+        }
     }
 }
 

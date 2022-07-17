@@ -12,5 +12,6 @@ struct Item: Identifiable, Decodable {
     @DocumentID var id: String?
     let name: String
     let price: Double
+    var noOfDuplicates: Int = 1
     
 }

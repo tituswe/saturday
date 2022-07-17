@@ -30,6 +30,10 @@ struct HomeView: View {
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
     
+    init(){
+           UINavigationBar.setAnimationsEnabled(false)
+       }
+
     var body: some View {
         
         ZStack {
@@ -181,7 +185,7 @@ struct HomeView: View {
                     .padding(16)
                     
                     ScrollView {
-                        
+                       
                         GeometryReader { reader -> AnyView in
                             
                             DispatchQueue.main.async {
@@ -201,7 +205,7 @@ struct HomeView: View {
                                         refresh.released = true
                                         refresh.offset = 25
                                     }
-                                    updateData()
+//                                    updateData()
                                 }
                                 
                             }

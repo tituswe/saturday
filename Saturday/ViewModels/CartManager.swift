@@ -18,7 +18,9 @@ class CartManager: ObservableObject {
     @Published var allUsers = [User]()
     @Published var transactions = [String: Transaction]()
     @Published var selectedMap = [String: Bool]()
-    @Published var selectedUserId: String?
+    
+    @Published var isMultiSplit: Bool = false
+    @Published var serviceFees: String = ""
     
     init() {
         self.userSession = Auth.auth().currentUser
@@ -75,16 +77,16 @@ class CartManager: ObservableObject {
     func selectUser(user: User) {
         guard let uid = user.id else { return }
         
-        self.selectedMap.keys.forEach { selectedMap[$0] = false }
-        self.selectedMap[uid] = true
-        
-        self.selectedUserId = uid
+        if self.isMultiSplit {
+            self.selectedMap[uid]?.toggle()
+        } else {
+            self.selectedMap.keys.forEach { selectedMap[$0] = false }
+            self.selectedMap[uid]?.toggle()
+        }
     }
     
     func selectNone() {
         self.selectedMap.keys.forEach { selectedMap[$0] = false }
-        
-        self.selectedUserId = nil
     }
     
     func getTransaction(key: String) -> Transaction {
@@ -114,21 +116,63 @@ class CartManager: ObservableObject {
     }
     
     func addItemToTransaction(item: Item) {
-        guard let selectedUserId = selectedUserId else { return }
-
-        self.transactions[selectedUserId]?.addItem(item: item)
+        let noOfSelected = self.selectedMap.filter({$0.value == true}).count
+        if noOfSelected == 0 { return }
         
+        let splitItem = Item(
+            id: item.id,
+            name: item.name,
+            price: item.price/Double(noOfSelected),
+            noOfDuplicates: noOfSelected)
+        
+        self.selectedMap.keys.forEach {
+            if selectedMap[$0] == true {
+                self.transactions[$0]?.addItem(item: splitItem)
+            }
+        }
         self.payableItems = self.payableItems.filter { $0.id != item.id }
     }
     
-    func removeItemFromTransaction(item: Item) {
-        guard let selectedUserId = selectedUserId else { return }
+    func removeItemFromTransaction(item: Item, user: User) {
+        let amountToAdd = item.noOfDuplicates == 1 ? 0 : item.price/Double(item.noOfDuplicates - 1)
         
-        self.transactions[selectedUserId]?.removeItem(item: item)
+        let replacementItem = Item(
+            id: item.id,
+            name: item.name,
+            price: item.price + amountToAdd,
+            noOfDuplicates: item.noOfDuplicates == 1 ? item.noOfDuplicates : item.noOfDuplicates - 1)
         
-        self.payableItems.append(item)
+        var usersWithDuplicates: [String] = []
+        
+        for (userId, userTransaction) in self.transactions {
+            for targetItem in userTransaction.items {
+                if targetItem.id == item.id {
+                    usersWithDuplicates.append(userId)
+                }
+            }
+        }
+        
+        for userId in usersWithDuplicates {
+            self.transactions[userId]?.removeItem(item: item)
+            if userId != user.id {
+                self.transactions[userId]?.addItem(item: replacementItem)
+            }
+        }
+        
+        if item.noOfDuplicates == 1 {
+            self.payableItems.append(replacementItem)
+        }
     }
     
+    func addServiceFees() {
+        guard let fees = Double(serviceFees) else { return }
+        
+        let serviceItem = Item(id: UUID().uuidString, name: "Service Fees", price: fees/Double(payableUsers.count), noOfDuplicates: payableUsers.count)
+        
+        self.transactions.keys.forEach {
+            transactions[$0]?.addItem(item: serviceItem)
+        }
+    }
     
     // MARK: Firestore
     
@@ -136,6 +180,7 @@ class CartManager: ObservableObject {
         guard let creditor = creditor else { return }
         guard let creditorId = creditor.id else { return }
         
+        addServiceFees()
         self.transactions.keys.forEach { debtorId in
             guard let transaction = transactions[debtorId] else { return }
             
@@ -174,7 +219,8 @@ class CartManager: ObservableObject {
         guard let itemId = item.id else { return }
         
         let data = ["name": item.name,
-                    "price": item.price] as [String : Any]
+                    "price": item.price,
+                    "noOfDuplicates": item.noOfDuplicates] as [String : Any]
         
         Firestore.firestore().collection("debts")
             .document(debtorId)
