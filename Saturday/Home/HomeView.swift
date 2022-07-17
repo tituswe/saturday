@@ -28,6 +28,8 @@ struct HomeView: View {
     
     @State var homeStateOffset = CGFloat(-121)
     
+    @State var refresh: Refresh = Refresh(started: false, released: false)
+    
     var body: some View {
         
         ZStack {
@@ -180,31 +182,77 @@ struct HomeView: View {
                     
                     ScrollView {
                         
-                        LazyVStack {
+                        GeometryReader { reader -> AnyView in
                             
-                            switch homeState {
-                            case .CREDITS:
-                                ForEach(viewModel.credits, id: \.id) { credit in
-                                    CreditCardView(credit: credit)
-                                        .environmentObject(viewModel)
+                            DispatchQueue.main.async {
+                                
+                                if refresh.startOffset == 0 {
+                                    refresh.startOffset = reader.frame(in: .global).minY + 120
                                 }
                                 
-                            case .DEBTS:
-                                ForEach(viewModel.debts, id: \.id) { debt in
-                                    DebtCardView(debt: debt)
-                                        .environmentObject(viewModel)
+                                refresh.offset = reader.frame(in: .global).minY
+                                
+                                if refresh.offset - refresh.startOffset > 40 && !refresh.started {
+                                    refresh.started = true
                                 }
                                 
-                            case .HISTORY:
-                                ForEach(viewModel.archives, id: \.id) { archive in
-                                    HistoryCardView(archive: archive)
-                                        .environmentObject(viewModel)
-                                    Divider()
-                                        .padding(.horizontal, 24)
+                                if refresh.startOffset - refresh.offset < 25 && refresh.started && !refresh.released {
+                                    withAnimation(Animation.linear) {
+                                        refresh.released = true
+                                        refresh.offset = 25
+                                    }
+                                    updateData()
                                 }
+                                
+                            }
+                            
+                            return AnyView(Color.black.frame(width: 0, height: 0))
+                            
+                        }
+                        .frame(width: 0, height: 0)
+                        
+                        ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                            
+                            if refresh.started && refresh.released {
+                                ProgressView()
+                                    .offset(y: -35)
+                            } else {
+                                Image(systemName: "arrow.down")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.gray)
+                                    .rotationEffect(.init(degrees: refresh.started ? 180 : 0))
+                                    .offset(y: -25)
+                                    .animation(.easeIn, value: 1)
+                            }
+                            
+                            LazyVStack {
+                                
+                                switch homeState {
+                                case .CREDITS:
+                                    ForEach(viewModel.credits, id: \.id) { credit in
+                                        CreditCardView(credit: credit)
+                                            .environmentObject(viewModel)
+                                    }
+
+                                case .DEBTS:
+                                    ForEach(viewModel.debts, id: \.id) { debt in
+                                        DebtCardView(debt: debt)
+                                            .environmentObject(viewModel)
+                                    }
+
+                                case .HISTORY:
+                                    ForEach(viewModel.archives, id: \.id) { archive in
+                                        HistoryCardView(archive: archive)
+                                            .environmentObject(viewModel)
+                                        Divider()
+                                            .padding(.horizontal, 12)
+                                    }
+                                }
+
                             }
                             
                         }
+                        .offset(y: refresh.released ? 40 : -10)
                         
                     }
                     
@@ -232,6 +280,17 @@ struct HomeView: View {
             
         }
         
+    }
+    
+    func updateData() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            withAnimation(Animation.linear) {
+                viewModel.refresh()
+                refresh.released = false
+                refresh.started = false
+                print("DEBUG: Refreshed!")
+            }
+        }
     }
     
 }

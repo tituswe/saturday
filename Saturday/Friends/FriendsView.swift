@@ -26,6 +26,8 @@ struct FriendsView: View {
     
     @State var friendStateOffset = CGFloat(-89)
     
+    @State var refresh: Refresh = Refresh(started: false, released: false)
+    
     var body: some View {
         
         ZStack {
@@ -106,62 +108,108 @@ struct FriendsView: View {
                     
                     ScrollView {
                         
-                        LazyVStack {
+                        GeometryReader { reader -> AnyView in
                             
-                            switch friendState {
-
-                            case .FRIEND:
-                                if viewModel.searchText.isEmpty {
-                                    ForEach(viewModel.friends) { user in
-                                        
-                                        UserRowView(user: user, state: .FRIEND)
-                                            .environmentObject(viewModel)
-                                        
-                                        Divider()
-                                            .padding(.horizontal, 24)
-                                        
-                                    }
-                                } else {
-                                    ForEach(viewModel.searchableUsers) { user in
-                                        
-                                        UserRowView(user: user, state: userState(user: user))
-                                            .environmentObject(viewModel)
-                                        
-                                        Divider()
-                                            .padding(.horizontal, 24)
-                                        
-                                    }
+                            DispatchQueue.main.async {
+                                
+                                if refresh.startOffset == 0 {
+                                    refresh.startOffset = reader.frame(in: .global).minY
                                 }
-
-                            case .REQUEST:
-                                if viewModel.searchText.isEmpty {
-                                    ForEach(viewModel.friendRequests) { user in
-                                        
-                                        UserRowView(user: user, state: .RECEIVE)
-                                            .environmentObject(viewModel)
-                                        
-                                        Divider()
-                                            .padding(.horizontal, 24)
-                                        
-                                    }
-                                } else {
-                                    ForEach(viewModel.searchableRequests) { user in
-                                        
-                                        UserRowView(user: user, state: .RECEIVE)
-                                            .environmentObject(viewModel)
-                                        
-                                        Divider()
-                                            .padding(.horizontal, 24)
-                                        
-                                    }
+                                
+                                refresh.offset = reader.frame(in: .global).minY
+                                
+                                print("start \(refresh.startOffset)")
+                                print("off \(refresh.offset)")
+                                if refresh.offset - refresh.startOffset > 40 && !refresh.started {
+                                    refresh.started = true
                                 }
-
+                                
+                                if refresh.startOffset - refresh.offset < 25 && refresh.started && !refresh.released {
+                                    withAnimation(Animation.linear) {
+                                        refresh.released = true
+                                        refresh.offset = 25
+                                    }
+                                    updateData()
+                                }
+                                
+                            }
+                            
+                            return AnyView(Color.black.frame(width: 0, height: 0))
+                            
+                        }
+                        .frame(width: 0, height: 0)
+                        
+                        ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                            
+                            if refresh.started && refresh.released {
+                                ProgressView()
+                                    .offset(y: -35)
+                            } else {
+                                Image(systemName: "arrow.down")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.gray)
+                                    .rotationEffect(.init(degrees: refresh.started ? 180 : 0))
+                                    .offset(y: -25)
+                                    .animation(.easeIn, value: 1)
+                            }
+                            
+                            LazyVStack {
+                                
+                                switch friendState {
+                                    
+                                case .FRIEND:
+                                    if viewModel.searchText.isEmpty {
+                                        ForEach(viewModel.friends) { user in
+                                            
+                                            UserRowView(user: user, state: .FRIEND)
+                                                .environmentObject(viewModel)
+                                            
+                                            Divider()
+                                                .padding(.horizontal, 24)
+                                            
+                                        }
+                                    } else {
+                                        ForEach(viewModel.searchableUsers) { user in
+                                            
+                                            UserRowView(user: user, state: userState(user: user))
+                                                .environmentObject(viewModel)
+                                            
+                                            Divider()
+                                                .padding(.horizontal, 24)
+                                            
+                                        }
+                                    }
+                                    
+                                case .REQUEST:
+                                    if viewModel.searchText.isEmpty {
+                                        ForEach(viewModel.friendRequests) { user in
+                                            
+                                            UserRowView(user: user, state: .RECEIVE)
+                                                .environmentObject(viewModel)
+                                            
+                                            Divider()
+                                                .padding(.horizontal, 24)
+                                            
+                                        }
+                                    } else {
+                                        ForEach(viewModel.searchableRequests) { user in
+                                            
+                                            UserRowView(user: user, state: .RECEIVE)
+                                                .environmentObject(viewModel)
+                                            
+                                            Divider()
+                                                .padding(.horizontal, 24)
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                
                             }
                             
                         }
                         
                     }
-                    
                     Spacer()
                     
                 }
@@ -186,6 +234,17 @@ struct FriendsView: View {
             
         }
         
+    }
+    
+    func updateData() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            withAnimation(Animation.linear) {
+                viewModel.refresh()
+                refresh.released = false
+                refresh.started = false
+                print("DEBUG: Refreshed!")
+            }
+        }
     }
     
     func userState(user: User) -> RequestState {

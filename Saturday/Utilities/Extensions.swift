@@ -69,3 +69,10 @@ extension Calendar {
         return numberOfDays.day!
     }
 }
+
+struct Refresh {
+    var startOffset = CGFloat(0)
+    var offset = CGFloat(0)
+    var started: Bool
+    var released: Bool
+}
