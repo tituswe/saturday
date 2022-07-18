@@ -65,8 +65,10 @@ struct SettleDebtView: View {
             }
             
             Button {
-                isShowingSettleDebtView = false
-                isShowingPaymentView = true
+                withAnimation(.spring()) {
+                    isShowingSettleDebtView = false
+                    isShowingPaymentView = true
+                }
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 50)

@@ -28,6 +28,8 @@ struct FriendsView: View {
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
     
+    @State var isEditingOffset = CGFloat(0)
+    
     var body: some View {
        
         NavigationView {
@@ -48,14 +50,20 @@ struct FriendsView: View {
                     // MARK: Navigation Bar
                     NavBarView(
                         topLeftButtonView: "line.horizontal.3",
-                        topRightButtonView: "gearshape",
+                        topRightButtonView: "pencil",
                         titleString: "Your Friends",
                         topLeftButtonAction: {
                             withAnimation(.spring()) {
                                 isShowingSideMenu = true
                             }
                         },
-                        topRightButtonAction: {})
+                        topRightButtonAction: {
+                            withAnimation(.spring()) {
+                                isEditingOffset = isEditingOffset == CGFloat(0)
+                                    ? CGFloat(-56)
+                                    : CGFloat(0)
+                            }
+                        })
                     
                     // MARK: Friends List
                     VStack {
@@ -66,7 +74,8 @@ struct FriendsView: View {
                                 
                                 Button {
                                     friendState = .FRIEND
-                                    withAnimation {
+                                    withAnimation(.spring()) {
+                                        viewModel.refresh()
                                         friendStateOffset = -89
                                     }
                                 } label: {
@@ -82,7 +91,8 @@ struct FriendsView: View {
                                 
                                 Button {
                                     friendState = .REQUEST
-                                    withAnimation {
+                                    withAnimation(.spring()) {
+                                        viewModel.refresh()
                                         friendStateOffset = 82
                                     }
                                 } label: {
@@ -156,7 +166,7 @@ struct FriendsView: View {
                                         if viewModel.searchText.isEmpty {
                                             ForEach(viewModel.friends) { user in
                                                 
-                                                UserRowView(user: user, state: .FRIEND)
+                                                UserRowView(user: user, state: .FRIEND, isEditingOffset: $isEditingOffset)
                                                     .environmentObject(viewModel)
                                                 
                                                 Divider()
@@ -166,7 +176,7 @@ struct FriendsView: View {
                                         } else {
                                             ForEach(viewModel.searchableUsers) { user in
                                                 
-                                                UserRowView(user: user, state: userState(user: user))
+                                                UserRowView(user: user, state: userState(user: user), isEditingOffset: $isEditingOffset)
                                                     .environmentObject(viewModel)
                                                 
                                                 Divider()
@@ -179,7 +189,7 @@ struct FriendsView: View {
                                         if viewModel.searchText.isEmpty {
                                             ForEach(viewModel.friendRequests) { user in
                                                 
-                                                UserRowView(user: user, state: .RECEIVE)
+                                                UserRowView(user: user, state: .RECEIVE, isEditingOffset: $isEditingOffset)
                                                     .environmentObject(viewModel)
                                                 
                                                 Divider()
@@ -189,7 +199,7 @@ struct FriendsView: View {
                                         } else {
                                             ForEach(viewModel.searchableRequests) { user in
                                                 
-                                                UserRowView(user: user, state: .RECEIVE)
+                                                UserRowView(user: user, state: .RECEIVE, isEditingOffset: $isEditingOffset)
                                                     .environmentObject(viewModel)
                                                 
                                                 Divider()

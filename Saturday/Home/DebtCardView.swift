@@ -121,7 +121,7 @@ struct DebtCardView: View {
                                isShowingPaymentView: $isShowingPaymentView)
                     .environmentObject(viewModel)
             }
-            .sheet(isPresented: $isShowingPaymentView, onDismiss: resetOffset) {
+            .fullScreenCover(isPresented: $isShowingPaymentView, onDismiss: resetOffset) {
                 // TODO: Link to payment services
                 PaymentView(isShowingPaymentView: $isShowingPaymentView, debt: debt)
                     .environmentObject(viewModel)

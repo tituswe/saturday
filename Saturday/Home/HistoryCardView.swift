@@ -24,7 +24,7 @@ struct HistoryCardView: View {
                 .clipped()
                 .frame(width: 64, height: 64)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.background, lineWidth: 3))
+                .overlay(Circle().stroke(Color(.lightGray), lineWidth: 3))
             
             VStack(alignment: .leading) {
                 
@@ -37,7 +37,7 @@ struct HistoryCardView: View {
                 
                 
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 16)
             
             VStack(alignment: .trailing) {
             

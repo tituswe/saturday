@@ -21,6 +21,7 @@
 		588848E328815525000CD17B /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588848E228815525000CD17B /* NavBarView.swift */; };
 		589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820D92856637300719CCE /* SaturdayLogo.swift */; };
 		589820DC28566AE400719CCE /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589820DB28566AE300719CCE /* SignUpView.swift */; };
+		58A6D5732885CED500F28E63 /* QuarterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A6D5722885CED500F28E63 /* QuarterSheet.swift */; };
 		58AFC05E287EEC82008AB208 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AFC05D287EEC82008AB208 /* BottomBarView.swift */; };
 		58B3312E287343D500C64E78 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B3312D287343D500C64E78 /* SideMenuView.swift */; };
 		58B33130287343E000C64E78 /* SideMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B3312F287343E000C64E78 /* SideMenuHeaderView.swift */; };
@@ -92,6 +93,7 @@
 		588848E228815525000CD17B /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		589820D92856637300719CCE /* SaturdayLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaturdayLogo.swift; sourceTree = "<group>"; };
 		589820DB28566AE300719CCE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		58A6D5722885CED500F28E63 /* QuarterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarterSheet.swift; sourceTree = "<group>"; };
 		58AFC05D287EEC82008AB208 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		58B3312D287343D500C64E78 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		58B3312F287343E000C64E78 /* SideMenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeaderView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				B032CB572864A845003FB01F /* TextProcessor.swift */,
 				B032CB552864A384003FB01F /* TextExtractionModel.swift */,
 				58CE63E22874A5B300DF2C77 /* ImageUploader.swift */,
+				58A6D5722885CED500F28E63 /* QuarterSheet.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				58FA37B12876EB2F00988F37 /* CreditService.swift in Sources */,
 				58CE63E52874AC2400DF2C77 /* UserService.swift in Sources */,
 				588848E328815525000CD17B /* NavBarView.swift in Sources */,
+				58A6D5732885CED500F28E63 /* QuarterSheet.swift in Sources */,
 				58B331382873712400C64E78 /* DebtCardView.swift in Sources */,
 				58CE643B287583E900DF2C77 /* AddUserRowView.swift in Sources */,
 				58CE644028758CB900DF2C77 /* UserCardView.swift in Sources */,

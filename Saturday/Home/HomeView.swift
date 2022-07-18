@@ -29,7 +29,7 @@ struct HomeView: View {
     @State var homeStateOffset = CGFloat(-121)
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
-
+    
     var body: some View {
         
         ZStack {
@@ -277,6 +277,9 @@ struct HomeView: View {
             .offset(x: isShowingSideMenu ? 300: 0)
             .scaleEffect(isShowingSideMenu ? 0.8 : 1)
             .ignoresSafeArea(.all, edges: [.bottom])
+            .onAppear {
+                viewModel.refresh()
+            }
             
         }
         

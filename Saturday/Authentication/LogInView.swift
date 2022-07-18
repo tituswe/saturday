@@ -77,6 +77,7 @@ struct LogInView: View {
                 
                 Button {
                     viewModel.login(withEmail: email, password: password)
+                    viewModel.refresh()
                 } label: {
                     Text("Login")
                         .fontWeight(.bold)
@@ -108,6 +109,9 @@ struct LogInView: View {
                 
             }
             
+        }
+        .onAppear {
+            viewModel.reset()
         }
     }
 }

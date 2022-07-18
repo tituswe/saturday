@@ -360,6 +360,32 @@ class UserViewModel: ObservableObject {
         print("COMPLETED: fetchFriends...")
     }
     
+    func removeFriend(friend: User) {
+        guard let uid = self.userSession?.uid else { return }
+        
+        Firestore.firestore().collection("friends")
+            .document(uid)
+            .collection("list")
+            .document(friend.id!)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        Firestore.firestore().collection("friends")
+            .document(friend.id!)
+            .collection("list")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+    }
+    
     func sendFriendRequest(user: User) {
         guard let currentUser = currentUser else { return }
         guard let receiverUid = user.id else { return }
@@ -506,6 +532,7 @@ class UserViewModel: ObservableObject {
                 }
             }
         
+        self.friendRequests = self.friendRequests.filter { $0.id != user.id }
         // Update friend request list
         self.refresh()
     }
@@ -538,6 +565,8 @@ class UserViewModel: ObservableObject {
             }
         
         // Update friend request list
+        self.friendRequests = self.friendRequests.filter { $0.id != user.id }
+        
         self.refresh()
     }
     

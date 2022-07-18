@@ -31,7 +31,7 @@ struct UserCardView: View {
                     .resizable()
                     .scaledToFill()
                     .clipShape(Circle())
-                    .frame(width: 48, height: 48)
+                    .frame(width: 64, height: 64)
                     .overlay(Circle()
                         .stroke(isShowingDeleteButton
                                 ? Color.systemRed.opacity(0.8)
@@ -55,7 +55,7 @@ struct UserCardView: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .frame(width: 16, height: 16)
+                                .frame(width: 20, height: 20)
                                 .foregroundColor(Color.systemRed)
                             
                             Image(systemName: "xmark")
@@ -65,7 +65,7 @@ struct UserCardView: View {
                                 
                         }
                     }
-                    .offset(x: 32, y: -24)
+                    .offset(x: 40, y: -32)
                     
                 } else if cartManager.getTransactionItemsCount(key: user.id!) > 0 {
                     
@@ -75,7 +75,7 @@ struct UserCardView: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .frame(width: 16, height: 16)
+                                .frame(width: 20, height: 20)
                                 .foregroundColor(Color.systemBlue)
                             
                             Text("\(cartManager.getTransactionItemsCount(key: user.id!))")

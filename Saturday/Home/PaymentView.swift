@@ -6,48 +6,110 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PaymentView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
     
     @Binding var isShowingPaymentView: Bool
-   
+    
     @State var amountPaid: String = ""
     
     let debt: Debt
     
     var body: some View {
-        // TODO: Link to payment services
-       
-        VStack {
-            TextField("Input Amount Transferred", text: $amountPaid)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.center)
-                .font(.system(size: 18))
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-                .padding()
-                .frame(width: 300, height: 50)
-                .background(Color.black.opacity(0.05))
-                .cornerRadius(50)
-                .padding()
+        
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.systemGreen, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .ignoresSafeArea()
+                .blur(radius: 50)
             
-            Button {
-                if (Double(amountPaid) == debt.total) {
-                    viewModel.cacheTransaction(debt: debt)
+            ZStack(alignment: .topTrailing) {
+                
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(Color.background)
+                    .frame(width: 320, height: 240)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                
+                Button {
+                    withAnimation(.spring()) {
+                        isShowingPaymentView = false
+                    }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.text)
                 }
-            } label: {
-                Text("Pay up")
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 50)
-                    .background(Color.systemBlue)
-                    .cornerRadius(50)
-                    .padding()
+                .padding(.top, 24)
+                .padding(.trailing, 24)
+                
             }
+            
+            VStack {
+                
+                KFImage(URL(string: creditor().profileImageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
+                    .frame(width: 88, height: 88)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.background, lineWidth: 3))
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                
+                Text("I paid \(userName())")
+                    .font(.title3)
+                    .frame(width: 240, height: 48)
+                
+                TextField("", text: $amountPaid)
+                    .keyboardType(.decimalPad)
+                    .multilineTextAlignment(.center)
+                    .font(.system(size: 18))
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .frame(width: 200, height: 48)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(50)
+                
+                Spacer()
+                    .frame(height: 8)
+                Button {
+                    if (Double(amountPaid) == debt.total) {
+                        viewModel.cacheTransaction(debt: debt)
+                        viewModel.refresh()
+                        isShowingPaymentView = false
+                    }
+                } label: {
+                    Text("Pay up")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 48)
+                        .background(Color.systemBlue)
+                        .cornerRadius(50)
+                }
+                
+            }
+            .padding(.bottom, 64)
+        }
+        
+    }
+    
+    func creditor() -> User {
+        let uid = debt.creditorId
+        let creditor = viewModel.queryUser(withUid: uid)
+        return creditor
+    }
+    
+    func userName() -> String {
+        let name = creditor().name.components(separatedBy: " ").first!
+
+        if name.count > 6 {
+            return name.prefix(5) + "..."
+        } else {
+            return name
         }
     }
+    
 }
 
 struct PaymentView_Previews: PreviewProvider {

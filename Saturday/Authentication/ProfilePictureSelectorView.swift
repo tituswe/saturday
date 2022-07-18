@@ -82,7 +82,7 @@ struct ProfilePictureSelectorView: View {
                         }
                     }
                 }
-                .sheet(isPresented: $isShowingImagePicker, onDismiss: loadImage) {
+                .fullScreenCover(isPresented: $isShowingImagePicker, onDismiss: loadImage) {
                     ImagePicker(selectedImage: $selectedImage)
                 }
                 

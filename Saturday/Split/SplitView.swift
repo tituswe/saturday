@@ -25,6 +25,8 @@ struct SplitView: View {
     
     @State var offset = CGFloat(-56)
     
+    @FocusState var feesIsFocused: Bool
+    
     var body: some View {
         
         NavigationView {
@@ -57,7 +59,7 @@ struct SplitView: View {
                                     cartManager.isMultiSplit = false
                                     cartManager.selectNone()
                                     withAnimation(.spring()) {
-                                        offset = -56
+                                        offset = CGFloat(-56)
                                     }
                                 } label: {
                                     Text("SINGLE")
@@ -130,7 +132,7 @@ struct SplitView: View {
                                             VStack {
                                                 ZStack {
                                                     Circle()
-                                                        .frame(width: 48, height: 48)
+                                                        .frame(width: 64, height: 64)
                                                         .foregroundColor(Color.background)
                                                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                                                     
@@ -196,26 +198,42 @@ struct SplitView: View {
                                     
                                 } else {
                                     ZStack {
+                                        
                                         VStack {
-                                            Spacer()
                                             
-                                            TextField("Input Service Fees", text: $cartManager.serviceFees)
-                                                .keyboardType(.decimalPad)
-                                                .multilineTextAlignment(.center)
-                                                .font(.system(size: 16))
-                                                .disableAutocorrection(true)
-                                                .autocapitalization(.none)
-                                                .padding()
-                                                .frame(width: 300, height: 40)
-                                                .background(Color.black.opacity(0.05))
-                                                .cornerRadius(50)
-                                                .padding()
+                                            ZStack {
+                                                TextField("Input Service Fees", text: $cartManager.serviceFees)
+                                                    .keyboardType(.decimalPad)
+                                                    .multilineTextAlignment(.center)
+                                                    .font(.system(size: 16))
+                                                    .disableAutocorrection(true)
+                                                    .autocapitalization(.none)
+                                                    .padding()
+                                                    .frame(width: 300, height: 40)
+                                                    .background(Color.black.opacity(0.05))
+                                                    .cornerRadius(50)
+                                                    .padding()
+                                                    .focused($feesIsFocused)
+                                                
+                                                HStack {
+                                                    Spacer()
+                                                    Button {
+                                                        feesIsFocused = false
+                                                    } label: {
+                                                        Image(systemName: "pencil.slash")
+                                                            .font(.system(size: 20))
+                                                            .padding(.trailing, 42)
+                                                    }
+                                                }
+                                            }
+                                            
+                                            Spacer()
                                         }
                                         
                                         Text("No more items!")
                                             .font(.system(size: 16))
                                             .foregroundColor(.gray)
-                                            .frame(width: 280, height: 320)
+                                            .frame(width: 200, height: 200)
                                             .background(Color.background)
                                             .cornerRadius(50)
                                     }
@@ -320,7 +338,6 @@ struct SplitView: View {
         let payableItems = TextExtractionModel(referenceReceipt: referenceReceipt).extractItems()
         
         cartManager.updatePayableItems(items: payableItems)
-        print("DEBUG: Successfully extracted items from receipt")
     }
     
     func splitDone() -> Bool {
