@@ -51,7 +51,6 @@ struct FriendsView: View {
                         topRightButtonView: "gearshape",
                         titleString: "Your Friends",
                         topLeftButtonAction: {
-                            viewModel.refresh()
                             withAnimation(.spring()) {
                                 isShowingSideMenu = true
                             }

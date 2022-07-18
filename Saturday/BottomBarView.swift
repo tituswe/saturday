@@ -33,7 +33,6 @@ struct BottomBarView: View {
             
             Button {
                 if viewState != .HOME {
-                    viewModel.refresh()
                     isShowingDashboard = true
                 }
             } label: {
@@ -52,7 +51,6 @@ struct BottomBarView: View {
             
             Button {
                 if viewState != .SPLIT {
-                    viewModel.refresh()
                     isShowingSplitView = true
                 }
             } label: {
@@ -77,7 +75,6 @@ struct BottomBarView: View {
             
             Button {
                 if viewState != .FRIENDS {
-                    viewModel.refresh()
                     isShowingFriends = true
                 }
             } label: {

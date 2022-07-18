@@ -16,9 +16,6 @@ struct ContentView: View {
             
                 } else {
                     HomeView()
-                        .onAppear {
-                            viewModel.refresh()
-                        }
                 }
                 
             }

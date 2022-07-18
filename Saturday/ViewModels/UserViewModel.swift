@@ -34,39 +34,192 @@ class UserViewModel: ObservableObject {
     init() {
         print("DEBUG: Initializing new UserViewModel...")
         self.userSession = Auth.auth().currentUser
-        self.fetchUser()
-        self.fetchUsers()
-        self.fetchFriends()
-        self.fetchFriendRequests()
-        self.fetchSentFriendRequests()
         
-        self.fetchDebts()
-        self.fetchDebtItems()
-
-        self.fetchCredits()
-        self.fetchCreditItems()
+        let mainQueue = DispatchQueue.main.self
+        let group = DispatchGroup()
+        group.enter()
         
-        self.fetchArchives()
-        self.fetchTracker()
+        mainQueue.async {
+            self.fetchUser()
+            print("COMPLETED: fetchUser...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchUsers()
+            print("COMPLETED: fetchUsers...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchFriends()
+            print("COMPLETED: fetchFriends...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchFriends()
+            print("COMPLETED: fetchFriends...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchSentFriendRequests()
+            print("COMPLETED: fetchSentFriendRequests...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchDebts()
+            print("COMPLETED: fetchDebts...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchDebtItems()
+            print("COMPLETED: fetchDebtItems...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchCredits()
+            print("COMPLETED: fetchCredits...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchCreditItems()
+            print("COMPLETED: fetchCreditItems...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchArchives()
+            print("COMPLETED: fetchArchives...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchTracker()
+            print("COMPLETED: fetchTracker...")
+            group.leave()
+        }
     }
-    
+
     func refresh() {
         print("DEBUG: Refreshing...")
         self.searchText = ""
-        self.fetchUser()
-        self.fetchUsers()
-        self.fetchFriends()
-        self.fetchFriendRequests()
-        self.fetchSentFriendRequests()
+
+        let mainQueue = DispatchQueue.main.self
+        let group = DispatchGroup()
+        group.enter()
         
-        self.fetchDebts()
-        self.fetchDebtItems()
+        mainQueue.async {
+            self.fetchUser()
+            print("COMPLETED: fetchUser...")
+            group.leave()
+        }
         
-        self.fetchCredits()
-        self.fetchCreditItems()
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchUsers()
+            print("COMPLETED: fetchUsers...")
+            group.leave()
+        }
         
-        self.fetchArchives()
-        self.fetchTracker()
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchFriends()
+            print("COMPLETED: fetchFriends...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchFriends()
+            print("COMPLETED: fetchFriends...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchSentFriendRequests()
+            print("COMPLETED: fetchSentFriendRequests...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchDebts()
+            print("COMPLETED: fetchDebts...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchDebtItems()
+            print("COMPLETED: fetchDebtItems...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchCredits()
+            print("COMPLETED: fetchCredits...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchCreditItems()
+            print("COMPLETED: fetchCreditItems...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchArchives()
+            print("COMPLETED: fetchArchives...")
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchTracker()
+            print("COMPLETED: fetchTracker...")
+            group.leave()
+        }
+        
     }
     
     func reset() {
@@ -86,7 +239,6 @@ class UserViewModel: ObservableObject {
             
             guard let user = result?.user else { return }
             self.userSession = user
-            self.refresh()
         }
     }
     
@@ -160,7 +312,7 @@ class UserViewModel: ObservableObject {
             self.tracker = tracker
         }
     }
-
+    
     func queryUser(withUid uid: String) -> User {
         guard let query = (self.users.first { $0.id == uid }) else {
             return User(id: "",
@@ -232,10 +384,10 @@ class UserViewModel: ObservableObject {
             .setData(data as [String : Any])
         
         let data2 = ["email": user.email,
-                    "username": user.username.lowercased(),
-                    "name": user.name,
-                    "profileImageUrl": user.profileImageUrl,
-                    "uid": receiverUid]
+                     "username": user.username.lowercased(),
+                     "name": user.name,
+                     "profileImageUrl": user.profileImageUrl,
+                     "uid": receiverUid]
         
         Firestore.firestore().collection("friendRequests")
             .document(currentUser.id!)
@@ -325,10 +477,10 @@ class UserViewModel: ObservableObject {
         
         // Add friend to me
         let data2 = ["email": user.email,
-                    "username": user.username.lowercased(),
-                    "name": user.name,
-                    "profileImageUrl": user.profileImageUrl,
-                    "uid": user.id]
+                     "username": user.username.lowercased(),
+                     "name": user.name,
+                     "profileImageUrl": user.profileImageUrl,
+                     "uid": user.id]
         
         Firestore.firestore().collection("friends")
             .document(currentUser.id!)
@@ -420,7 +572,7 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-
+    
     let creditService = CreditService()
     
     func fetchCredits() {
@@ -431,7 +583,7 @@ class UserViewModel: ObservableObject {
             formatter.dateFormat = "HH:mm E, d MMM y"
             
             let sortedCredits = credits.sorted(by: { formatter.date(from: $0.date)!.compare(formatter.date(from: $1.date)!) == .orderedAscending })
-
+            
             self.credits = sortedCredits
         }
     }
@@ -440,7 +592,7 @@ class UserViewModel: ObservableObject {
         guard let uid = self.userSession?.uid else {
             return
         }
-       
+        
         self.credits.forEach { credit in
             creditService.fetchItems(withUid: uid, transId: credit.transactionId) { items in
                 self.creditItems[credit.transactionId] = items
@@ -455,9 +607,9 @@ class UserViewModel: ObservableObject {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm E, d MMM y"
-
+        
         let currDate = formatter.string(from: Date.now)
-     
+        
         let data = ["transactionId": transactionId,
                     "creditorId": debt.creditorId,
                     "dateIssued": debt.date,
@@ -477,7 +629,7 @@ class UserViewModel: ObservableObject {
                     if error != nil { return }
                 }
         })
-    
+        
         Firestore.firestore().collection("debts").document(uid).collection("transactions").document(transactionId)
             .delete { error in
                 if error != nil { return }
@@ -485,7 +637,7 @@ class UserViewModel: ObservableObject {
         
         Firestore.firestore().collection("trackers").document(uid)
             .updateData(["totalPayable": FieldValue.increment(-debt.total)])
-            
+        
         let data2 = ["transactionId": transactionId,
                      "debtorId": uid,
                      "dateIssued": debt.date,
@@ -524,7 +676,7 @@ class UserViewModel: ObservableObject {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm E, d MMM y"
-
+        
         let currDate = formatter.string(from: Date.now)
         
         let data = ["transactionId": transactionId,

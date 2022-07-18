@@ -10,6 +10,7 @@ import Firebase
 
 struct DebtService {
     
+    //MARK: Original methods
     func fetchDebts(withUid uid: String, completion: @escaping([Debt]) -> Void) {
         Firestore.firestore().collection("debts")
             .document(uid)

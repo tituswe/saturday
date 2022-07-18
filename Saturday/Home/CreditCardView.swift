@@ -33,7 +33,6 @@ struct CreditCardView: View {
                 
                 Button {
                     viewModel.cacheTransaction(credit: credit)
-                    viewModel.refresh()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.title2)
@@ -82,7 +81,6 @@ struct CreditCardView: View {
                         }
                         
                         Button {
-                            viewModel.refresh()
                             isShowingPeekCreditView = true
                         } label: {
                             Text("Preview")
@@ -171,7 +169,6 @@ struct CreditCardView: View {
                 if -value.translation.width > UIScreen.main.bounds.width / 2 {
                     offset = -1000
                     viewModel.cacheTransaction(credit: credit)
-                    viewModel.refresh()
                 } else if -offset > 48 {
                     // Updating is swiping
                     isSwiped = true

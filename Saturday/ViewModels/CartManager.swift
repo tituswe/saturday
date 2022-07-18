@@ -27,16 +27,11 @@ class CartManager: ObservableObject {
         self.fetchCreditor()
     }
     
-    // TODO: Delete later
-    init(transactions: [String: Transaction]) {
-        self.transactions = transactions
-    }
-    
     private let service = UserService()
     
     func fetchCreditor() {
         guard let uid = self.userSession?.uid else { return }
-        
+
         service.fetchUser(withUid: uid) { creditor in
             self.creditor = creditor
         }

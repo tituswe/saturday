@@ -10,6 +10,7 @@ import Firebase
 
 struct CreditService {
     
+    //MARK: Original methods
     func fetchCredits(withUid uid: String, completion: @escaping([Credit]) -> Void) {
         Firestore.firestore().collection("credits")
             .document(uid)

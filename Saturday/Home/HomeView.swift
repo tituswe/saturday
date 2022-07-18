@@ -51,7 +51,6 @@ struct HomeView: View {
                     topRightButtonView: "gearshape",
                     titleString: "Saturday",
                     topLeftButtonAction: {
-                        viewModel.refresh()
                         withAnimation(.spring()) {
                             isShowingSideMenu = true
                         }

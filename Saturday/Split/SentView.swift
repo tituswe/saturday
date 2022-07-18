@@ -18,8 +18,8 @@ struct SentView: View {
         NavigationView {
             
             Button {
-                viewModel.refresh()
                 isShowingHomeView = true
+                viewModel.refresh()
             } label: {
                 ZStack {
                     
@@ -67,6 +67,6 @@ struct SentView_Previews: PreviewProvider {
     static var previews: some View {
         SentView()
             .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
+//            .environment(\.colorScheme, .dark)
     }
 }

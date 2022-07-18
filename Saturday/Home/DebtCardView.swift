@@ -83,7 +83,6 @@ struct DebtCardView: View {
                         }
                         
                         Button {
-                            viewModel.refresh()
                             isShowingSettleDebtView = true
                         } label: {
                             Text("Settle up")

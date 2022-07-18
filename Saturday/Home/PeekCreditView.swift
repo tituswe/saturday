@@ -64,7 +64,6 @@ struct PeekCreditView: View {
             
             Button {
                 viewModel.cacheTransaction(credit: credit)
-                viewModel.refresh()
                 isShowingPeekCreditView = false
             } label: {
                 ZStack {

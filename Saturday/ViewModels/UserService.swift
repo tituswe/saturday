@@ -10,12 +10,13 @@ import FirebaseFirestoreSwift
 
 struct UserService {
     
+    //MARK: Original methods
     func fetchUser(withUid uid: String, completion: @escaping(User) -> Void) {
         Firestore.firestore().collection("users")
             .document(uid)
             .getDocument { snapshot, _ in
                 guard let snapshot = snapshot else { return }
-                
+
                 guard let user = try? snapshot.data(as: User.self) else { return }
                 completion(user)
             }
@@ -26,7 +27,7 @@ struct UserService {
             .document(uid)
             .getDocument { snapshot, _ in
                 guard let snapshot = snapshot else { return }
-                
+
                 guard let tracker = try? snapshot.data(as: Tracker.self) else { return }
                 completion(tracker)
             }
