@@ -32,6 +32,18 @@ struct LogInView: View {
                 .scale(1.35)
                 .foregroundColor(Color.background)
             
+            // MARK: Navigation Bar
+            VStack {
+                NavBarView(
+                    topLeftButtonView: "",
+                    topRightButtonView: "",
+                    titleString: "",
+                    topLeftButtonAction: {},
+                    topRightButtonAction: {})
+                
+                Spacer()
+            }
+            
             VStack {
                 
                 Text("Login")

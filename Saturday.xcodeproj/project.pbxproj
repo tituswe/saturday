@@ -26,6 +26,7 @@
 		58B33130287343E000C64E78 /* SideMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B3312F287343E000C64E78 /* SideMenuHeaderView.swift */; };
 		58B331322873443400C64E78 /* SideMenuOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B331312873443400C64E78 /* SideMenuOptionView.swift */; };
 		58B331382873712400C64E78 /* DebtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B331372873712400C64E78 /* DebtCardView.swift */; };
+		58B6194428855B790008BC72 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B6194328855B780008BC72 /* Tracker.swift */; };
 		58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174D287ABAB100B68D55 /* ArchiveService.swift */; };
 		58BA1750287ABADC00B68D55 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174F287ABADC00B68D55 /* Archive.swift */; };
 		58BF9C8B2880AD0C00756B58 /* HistoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */; };
@@ -96,6 +97,7 @@
 		58B3312F287343E000C64E78 /* SideMenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeaderView.swift; sourceTree = "<group>"; };
 		58B331312873443400C64E78 /* SideMenuOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuOptionView.swift; sourceTree = "<group>"; };
 		58B331372873712400C64E78 /* DebtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtCardView.swift; sourceTree = "<group>"; };
+		58B6194328855B780008BC72 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		58BA174D287ABAB100B68D55 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
 		58BA174F287ABADC00B68D55 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCardView.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				585DD2AB2876D35A0079E887 /* Credit.swift */,
 				58BA174F287ABADC00B68D55 /* Archive.swift */,
 				58CE64452875D53700DF2C77 /* Item.swift */,
+				58B6194328855B780008BC72 /* Tracker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				58FA37B328770D7F00988F37 /* CreditCardView.swift in Sources */,
 				B0084728285381E60081CFFF /* LogInView.swift in Sources */,
 				B0ADE216286CD9180039D0C1 /* ImagePickerOld.swift in Sources */,
+				58B6194428855B790008BC72 /* Tracker.swift in Sources */,
 				58BF9C8B2880AD0C00756B58 /* HistoryCardView.swift in Sources */,
 				589820DC28566AE400719CCE /* SignUpView.swift in Sources */,
 				582D832528747A58002B153E /* UserViewModel.swift in Sources */,

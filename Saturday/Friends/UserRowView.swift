@@ -82,6 +82,7 @@ struct UserRowView: View {
                 HStack {
                     Button {
                         viewModel.acceptFriendRequest(user: user)
+                        state = .FRIEND
                     } label: {
                         Image(systemName: "checkmark")
                             .resizable()
@@ -99,6 +100,7 @@ struct UserRowView: View {
                     
                     Button {
                         viewModel.declineFriendRequest(user: user)
+                        state = .SEND
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()

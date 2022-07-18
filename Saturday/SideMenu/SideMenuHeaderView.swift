@@ -54,7 +54,7 @@ struct SideMenuHeaderView: View {
                         
                         HStack(spacing: 4) {
                             
-                            Text("+$" + String(format: "%.2f", viewModel.totalReceivable))
+                            Text("+$" + String(format: "%.2f", viewModel.tracker?.totalReceivable ?? 999.99))
                                 .font(.subheadline)
                                 .fontWeight(.bold)
                             
@@ -66,7 +66,7 @@ struct SideMenuHeaderView: View {
                         
                         HStack(spacing: 4) {
                             
-                            Text("-$" + String(format: "%.2f", viewModel.totalPayable))
+                            Text("-$" + String(format: "%.2f", viewModel.tracker?.totalPayable ?? 999.99))
                                 .font(.subheadline)
                                 .fontWeight(.bold)
                             

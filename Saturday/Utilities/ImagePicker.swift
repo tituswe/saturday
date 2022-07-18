@@ -40,6 +40,7 @@ extension ImagePicker {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             guard let image = info[.originalImage] as? UIImage else { return }
+            // TODO: Crop image here!
             parent.selectedImage = image
             parent.presentationMode.wrappedValue.dismiss()
         }

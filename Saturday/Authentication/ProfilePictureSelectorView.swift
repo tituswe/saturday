@@ -21,7 +21,7 @@ struct ProfilePictureSelectorView: View {
         
         ZStack {
             
-            Color.systemViolet
+            LinearGradient(gradient: Gradient(colors: [Color.systemViolet, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             
             Circle()
@@ -31,6 +31,18 @@ struct ProfilePictureSelectorView: View {
             Circle()
                 .scale(1.35)
                 .foregroundColor(Color.background)
+            
+            // MARK: Navigation Bar
+            VStack {
+                NavBarView(
+                    topLeftButtonView: "",
+                    topRightButtonView: "",
+                    titleString: "",
+                    topLeftButtonAction: {},
+                    topRightButtonAction: {})
+                
+                Spacer()
+            }
             
             VStack {
                 

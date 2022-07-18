@@ -29,8 +29,6 @@ struct HomeView: View {
     @State var homeStateOffset = CGFloat(-121)
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
-    
-    @State var timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
 
     var body: some View {
         
@@ -80,10 +78,10 @@ struct HomeView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        Text("TODO")
+                        Text(netMonthly())
                             .font(.title3)
                             .transition(.opacity)
-//                            .id("Payable \(viewModel.totalReceivable)")
+                            .id(UUID().uuidString)
                         
                         
                         Text("NET MONTH BALANCE")
@@ -103,9 +101,9 @@ struct HomeView: View {
                             .font(.system(size: 8))
                             .foregroundColor(Color.systemGreen)
                         
-                        Text("$" + String(format: "%.2f", viewModel.totalReceivable))
+                        Text("$" + String(format: "%.2f", viewModel.tracker?.totalReceivable ?? 999.99))
                             .transition(.opacity)
-                            .id("Payable \(viewModel.totalReceivable)")
+                            .id(UUID().uuidString)
                         
                     }
                     .frame(width: 68)
@@ -116,9 +114,9 @@ struct HomeView: View {
                             .font(.system(size: 8))
                             .foregroundColor(Color.systemRed)
                         
-                        Text("$" + String(format: "%.2f", viewModel.totalPayable))
+                        Text("$" + String(format: "%.2f", viewModel.tracker?.totalPayable ?? 999.99))
                             .transition(.opacity)
-                            .id("Payable \(viewModel.totalPayable)")
+                            .id(UUID().uuidString)
                         
                     }
                     .frame(width: 68)
@@ -280,11 +278,6 @@ struct HomeView: View {
             .offset(x: isShowingSideMenu ? 300: 0)
             .scaleEffect(isShowingSideMenu ? 0.8 : 1)
             .ignoresSafeArea(.all, edges: [.bottom])
-            .onReceive(timer) { _ in
-                withAnimation(.easeIn(duration: 1)) {
-                    viewModel.refresh()
-                }
-            }
             
         }
         
@@ -297,6 +290,16 @@ struct HomeView: View {
                 refresh.released = false
                 refresh.started = false
             }
+        }
+    }
+    
+    func netMonthly() -> String {
+        guard let monthly = viewModel.tracker?.netMonthly else { return "$999.99" }
+        
+        if monthly >= 0 {
+            return "$" + String(format: "%.2f", monthly)
+        } else {
+            return "-$" + String(format: "%.2f", -monthly)
         }
     }
     

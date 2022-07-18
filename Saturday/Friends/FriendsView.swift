@@ -28,8 +28,6 @@ struct FriendsView: View {
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
     
-    @State var timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-    
     var body: some View {
        
         NavigationView {
@@ -232,9 +230,6 @@ struct FriendsView: View {
                 
             }
             .navigationBarHidden(true)
-            .onReceive(timer) { _ in
-                viewModel.refresh()
-            }
             
         }
         

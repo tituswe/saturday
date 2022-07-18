@@ -21,6 +21,17 @@ struct UserService {
             }
     }
     
+    func fetchTracker(withUid uid: String, completion: @escaping(Tracker) -> Void) {
+        Firestore.firestore().collection("trackers")
+            .document(uid)
+            .getDocument { snapshot, _ in
+                guard let snapshot = snapshot else { return }
+                
+                guard let tracker = try? snapshot.data(as: Tracker.self) else { return }
+                completion(tracker)
+            }
+    }
+    
     func fetchUsers(completion: @escaping([User]) -> Void) {
         Firestore.firestore().collection("users")
             .getDocuments { snapshot, _ in

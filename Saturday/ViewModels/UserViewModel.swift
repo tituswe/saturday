@@ -24,13 +24,12 @@ class UserViewModel: ObservableObject {
     
     @Published var debts = [Debt]()
     @Published var debtItems = [String : [Item]]() // [transactionId : items]
-    @Published var totalPayable = 0.0
     
     @Published var credits = [Credit]()
     @Published var creditItems = [String : [Item]]() // [transactionId : items]
-    @Published var totalReceivable = 0.0
     
     @Published var archives = [Archive]()
+    @Published var tracker: Tracker?
     
     init() {
         print("DEBUG: Initializing new UserViewModel...")
@@ -43,13 +42,12 @@ class UserViewModel: ObservableObject {
         
         self.fetchDebts()
         self.fetchDebtItems()
-        self.updateTotalPayable()
 
         self.fetchCredits()
         self.fetchCreditItems()
-        self.updateTotalReceivable()
         
         self.fetchArchives()
+        self.fetchTracker()
     }
     
     func refresh() {
@@ -63,13 +61,12 @@ class UserViewModel: ObservableObject {
         
         self.fetchDebts()
         self.fetchDebtItems()
-        self.updateTotalPayable()
         
         self.fetchCredits()
         self.fetchCreditItems()
-        self.updateTotalReceivable()
         
         self.fetchArchives()
+        self.fetchTracker()
     }
     
     func reset() {
@@ -77,9 +74,7 @@ class UserViewModel: ObservableObject {
         self.friendRequests = [User]()
         self.users = [User]()
         self.debts = [Debt]()
-        self.totalPayable = 0.0
         self.credits = [Credit]()
-        self.totalReceivable = 0.0
     }
     
     func login(withEmail email: String, password: String) {
@@ -111,11 +106,19 @@ class UserViewModel: ObservableObject {
                         "uid": user.uid]
             
             Firestore.firestore().collection("users")
-                .document(name.lowercased() + user.uid)
+                .document(user.uid)
                 .setData(data) { _ in
                     self.didAuthenticateUser = true
                 }
             
+            let data2 = ["netMonthly": 0.00,
+                         "netLifetime": 0.00,
+                         "totalPayable": 0.00,
+                         "totalReceivable": 0.00]
+            
+            Firestore.firestore().collection("trackers")
+                .document(user.uid)
+                .setData(data2)
         }
     }
     
@@ -131,7 +134,7 @@ class UserViewModel: ObservableObject {
         ImageUploader.uploadImage(image: image) { profileImageUrl in
             Firestore.firestore().collection("users")
                 .document(uid)
-                .updateData(["profileImageUrl": profileImageUrl]) { _ in
+                .setData(["profileImageUrl": profileImageUrl], merge: true) { _ in
                     self.userSession = self.tempUserSession
                     self.fetchUser()
                 }
@@ -147,6 +150,14 @@ class UserViewModel: ObservableObject {
         
         userService.fetchUser(withUid: uid) { user in
             self.currentUser = user
+        }
+    }
+    
+    func fetchTracker() {
+        guard let uid = self.userSession?.uid else { return }
+        
+        userService.fetchTracker(withUid: uid) { tracker in
+            self.tracker = tracker
         }
     }
 
@@ -202,7 +213,6 @@ class UserViewModel: ObservableObject {
         userService.fetchFriends(withUid: uid) { friends in
             self.friends = friends
         }
-//        self.friends.sort { $0.name.lowercased() < $1.name.lowercased() }
     }
     
     func sendFriendRequest(user: User) {
@@ -338,6 +348,17 @@ class UserViewModel: ObservableObject {
                 }
             }
         
+        Firestore.firestore().collection("friendRequests")
+            .document(senderUid)
+            .collection("receivers")
+            .document(currentUser.id!)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
         // Update friend request list
         self.refresh()
     }
@@ -399,13 +420,7 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-    
-    func updateTotalPayable() {
-        var totalPayable = 0.0
-        self.debts.forEach { totalPayable += $0.total }
-        self.totalPayable = totalPayable
-    }
-    
+
     let creditService = CreditService()
     
     func fetchCredits() {
@@ -422,19 +437,15 @@ class UserViewModel: ObservableObject {
     }
     
     func fetchCreditItems() {
-        guard let uid = self.userSession?.uid else { return }
-        
+        guard let uid = self.userSession?.uid else {
+            return
+        }
+       
         self.credits.forEach { credit in
             creditService.fetchItems(withUid: uid, transId: credit.transactionId) { items in
                 self.creditItems[credit.transactionId] = items
             }
         }
-    }
-    
-    func updateTotalReceivable() {
-        var totalReceivable = 0.0
-        self.credits.forEach { totalReceivable += $0.total }
-        self.totalReceivable = totalReceivable
     }
     
     // For settling payment
@@ -471,6 +482,9 @@ class UserViewModel: ObservableObject {
             .delete { error in
                 if error != nil { return }
             }
+        
+        Firestore.firestore().collection("trackers").document(uid)
+            .updateData(["totalPayable": FieldValue.increment(-debt.total)])
             
         let data2 = ["transactionId": transactionId,
                      "debtorId": uid,
@@ -496,6 +510,9 @@ class UserViewModel: ObservableObject {
             .delete { error in
                 if error != nil { return }
             }
+        
+        Firestore.firestore().collection("trackers").document(debt.creditorId)
+            .updateData(["totalReceivable": FieldValue.increment(-debt.total)])
         
         self.refresh()
     }
@@ -535,6 +552,10 @@ class UserViewModel: ObservableObject {
                 if error != nil { return }
             }
         
+        Firestore.firestore().collection("trackers").document(uid)
+            .updateData(["totalReceivable": FieldValue.increment(-credit.total),
+                         "netMonthly": FieldValue.increment(-credit.total)])
+        
         let data2 = ["transactionId": transactionId,
                      "creditorId": uid,
                      "dateIssued": credit.date,
@@ -560,6 +581,10 @@ class UserViewModel: ObservableObject {
                 if error != nil { return }
             }
         
+        Firestore.firestore().collection("trackers").document(credit.debtorId)
+            .updateData(["totalPayable": FieldValue.increment(-credit.total),
+                         "netMonthly": FieldValue.increment(credit.total)])
+        
         self.refresh()
     }
     
@@ -577,4 +602,5 @@ class UserViewModel: ObservableObject {
             self.archives = sortedArchives
         }
     }
+    
 }

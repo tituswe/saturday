@@ -67,7 +67,7 @@ struct SignUpView: View {
                     NavBarView(
                         topLeftButtonView: "arrow.backward",
                         topRightButtonView: "",
-                        titleString: "Saturday",
+                        titleString: "",
                         topLeftButtonAction: {
                             isShowingSignUpView = false
                         },

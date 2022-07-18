@@ -213,6 +213,17 @@ class CartManager: ObservableObject {
         for item in transaction.items {
             self.storeTransactionItem(debtorId: debtorId, creditorId: creditorId, transactionId: transactionId, item: item)
         }
+        
+        // Update monthly trackers
+        Firestore.firestore().collection("trackers")
+            .document(debtorId)
+            .updateData(["netMonthly": FieldValue.increment(-transaction.total),
+                         "totalPayable": FieldValue.increment(transaction.total)])
+        
+        Firestore.firestore().collection("trackers")
+            .document(creditorId)
+            .updateData(["netMonthly": FieldValue.increment(transaction.total),
+                         "totalReceivable": FieldValue.increment(transaction.total)])
     }
     
     func storeTransactionItem(debtorId: String, creditorId: String, transactionId: String, item: Item) {
