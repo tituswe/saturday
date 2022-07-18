@@ -16,6 +16,8 @@ struct CreditCardView: View {
     
     @State var isShowingPeekCreditView: Bool = false
     
+    @State var isShowingCancelAlert: Bool = false
+    
     @State var offset: CGFloat = 0
     
     @State var isSwiped: Bool = false
@@ -81,6 +83,7 @@ struct CreditCardView: View {
                         }
                         
                         Button {
+                            viewModel.refresh()
                             isShowingPeekCreditView = true
                         } label: {
                             Text("Preview")
@@ -123,6 +126,19 @@ struct CreditCardView: View {
         .cornerRadius(25)
         .padding(.vertical, 8)
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+        .alert("Confirm Cancellation?", isPresented: $isShowingCancelAlert) {
+            Button("Ok") {
+                viewModel.refresh()
+                viewModel.cacheTransaction(credit: credit)
+                
+            }
+            Button("Cancel", role: .cancel) {
+                print("ABORT: Credit Cancellation")
+                withAnimation(.spring()) {
+                    offset = 0
+                }
+            }
+        }
         
     }
     
@@ -168,7 +184,8 @@ struct CreditCardView: View {
                 // Checking if ended
                 if -value.translation.width > UIScreen.main.bounds.width / 2 {
                     offset = -1000
-                    viewModel.cacheTransaction(credit: credit)
+                    viewModel.refresh()
+                    isShowingCancelAlert.toggle()
                 } else if -offset > 48 {
                     // Updating is swiping
                     isSwiped = true

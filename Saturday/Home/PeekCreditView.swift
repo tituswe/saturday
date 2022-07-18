@@ -65,6 +65,7 @@ struct PeekCreditView: View {
             Button {
                 viewModel.cacheTransaction(credit: credit)
                 isShowingPeekCreditView = false
+                viewModel.refresh()
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 50)

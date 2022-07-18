@@ -119,6 +119,6 @@ struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
         UserCardView(user: previewUser)
             .environmentObject(UserViewModel())
-            .environmentObject(CartManager(transactions: [previewUser.id!: Transaction(id: previewUser.id!)]))
+            .environmentObject(CartManager())
     }
 }

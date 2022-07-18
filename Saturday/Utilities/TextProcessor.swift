@@ -24,7 +24,6 @@ class TextProcessor {
     func presentText(extractedText: String) -> [String] {
         // Transform string to array
         self.cleanData(extractedText: extractedText)
-        print("DEBUG: clean array \n\(cleanArray)\n")
 
         // Check for \(Integer)"x" denoting quantity
         var i = 0
@@ -41,18 +40,15 @@ class TextProcessor {
             }
         }
 
-        print("DEBUG: presented text \n\(presentedText)\n")
         return self.presentedText
     }
     
     // Helper function to put extracted text string into an array
     private func cleanData(extractedText: String) {
-        print("DEBUG: extracted text \n\(extractedText)")
         let temp = extractedText.replacingOccurrences(of: " S$ ", with: ";") // for foodpanda
         let temp2 = temp.replacingOccurrences(of: ";S$ ", with: ";")
         let text = temp2.replacingOccurrences(of: "$", with: "") // for deliveroo
         
-        print("DEBUG: initial text \n\(text)\n")
         var arrayIndex = 0
         
                 
@@ -65,7 +61,6 @@ class TextProcessor {
                 initialArray[arrayIndex] += "\(char)"
             }
         }
-        print("DEBUG: inserted ; \n\(initialArray)\n")
         
         // For loop to remove the ";" seperator at the start of each string element
         for substring in initialArray {

@@ -75,7 +75,7 @@ class TextExtractionModel {
             try handler.perform([request])
         }
         catch {
-            print("Error in extraction: \(error)")
+            print("DEBUG (Extraction Error): \(error)")
         }
     }
     

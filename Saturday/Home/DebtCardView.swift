@@ -83,6 +83,7 @@ struct DebtCardView: View {
                         }
                         
                         Button {
+                            viewModel.refresh()
                             isShowingSettleDebtView = true
                         } label: {
                             Text("Settle up")
@@ -122,7 +123,7 @@ struct DebtCardView: View {
             }
             .sheet(isPresented: $isShowingPaymentView, onDismiss: resetOffset) {
                 // TODO: Link to payment services
-                PaymentView(debt: debt)
+                PaymentView(isShowingPaymentView: $isShowingPaymentView, debt: debt)
                     .environmentObject(viewModel)
             }
             
@@ -177,6 +178,7 @@ struct DebtCardView: View {
                 // Checking if ended
                 if -value.translation.width > UIScreen.main.bounds.width / 2 {
                     offset = -1000
+                    viewModel.refresh()
                     isShowingPaymentView = true
                 } else if -offset > 48 {
                     // Updating is swiping

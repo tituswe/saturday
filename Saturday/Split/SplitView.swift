@@ -320,7 +320,7 @@ struct SplitView: View {
         let payableItems = TextExtractionModel(referenceReceipt: referenceReceipt).extractItems()
         
         cartManager.updatePayableItems(items: payableItems)
-        print("DEBUG: Extracted items from receipt!")
+        print("DEBUG: Successfully extracted items from receipt")
     }
     
     func splitDone() -> Bool {
