@@ -91,12 +91,11 @@ struct SettleDebtView: View {
     
 }
 
-struct SettleDebtView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettleDebtView(debt: previewDebt,
-                       isShowingSettleDebtView: .constant(true),
-                       isShowingPaymentView: .constant(false))
-            .environmentObject(UserViewModel())
-//            .environment(\.colorScheme, .dark)
-    }
-}
+//struct SettleDebtView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettleDebtView(debt: previewDebt,
+//                       isShowingSettleDebtView: .constant(true),
+//                       isShowingPaymentView: .constant(false))
+//            .environmentObject(UserViewModel())
+//    }
+//}

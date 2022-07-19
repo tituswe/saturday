@@ -202,9 +202,9 @@ struct CreditCardView: View {
     }
 }
 
-struct CreditCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreditCardView(credit: previewCredit)
-            .environmentObject(UserViewModel())
-    }
-}
+//struct CreditCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CreditCardView(credit: previewCredit)
+//            .environmentObject(UserViewModel())
+//    }
+//}

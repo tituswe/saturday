@@ -88,9 +88,9 @@ struct PeekCreditView: View {
     
 }
 
-struct PeekCreditView_Previews: PreviewProvider {
-    static var previews: some View {
-        PeekCreditView(credit: previewCredit, isShowingPeekCreditView: .constant(true))
-            .environmentObject(UserViewModel())
-    }
-}
+//struct PeekCreditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PeekCreditView(credit: previewCredit, isShowingPeekCreditView: .constant(true))
+//            .environmentObject(UserViewModel())
+//    }
+//}

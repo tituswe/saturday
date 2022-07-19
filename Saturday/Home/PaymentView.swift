@@ -125,9 +125,9 @@ struct PaymentView: View {
     
 }
 
-struct PaymentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PaymentView(isShowingPaymentView: .constant(true), debt: previewDebt)
-            .environmentObject(UserViewModel())
-    }
-}
+//struct PaymentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PaymentView(isShowingPaymentView: .constant(true), debt: previewDebt)
+//            .environmentObject(UserViewModel())
+//    }
+//}

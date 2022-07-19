@@ -93,9 +93,9 @@ struct HistoryCardView: View {
     
 }
 
-struct HistoryCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        HistoryCardView(archive: previewArchive)
-            .environmentObject(UserViewModel())
-    }
-}
+//struct HistoryCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HistoryCardView(archive: previewArchive)
+//            .environmentObject(UserViewModel())
+//    }
+//}

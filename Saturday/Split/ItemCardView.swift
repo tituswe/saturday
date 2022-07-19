@@ -85,10 +85,10 @@ struct ItemCardView: View {
     
 }
 
-struct ItemCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemCardView(item: previewItem)
-            .environmentObject(UserViewModel())
-            .environmentObject(CartManager())
-    }
-}
+//struct ItemCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ItemCardView(item: previewItem)
+//            .environmentObject(UserViewModel())
+//            .environmentObject(CartManager())
+//    }
+//}

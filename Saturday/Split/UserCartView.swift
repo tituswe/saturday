@@ -77,10 +77,10 @@ struct UserCartView: View {
     
 }
 
-struct UserCartView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserCartView(user: previewUser)
-            .environmentObject(UserViewModel())
-            .environmentObject(CartManager())
-    }
-}
+//struct UserCartView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserCartView(user: previewUser)
+//            .environmentObject(UserViewModel())
+//            .environmentObject(CartManager())
+//    }
+//}

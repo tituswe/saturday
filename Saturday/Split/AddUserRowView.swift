@@ -60,9 +60,9 @@ struct AddUserRowView: View {
     
 }
 
-struct AddUserRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddUserRowView(user: previewUser)
-            .environmentObject(CartManager())
-    }
-}
+//struct AddUserRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddUserRowView(user: previewUser)
+//            .environmentObject(CartManager())
+//    }
+//}

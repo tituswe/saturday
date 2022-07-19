@@ -196,10 +196,9 @@ struct DebtCardView: View {
     }
 }
 
-struct DebtCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        DebtCardView(debt: previewDebt)
-            .environmentObject(UserViewModel())
-//            .environment(\.colorScheme, .dark)
-    }
-}
+//struct DebtCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DebtCardView(debt: previewDebt)
+//            .environmentObject(UserViewModel())
+//    }
+//}
