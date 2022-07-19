@@ -525,7 +525,8 @@ class UserViewModel: ObservableObject {
                     "username": currentUser.username.lowercased(),
                     "name": currentUser.name,
                     "profileImageUrl": currentUser.profileImageUrl,
-                    "uid": currentUser.id]
+                    "uid": currentUser.id,
+                    "deviceToken": currentUser.deviceToken]
         
         Firestore.firestore().collection("friends")
             .document(senderUid)
@@ -538,7 +539,8 @@ class UserViewModel: ObservableObject {
                      "username": user.username.lowercased(),
                      "name": user.name,
                      "profileImageUrl": user.profileImageUrl,
-                     "uid": user.id]
+                     "uid": user.id,
+                     "deviceToken": user.deviceToken]
         
         Firestore.firestore().collection("friends")
             .document(currentUser.id!)
