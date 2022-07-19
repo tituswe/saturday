@@ -62,17 +62,31 @@ class NotificationManager {
    
     func sendDebtNotificationTo(user: User, transaction: Transaction) {
         
-        guard let url = URL(string: "//fcm.googleapis.com/fcm/send") else { return }
+        print("DEBUG: Started notification...")
+        
+        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else { return }
         
         let json: [String: Any] = [
-        
-            "to": user.deviceToken ?? "",
-            "notification": [
             
-                "title": "You owe \(user.name)",
-                "body": "Please pay \(transaction.total) to \(user.name)"
+//            "to": "",
+//            "notification": [
+//
+//                "title": "You owe \(user.name)",
+//                "body": "Please pay \(transaction.total) to \(user.name)"
+//            ],
+//            "data": [
+//                //Data goes here... idk what tho
+//            ]
+            
+            "message": [
+                "to": "fBSwloiEl0b3rXOgQZNo2k:APA91bEKaR1tCJRoVl4Ug7aC9uStBY1aUaWtgE_gAEZ2cSIcuH1nrbV1mBKp29yORFMgy4bbWM4FzJOmohKvGvmMJ6BBBaoXbHB5F6_6WsVj3xinWFwkYkLZD1VUPbOLVdkf0HJBt67k",
+                "notification": [
+                    "title": "Sparky says hello!",
+                ]
             ]
         ]
+        
+        print("DEBUG: Created JSON...")
         
         let serverKey = "AAAAvA1rjwA:APA91bHZ3Da7JMWVlV_pyf8TYGvCpOvpdxm5PDe_hsuRdb4yjV1kfx1WO2CQSC3jA5YCsTeRveG03tetJRaQcgfpE0sfKPjHUOaALdqqdGl3I4RKmH8j14V9xhReltSx2ui4Nieym6jK"
         
@@ -91,7 +105,8 @@ class NotificationManager {
         
         //Passing request using URL session...
         let session = URLSession(configuration: .default)
-        
+        print(request.description)
+        print("DEBUG: Sent request to URL session...")
         session.dataTask(with: request) { _, _, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -99,6 +114,6 @@ class NotificationManager {
             }
             
             print("Debt Notification sent to \(user.name)")
-        }
+        }.resume()
     }
 }

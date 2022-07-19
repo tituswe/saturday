@@ -137,7 +137,6 @@ class UserViewModel: ObservableObject {
         group.enter()
         
         mainQueue.async {
-            print("CALLED: fetchUser...")
             self.fetchUser()
             group.leave()
         }
@@ -145,7 +144,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchUsers...")
             self.fetchUsers()
             group.leave()
         }
@@ -153,7 +151,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchFriends...")
             self.fetchFriends()
             group.leave()
         }
@@ -161,7 +158,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchFriends...")
             self.fetchFriends()
             group.leave()
         }
@@ -169,7 +165,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchSentFriendRequests...")
             self.fetchSentFriendRequests()
             group.leave()
         }
@@ -177,7 +172,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchDebts...")
             self.fetchDebts()
             group.leave()
         }
@@ -185,7 +179,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchDebtItems...")
             self.fetchDebtItems()
             group.leave()
         }
@@ -193,7 +186,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchCredits...")
             self.fetchCredits()
             group.leave()
         }
@@ -201,7 +193,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchCreditItems...")
             self.fetchCreditItems()
             group.leave()
         }
@@ -209,7 +200,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchArchives...")
             self.fetchArchives()
             group.leave()
         }
@@ -217,7 +207,6 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            print("CALLED: fetchTracker...")
             self.fetchTracker()
             group.leave()
         }
@@ -324,7 +313,6 @@ class UserViewModel: ObservableObject {
         userService.fetchUser(withUid: uid) { user in
             self.currentUser = user
         }
-        print("COMPLETED: fetchUser...")
     }
     
     func fetchTracker() {
@@ -353,7 +341,6 @@ class UserViewModel: ObservableObject {
             }
             
         }
-        print("COMPLETED: fetchTracker...")
     }
     
     func queryUser(withUid uid: String) -> User {
@@ -373,7 +360,6 @@ class UserViewModel: ObservableObject {
             self.users = users
         }
         self.users.sort { $0.name.lowercased() < $1.name.lowercased() }
-        print("COMPLETED: fetchUsers...")
     }
     
     @Published var searchText = ""
@@ -410,7 +396,6 @@ class UserViewModel: ObservableObject {
         userService.fetchFriends(withUid: uid) { friends in
             self.friends = friends
         }
-        print("COMPLETED: fetchFriends...")
     }
     
     func removeFriend(friend: User) {
@@ -502,7 +487,6 @@ class UserViewModel: ObservableObject {
         userService.fetchFriendRequests(withUid: uid) { friendRequests in
             self.friendRequests = friendRequests
         }
-        print("COMPLETED: fetchFriendRequests...")
     }
     
     func fetchSentFriendRequests() {
@@ -511,7 +495,6 @@ class UserViewModel: ObservableObject {
         userService.fetchSentFriendRequests(withUid: uid) { requests in
             self.sentFriendRequests = requests
         }
-        print("COMPLETED: fetchSentFriendRequests...")
     }
     
     func hasFriendRequest(user: User) -> Bool {
@@ -638,7 +621,6 @@ class UserViewModel: ObservableObject {
             
             self.debts = sortedDebts
         }
-        print("COMPLETED: fetchDebts...")
     }
     
     func fetchDebtItems() {
@@ -649,7 +631,6 @@ class UserViewModel: ObservableObject {
                 self.debtItems[debt.transactionId] = items
             }
         }
-        print("COMPLETED: fetchDebtItems...")
     }
     
     let creditService = CreditService()
@@ -665,7 +646,6 @@ class UserViewModel: ObservableObject {
             
             self.credits = sortedCredits
         }
-        print("COMPLETED: fetchCredits...")
     }
     
     func fetchCreditItems() {
@@ -827,7 +807,6 @@ class UserViewModel: ObservableObject {
             
             self.archives = sortedArchives
         }
-        print("COMPLETED: fetchArchives...")
     }
     
 }
