@@ -234,6 +234,9 @@ class UserViewModel: ObservableObject {
     
     func updateFCMToken() {
         guard let uid = self.userSession?.uid else { return }
+        
+        if self.fcmRegToken == "" { return }
+        
         Firestore.firestore().collection("users")
             .document(uid)
             .setData(["deviceToken": self.fcmRegToken], merge: true)

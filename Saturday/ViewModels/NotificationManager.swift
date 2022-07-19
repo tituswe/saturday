@@ -66,7 +66,7 @@ class NotificationManager {
         
         let json: [String: Any] = [
         
-            "to": user.deviceToken,
+            "to": user.deviceToken ?? "",
             "notification": [
             
                 "title": "You owe \(user.name)",
