@@ -113,6 +113,7 @@ class UserViewModel: ObservableObject {
             self.fetchTracker()
             group.leave()
         }
+        
     }
     
     func refresh() {

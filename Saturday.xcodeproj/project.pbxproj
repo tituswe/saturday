@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5806C6E72886E0AB00B9F907 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5806C6E62886E0AB00B9F907 /* FirebaseAnalytics */; };
+		5806C6E92886E0AB00B9F907 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 5806C6E82886E0AB00B9F907 /* FirebaseMessaging */; };
 		580C6A19287E070E00EA8D70 /* PeekCreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580C6A18287E070E00EA8D70 /* PeekCreditView.swift */; };
+		581A5AB42886F27400F2FB30 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581A5AB32886F27400F2FB30 /* NotificationManager.swift */; };
 		582D832528747A58002B153E /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582D832428747A58002B153E /* UserViewModel.swift */; };
 		582D832E2874908A002B153E /* ProfilePictureSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582D832D2874908A002B153E /* ProfilePictureSelectorView.swift */; };
 		585DD2A82876CD800079E887 /* DebtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2A72876CD800079E887 /* DebtService.swift */; };
@@ -78,7 +81,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5806C6EA2886E2A700B9F907 /* Saturday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Saturday.entitlements; sourceTree = "<group>"; };
+		5806C6EB2886E2B800B9F907 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		580C6A18287E070E00EA8D70 /* PeekCreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekCreditView.swift; sourceTree = "<group>"; };
+		581A5AB32886F27400F2FB30 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		582D832428747A58002B153E /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		582D832D2874908A002B153E /* ProfilePictureSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSelectorView.swift; sourceTree = "<group>"; };
 		585DD2A72876CD800079E887 /* DebtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtService.swift; sourceTree = "<group>"; };
@@ -151,6 +157,8 @@
 			files = (
 				58CE64222874B1CE00DF2C77 /* FirebaseAuth in Frameworks */,
 				58CE64282874B1CE00DF2C77 /* FirebaseStorage in Frameworks */,
+				5806C6E92886E0AB00B9F907 /* FirebaseMessaging in Frameworks */,
+				5806C6E72886E0AB00B9F907 /* FirebaseAnalytics in Frameworks */,
 				58CE64242874B1CE00DF2C77 /* FirebaseFirestore in Frameworks */,
 				58CE64262874B1CE00DF2C77 /* FirebaseFirestoreSwift in Frameworks */,
 				58CE642B2874B4F100DF2C77 /* Kingfisher in Frameworks */,
@@ -169,6 +177,7 @@
 				585DD2A72876CD800079E887 /* DebtService.swift */,
 				58FA37B02876EB2F00988F37 /* CreditService.swift */,
 				58BA174D287ABAB100B68D55 /* ArchiveService.swift */,
+				581A5AB32886F27400F2FB30 /* NotificationManager.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -193,6 +202,8 @@
 		5886D3BC28355FB60044938C /* Saturday */ = {
 			isa = PBXGroup;
 			children = (
+				5806C6EB2886E2B800B9F907 /* Info.plist */,
+				5806C6EA2886E2A700B9F907 /* Saturday.entitlements */,
 				5886D3BD28355FB60044938C /* SaturdayApp.swift */,
 				5886D3BF28355FB60044938C /* ContentView.swift */,
 				589820D92856637300719CCE /* SaturdayLogo.swift */,
@@ -389,6 +400,8 @@
 				58CE64252874B1CE00DF2C77 /* FirebaseFirestoreSwift */,
 				58CE64272874B1CE00DF2C77 /* FirebaseStorage */,
 				58CE642A2874B4F100DF2C77 /* Kingfisher */,
+				5806C6E62886E0AB00B9F907 /* FirebaseAnalytics */,
+				5806C6E82886E0AB00B9F907 /* FirebaseMessaging */,
 			);
 			productName = Saturday;
 			productReference = 5886D3BA28355FB60044938C /* Saturday.app */;
@@ -421,6 +434,7 @@
 			packageReferences = (
 				58CE64202874B1CE00DF2C77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				58CE64292874B4F100DF2C77 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				5806C6E52886E0AB00B9F907 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5886D3BB28355FB60044938C /* Products */;
 			projectDirPath = "";
@@ -483,6 +497,7 @@
 				B0ADE1FA286CD67C0039D0C1 /* UserCard.swift in Sources */,
 				B0ADE1EE286CD5D60039D0C1 /* SplitViewOld.swift in Sources */,
 				58B33130287343E000C64E78 /* SideMenuHeaderView.swift in Sources */,
+				581A5AB42886F27400F2FB30 /* NotificationManager.swift in Sources */,
 				585DD2A82876CD800079E887 /* DebtService.swift in Sources */,
 				58BA1750287ABADC00B68D55 /* Archive.swift in Sources */,
 				58FA37B328770D7F00988F37 /* CreditCardView.swift in Sources */,
@@ -634,12 +649,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Saturday/Saturday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Saturday/Preview Content\"";
-				DEVELOPMENT_TEAM = 9A4KT92A3Z;
+				DEVELOPMENT_TEAM = QFTDF2CU83;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Saturday/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -663,12 +680,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Saturday/Saturday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Saturday/Preview Content\"";
-				DEVELOPMENT_TEAM = 9A4KT92A3Z;
+				DEVELOPMENT_TEAM = QFTDF2CU83;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Saturday/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -711,6 +730,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5806C6E52886E0AB00B9F907 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		58CE64202874B1CE00DF2C77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -730,6 +757,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5806C6E62886E0AB00B9F907 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58CE64202874B1CE00DF2C77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		5806C6E82886E0AB00B9F907 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58CE64202874B1CE00DF2C77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		58CE64212874B1CE00DF2C77 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 58CE64202874B1CE00DF2C77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

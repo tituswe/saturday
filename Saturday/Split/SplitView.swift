@@ -23,9 +23,11 @@ struct SplitView: View {
     
     @State var isShowingSentView: Bool = false
     
-    @State var offset = CGFloat(-56)
+    @State var offset = CGFloat(-(UIScreen.main.bounds.width-64)/4)
     
     @FocusState var feesIsFocused: Bool
+    
+    let screenQuarter = (UIScreen.main.bounds.width-64)/4
     
     var body: some View {
         
@@ -53,37 +55,37 @@ struct SplitView: View {
                         
                         VStack(spacing: 4) {
                             
-                            HStack {
+                            ZStack {
                                 
                                 Button {
                                     cartManager.isMultiSplit = false
                                     cartManager.selectNone()
                                     withAnimation(.spring()) {
-                                        offset = CGFloat(-56)
+                                        offset = -screenQuarter
                                     }
                                 } label: {
                                     Text("SINGLE")
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.gray)
-                                        .padding(.horizontal, 24)
                                 }
+                                .offset(x: -screenQuarter)
                                
                                 Button {
                                     cartManager.isMultiSplit = true
                                     cartManager.selectNone()
                                     withAnimation(.spring()) {
-                                        offset = 57
+                                        offset = screenQuarter
                                     }
                                 } label: {
                                     Text("GROUP")
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.gray)
-                                        .padding(.horizontal, 24)
                                 }
+                                .offset(x: screenQuarter)
                             }
                             
                             RoundedRectangle(cornerRadius: 25)
-                                .frame(width: 72, height: 2.4)
+                                .frame(width: 80, height: 2.4)
                                 .foregroundColor(Color.systemViolet)
                                 .offset(x: offset)
                             
@@ -201,7 +203,6 @@ struct SplitView: View {
                                         
                                         VStack {
                                             
-                                            ZStack {
                                                 TextField("Input Service Fees", text: $cartManager.serviceFees)
                                                     .keyboardType(.decimalPad)
                                                     .multilineTextAlignment(.center)
@@ -214,22 +215,6 @@ struct SplitView: View {
                                                     .cornerRadius(50)
                                                     .padding()
                                                     .focused($feesIsFocused)
-                                                
-                                                HStack {
-                                                    Spacer()
-                                                    if feesIsFocused {
-                                                        Button {
-                                                            withAnimation(.easeIn) {
-                                                                feesIsFocused = false
-                                                            }
-                                                        } label: {
-                                                            Image(systemName: "pencil.slash")
-                                                                .font(.system(size: 20))
-                                                                .padding(.trailing, 42)
-                                                        }
-                                                    }
-                                                }
-                                            }
                                             
                                             Spacer()
                                         }
@@ -247,35 +232,18 @@ struct SplitView: View {
                                 
                                 ScrollView {
                                     
-                                    ZStack {
-                                        TextField("Service Fees", text: $cartManager.serviceFees)
-                                            .keyboardType(.decimalPad)
-                                            .multilineTextAlignment(.center)
-                                            .font(.system(size: 16))
-                                            .disableAutocorrection(true)
-                                            .autocapitalization(.none)
-                                            .padding()
-                                            .frame(width: 300, height: 40)
-                                            .background(Color.black.opacity(0.05))
-                                            .cornerRadius(50)
-                                            .padding()
-                                            .focused($feesIsFocused)
-                                        
-                                        HStack {
-                                            Spacer()
-                                            if feesIsFocused {
-                                                Button {
-                                                    withAnimation(.easeIn) {
-                                                        feesIsFocused = false
-                                                    }
-                                                } label: {
-                                                    Image(systemName: "pencil.slash")
-                                                        .font(.system(size: 20))
-                                                        .padding(.trailing, 42)
-                                                }
-                                            }
-                                        }
-                                    }
+                                    TextField("Service Fees", text: $cartManager.serviceFees)
+                                        .keyboardType(.decimalPad)
+                                        .multilineTextAlignment(.center)
+                                        .font(.system(size: 16))
+                                        .disableAutocorrection(true)
+                                        .autocapitalization(.none)
+                                        .padding()
+                                        .frame(width: 300, height: 40)
+                                        .background(Color.black.opacity(0.05))
+                                        .cornerRadius(50)
+                                        .padding()
+                                        .focused($feesIsFocused)
                                     
                                     LazyVStack {
                                         ForEach(cartManager.payableItems, id: \.id) { item in
@@ -348,6 +316,12 @@ struct SplitView: View {
                 .ignoresSafeArea(.all, edges: [.bottom])
                 .navigationBarHidden(true)
                 
+                if feesIsFocused {
+                    Color.white.opacity(0.001)
+                        .onTapGesture {
+                            feesIsFocused = false
+                        }
+                }
             }
             
         }
