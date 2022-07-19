@@ -17,6 +17,8 @@ struct LogInView: View {
     
     @State var isShowingSignUpView: Bool = false
     
+    @FocusState var isFocused: Bool
+    
     var body: some View {
         
         ZStack {
@@ -51,26 +53,28 @@ struct LogInView: View {
                     .fontWeight(.bold)
                     .padding()
                 
-                TextField("Email", text: $email)
-                    .multilineTextAlignment(.center)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding()
-                    .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
-                    .cornerRadius(50)
+                    TextField("Email", text: $email)
+                        .multilineTextAlignment(.center)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(50)
+                        .focused($isFocused)
                 
                 Spacer()
                     .frame(height: 10)
                 
-                SecureField("Password", text: $password)
-                    .multilineTextAlignment(.center)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding()
-                    .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
-                    .cornerRadius(50)
+                    SecureField("Password", text: $password)
+                        .multilineTextAlignment(.center)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(50)
+                        .focused($isFocused)
                 
                 Spacer()
                     .frame(height: 10)
@@ -109,6 +113,13 @@ struct LogInView: View {
                 
             }
             
+            if isFocused {
+                Color.white.opacity(0.001)
+                    .onTapGesture {
+                        isFocused = false
+                    }
+            }
+            
         }
         .onAppear {
             viewModel.reset()
@@ -121,6 +132,6 @@ struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         LogInView()
             .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
+//            .environment(\.colorScheme, .dark)
     }
 }

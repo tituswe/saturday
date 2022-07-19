@@ -41,7 +41,7 @@ struct BottomBarView: View {
             }
             .foregroundColor(Color.text)
             .frame(width: 112)
-            .padding(.bottom, 8)
+            .padding(.bottom, 16)
             
             NavigationLink(isActive: $isShowingDashboard) {
                 ContentView()
@@ -65,7 +65,7 @@ struct BottomBarView: View {
             }
             .foregroundColor(Color.white)
             .frame(width: 112)
-            .padding(.bottom, 8)
+            .padding(.bottom, 16)
             
             NavigationLink(isActive: $isShowingSplitView) {
                 SplitView(isShowingSplitView: $isShowingSplitView)
@@ -83,7 +83,7 @@ struct BottomBarView: View {
             }
             .foregroundColor(Color.text)
             .frame(width: 112)
-            .padding(.bottom, 8)
+            .padding(.bottom, 16)
             
             NavigationLink(isActive: $isShowingFriends) {
                 FriendsView()
@@ -92,7 +92,7 @@ struct BottomBarView: View {
             } label: {}
      
         }
-        .frame(maxWidth: .infinity, maxHeight: 88)
+        .frame(maxWidth: .infinity, maxHeight: 96)
         .background(Color.background)
         
     }

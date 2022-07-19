@@ -18,6 +18,8 @@ struct PaymentView: View {
     
     let debt: Debt
     
+    @FocusState var isFocused: Bool
+    
     var body: some View {
         
         ZStack {
@@ -61,7 +63,7 @@ struct PaymentView: View {
                     .font(.title3)
                     .frame(width: 240, height: 48)
                 
-                TextField("", text: $amountPaid)
+                TextField("Amount", text: $amountPaid)
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(.center)
                     .font(.system(size: 18))
@@ -70,11 +72,14 @@ struct PaymentView: View {
                     .frame(width: 200, height: 48)
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(50)
+                    .focused($isFocused)
                 
                 Spacer()
                     .frame(height: 8)
+                
                 Button {
-                    if (Double(amountPaid) == debt.total) {
+                    if (Double(amountPaid) == round(debt.total * 100)/100.0) {
+                        print("test2")
                         viewModel.cacheTransaction(debt: debt)
                         viewModel.refresh()
                         isShowingPaymentView = false
@@ -90,6 +95,14 @@ struct PaymentView: View {
                 
             }
             .padding(.bottom, 64)
+            
+            if isFocused {
+                Color.white.opacity(0.001)
+                    .onTapGesture {
+                        isFocused = false
+                    }
+            }
+            
         }
         
     }

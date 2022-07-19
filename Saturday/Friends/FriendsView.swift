@@ -24,14 +24,18 @@ struct FriendsView: View {
     
     @State var friendState: FriendState = .FRIEND
     
-    @State var friendStateOffset = CGFloat(-89)
+    @State var friendStateOffset = CGFloat(-(UIScreen.main.bounds.width-64)/4)
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
     
     @State var isEditingOffset = CGFloat(0)
     
+    @FocusState var isFocused: Bool
+    
+    let screenQuarter = (UIScreen.main.bounds.width-64)/4
+    
     var body: some View {
-       
+        
         NavigationView {
             
             ZStack {
@@ -60,8 +64,8 @@ struct FriendsView: View {
                         topRightButtonAction: {
                             withAnimation(.spring()) {
                                 isEditingOffset = isEditingOffset == CGFloat(0)
-                                    ? CGFloat(-56)
-                                    : CGFloat(0)
+                                ? CGFloat(-56)
+                                : CGFloat(0)
                             }
                         })
                     
@@ -70,42 +74,38 @@ struct FriendsView: View {
                         
                         VStack(spacing: 4) {
                             
-                            HStack {
+                            ZStack {
                                 
                                 Button {
                                     friendState = .FRIEND
                                     withAnimation(.spring()) {
                                         viewModel.refresh()
-                                        friendStateOffset = -89
+                                        friendStateOffset = -screenQuarter
                                     }
                                 } label: {
                                     Text("FRIENDS")
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.gray)
-                                        .padding(.horizontal, 24)
                                 }
-                                
-                                
-                                Spacer()
-                                    .frame(width: 48)
+                                .offset(x: -screenQuarter)
                                 
                                 Button {
                                     friendState = .REQUEST
                                     withAnimation(.spring()) {
                                         viewModel.refresh()
-                                        friendStateOffset = 82
+                                        friendStateOffset = screenQuarter
                                     }
                                 } label: {
                                     Text("REQUESTS")
                                         .font(.system(size: 16))
                                         .foregroundColor(Color.gray)
-                                        .padding(.horizontal, 24)
                                 }
+                                .offset(x: screenQuarter)
                                 
                             }
                             
                             RoundedRectangle(cornerRadius: 25)
-                                .frame(width: 72, height: 2.4)
+                                .frame(width: 88, height: 2.4)
                                 .foregroundColor(Color.systemViolet)
                                 .offset(x: friendStateOffset)
                             
@@ -113,9 +113,10 @@ struct FriendsView: View {
                         .padding(.top, 16)
                         .padding(.bottom, 8)
                         
-                        
                         SearchBar(text: $viewModel.searchText)
+                            .focused($isFocused)
                             .padding(.horizontal, 10)
+                            .padding(.top, 2)
                         
                         ScrollView {
                             
@@ -236,6 +237,13 @@ struct FriendsView: View {
                 .offset(x: isShowingSideMenu ? 300: 0)
                 .scaleEffect(isShowingSideMenu ? 0.8 : 1)
                 .ignoresSafeArea(.all, edges: [.bottom])
+                
+                if isFocused {
+                    Color.white.opacity(0.001)
+                        .onTapGesture {
+                            isFocused = false
+                        }
+                }
                 
             }
             .navigationBarHidden(true)

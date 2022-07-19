@@ -252,10 +252,16 @@ class UserViewModel: ObservableObject {
                     self.didAuthenticateUser = true
                 }
             
-            let data2 = ["netMonthly": 0.00,
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM"
+            
+            let currMonth = formatter.string(from: Date.now)
+            
+            let data2 = ["currMonth": currMonth,
+                         "netMonthly": 0.00,
                          "netLifetime": 0.00,
                          "totalPayable": 0.00,
-                         "totalReceivable": 0.00]
+                         "totalReceivable": 0.00] as [String : Any]
             
             Firestore.firestore().collection("trackers")
                 .document(user.uid)
@@ -299,7 +305,27 @@ class UserViewModel: ObservableObject {
         guard let uid = self.userSession?.uid else { return }
         
         userService.fetchTracker(withUid: uid) { tracker in
-            self.tracker = tracker
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM"
+            
+            let currMonth = formatter.string(from: Date.now)
+            
+            if tracker.currMonth != currMonth {
+                Firestore.firestore().collection("trackers")
+                    .document(uid)
+                    .updateData(["currMonth": currMonth,
+                                 "netMonthly": 0])
+                
+                self.tracker = Tracker(currMonth: currMonth,
+                                       netMonthly: 0,
+                                       netLifetime: tracker.netLifetime,
+                                       totalPayable: tracker.totalPayable,
+                                       totalReceivable: tracker.totalReceivable)
+            } else {
+                self.tracker = tracker
+            }
+            
         }
         print("COMPLETED: fetchTracker...")
     }

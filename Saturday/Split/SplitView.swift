@@ -217,12 +217,16 @@ struct SplitView: View {
                                                 
                                                 HStack {
                                                     Spacer()
-                                                    Button {
-                                                        feesIsFocused = false
-                                                    } label: {
-                                                        Image(systemName: "pencil.slash")
-                                                            .font(.system(size: 20))
-                                                            .padding(.trailing, 42)
+                                                    if feesIsFocused {
+                                                        Button {
+                                                            withAnimation(.easeIn) {
+                                                                feesIsFocused = false
+                                                            }
+                                                        } label: {
+                                                            Image(systemName: "pencil.slash")
+                                                                .font(.system(size: 20))
+                                                                .padding(.trailing, 42)
+                                                        }
                                                     }
                                                 }
                                             }
@@ -242,6 +246,37 @@ struct SplitView: View {
                             } else {
                                 
                                 ScrollView {
+                                    
+                                    ZStack {
+                                        TextField("Service Fees", text: $cartManager.serviceFees)
+                                            .keyboardType(.decimalPad)
+                                            .multilineTextAlignment(.center)
+                                            .font(.system(size: 16))
+                                            .disableAutocorrection(true)
+                                            .autocapitalization(.none)
+                                            .padding()
+                                            .frame(width: 300, height: 40)
+                                            .background(Color.black.opacity(0.05))
+                                            .cornerRadius(50)
+                                            .padding()
+                                            .focused($feesIsFocused)
+                                        
+                                        HStack {
+                                            Spacer()
+                                            if feesIsFocused {
+                                                Button {
+                                                    withAnimation(.easeIn) {
+                                                        feesIsFocused = false
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "pencil.slash")
+                                                        .font(.system(size: 20))
+                                                        .padding(.trailing, 42)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
                                     LazyVStack {
                                         ForEach(cartManager.payableItems, id: \.id) { item in
                                             // TODO: Make Item Cards
@@ -250,21 +285,7 @@ struct SplitView: View {
                                                 .environmentObject(cartManager)
                                             Divider()
                                         }
-                                        HStack {
-                                            Spacer()
-                                            
-                                            TextField("Service Fees", text: $cartManager.serviceFees)
-                                                .keyboardType(.decimalPad)
-                                                .multilineTextAlignment(.center)
-                                                .font(.system(size: 14))
-                                                .disableAutocorrection(true)
-                                                .autocapitalization(.none)
-                                                .padding()
-                                                .frame(width: 120, height: 40)
-                                                .background(Color.black.opacity(0.05))
-                                                .cornerRadius(50)
-                                                .padding(.trailing, 10)
-                                        }
+                                        
                                     }
                                 }
                                 
@@ -312,6 +333,7 @@ struct SplitView: View {
                                     .foregroundColor(Color.white)
                             }
                         }
+                        .padding(.bottom, 16)
                         
                         NavigationLink(isActive: $isShowingSentView) {
                             SentView()
@@ -319,7 +341,7 @@ struct SplitView: View {
                                 .navigationBarHidden(true)
                         } label: {}
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 88)
+                    .frame(maxWidth: .infinity, maxHeight: 96)
                     .background(Color.background)
                     
                 }

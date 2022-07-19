@@ -26,9 +26,11 @@ struct HomeView: View {
     
     @State var homeState: HomeState = .CREDITS
     
-    @State var homeStateOffset = CGFloat(-121)
+    @State var homeStateOffset = CGFloat(-(UIScreen.main.bounds.width-64)/3)
     
     @State var refresh: Refresh = Refresh(started: false, released: false)
+    
+    let screenThird = (UIScreen.main.bounds.width-64)/3
     
     var body: some View {
         
@@ -133,22 +135,21 @@ struct HomeView: View {
                     
                     VStack(spacing: 4) {
                         
-                        HStack {
+                        ZStack {
                             
                             Button {
                                 homeState = .CREDITS
                                 withAnimation {
-                                    homeStateOffset = -121
+                                    homeStateOffset = -screenThird
                                 }
                             } label: {
                                 Text("CREDITS")
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 24)
+                                    .frame(width: screenThird)
+                                    
                             }
-                            
-                            
-                            Spacer()
+                            .offset(x: -screenThird)
                             
                             Button {
                                 homeState = .DEBTS
@@ -159,27 +160,27 @@ struct HomeView: View {
                                 Text("DEBTS")
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 24)
+                                    .frame(width: screenThird)
                             }
-                            
-                            Spacer()
                             
                             Button {
                                 homeState = .HISTORY
                                 withAnimation {
-                                    homeStateOffset = 121
+                                    homeStateOffset = screenThird
                                 }
                             } label: {
                                 Text("HISTORY")
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 24)
+                                    .frame(width: screenThird)
                             }
+                            .offset(x: screenThird)
+                            
                             
                         }
                         
                         RoundedRectangle(cornerRadius: 25)
-                            .frame(width: 72, height: 2.4)
+                            .frame(width: 84, height: 2.4)
                             .foregroundColor(Color.systemViolet)
                             .offset(x: homeStateOffset)
                     }

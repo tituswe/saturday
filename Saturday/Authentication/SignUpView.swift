@@ -45,6 +45,8 @@ struct SignUpView: View {
     
     @State var sourceType: UIImagePickerController.SourceType = .camera
     
+    @FocusState var isFocused: Bool
+    
     var body: some View {
         
         NavigationView {
@@ -109,14 +111,15 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                        TextField("Name", text: $name)
-                            .multilineTextAlignment(.center)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: 300, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            .cornerRadius(50)
+                            TextField("Name", text: $name)
+                                .multilineTextAlignment(.center)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(50)
+                                .focused($isFocused)
                         
                         Spacer()
                             .frame(height: 20)
@@ -143,14 +146,15 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                        TextField("Username", text: $username)
-                            .multilineTextAlignment(.center)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: 300, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            .cornerRadius(50)
+                            TextField("Username", text: $username)
+                                .multilineTextAlignment(.center)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(50)
+                                .focused($isFocused)
                         
                         Spacer()
                             .frame(height: 20)
@@ -177,14 +181,15 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                        TextField("Email", text: $email)
-                            .multilineTextAlignment(.center)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: 300, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            .cornerRadius(50)
+                            TextField("Email", text: $email)
+                                .multilineTextAlignment(.center)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(50)
+                                .focused($isFocused)
                         
                         Spacer()
                             .frame(height: 20)
@@ -211,14 +216,15 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                        SecureField("Password", text: $password1)
-                            .multilineTextAlignment(.center)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: 300, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            .cornerRadius(50)
+                            SecureField("Password", text: $password1)
+                                .multilineTextAlignment(.center)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(50)
+                                .focused($isFocused)
                         
                         Spacer()
                             .frame(height: 20)
@@ -245,14 +251,15 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                        SecureField("Password", text: $password2)
-                            .multilineTextAlignment(.center)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .padding()
-                            .frame(width: 300, height: 50)
-                            .background(Color.black.opacity(0.05))
-                            .cornerRadius(50)
+                            SecureField("Password", text: $password2)
+                                .multilineTextAlignment(.center)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color.black.opacity(0.05))
+                                .cornerRadius(50)
+                                .focused($isFocused)
                         
                         Spacer()
                             .frame(height: 20)
@@ -277,6 +284,13 @@ struct SignUpView: View {
                         
                     }
                     
+                }
+                
+                if isFocused {
+                    Color.white.opacity(0.001)
+                        .onTapGesture {
+                            isFocused = false
+                        }
                 }
                 
             }

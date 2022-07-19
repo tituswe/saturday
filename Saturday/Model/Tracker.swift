@@ -10,8 +10,9 @@ import FirebaseFirestoreSwift
 struct Tracker: Identifiable, Decodable {
     
     @DocumentID var id: String?
+    var currMonth: String
     var netMonthly: Double
-    var netLifetime: Double
+    var netLifetime: Double // For future implementation...
     var totalPayable: Double
     var totalReceivable: Double
     
