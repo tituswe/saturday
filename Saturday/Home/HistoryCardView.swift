@@ -67,7 +67,7 @@ struct HistoryCardView: View {
         } else if let debtorId = archive.debtorId {
             return viewModel.queryUser(withUid: debtorId)
         } else {
-            return User(name: "", username: "", profileImageUrl: "", email: "")
+            return User(name: "", username: "", profileImageUrl: "", email: "", deviceToken: "")
         }
     }
     

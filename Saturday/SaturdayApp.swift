@@ -16,6 +16,8 @@ struct SaturdayApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @StateObject var viewModel = UserViewModel()
+   
+    var deviceToken = ["":""]
     
 //    init() {
 //        FirebaseApp.configure()

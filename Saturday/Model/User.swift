@@ -14,5 +14,6 @@ struct User: Identifiable, Decodable {
     let username: String
     let profileImageUrl: String
     let email: String
+    let deviceToken: String
     
 }

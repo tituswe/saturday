@@ -31,7 +31,19 @@ class UserViewModel: ObservableObject {
     @Published var archives = [Archive]()
     @Published var tracker: Tracker?
     
+    var fcmRegToken: String = ""
+    
     init() {
+        
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+            print("FCM registration token: \(token)")
+            self.fcmRegToken = token
+          }
+        }
+        
         print("DEBUG: Initializing new UserViewModel...")
         self.userSession = Auth.auth().currentUser
         
@@ -119,7 +131,7 @@ class UserViewModel: ObservableObject {
     func refresh() {
         print("DEBUG: Refreshing...")
         self.searchText = ""
-        
+        self.updateFCMToken()
         let mainQueue = DispatchQueue.main.self
         let group = DispatchGroup()
         group.enter()
@@ -220,6 +232,15 @@ class UserViewModel: ObservableObject {
         self.credits = [Credit]()
     }
     
+    func updateFCMToken() {
+        guard let uid = self.userSession?.uid else { return }
+        Firestore.firestore().collection("users")
+            .document(uid)
+            .setData(["deviceToken": self.fcmRegToken], merge: true)
+        
+        print("UPDATE KEY: \(self.fcmRegToken)")
+    }
+    
     func login(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
@@ -245,7 +266,8 @@ class UserViewModel: ObservableObject {
             let data = ["email": email,
                         "username": username.lowercased(),
                         "name": name,
-                        "uid": user.uid]
+                        "uid": user.uid,
+                        "deviceToken": self.fcmRegToken]
             
             Firestore.firestore().collection("users")
                 .document(user.uid)
@@ -337,7 +359,8 @@ class UserViewModel: ObservableObject {
                         name: "",
                         username: "",
                         profileImageUrl: "",
-                        email: "")
+                        email: "",
+                        deviceToken: "")
         }
         return query
     }

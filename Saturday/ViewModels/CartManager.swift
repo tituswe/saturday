@@ -37,6 +37,15 @@ class CartManager: ObservableObject {
         }
     }
     
+    func fetchDebtor(debtorId: String) -> User {
+        return self.allUsers.first { $0.id == debtorId } ?? User(id: "",
+                                                                 name: "",
+                                                                 username: "",
+                                                                 profileImageUrl: "",
+                                                                 email: "",
+                                                                 deviceToken: "")
+    }
+    
     func updateAllUsers(allUsers: [User], currentUser: User) {
         self.allUsers = allUsers
         self.allUsers.sort { $0.name.lowercased() < $1.name.lowercased() }
@@ -181,6 +190,9 @@ class CartManager: ObservableObject {
             
             if !transaction.items.isEmpty && transaction.id != creditorId {
                 self.broadcastTransaction(debtorId: debtorId, creditorId: creditorId, transaction: transaction)
+                
+                //Send notification to debtor
+                NotificationManager.instance.sendDebtNotificationTo(user: self.fetchDebtor(debtorId: debtorId), transaction: transaction)
             }
         }
         
