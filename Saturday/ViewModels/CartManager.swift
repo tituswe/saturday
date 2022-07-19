@@ -38,12 +38,17 @@ class CartManager: ObservableObject {
     }
     
     func fetchDebtor(debtorId: String) -> User {
-        return self.allUsers.first { $0.id == debtorId } ?? User(id: "",
-                                                                 name: "",
-                                                                 username: "",
-                                                                 profileImageUrl: "",
-                                                                 email: "",
-                                                                 deviceToken: "")
+        for user in self.payableUsers {
+            if user.id == debtorId {
+                return user
+            }
+        }
+        return User(id: "NULL",
+                    name: "NULL",
+                    username: "NULL",
+                    profileImageUrl: "NULL",
+                    email: "NULL",
+                    deviceToken: "NULL")
     }
     
     func updateAllUsers(allUsers: [User], currentUser: User) {
@@ -193,7 +198,7 @@ class CartManager: ObservableObject {
                 
                 //Send notification to debtor
                 let debtor = self.fetchDebtor(debtorId: debtorId)
-                NotificationManager.instance.sendDebtNotificationTo(creditor: creditor, debtor: debtor, transaction: transaction)
+                NotificationManager.instance.sendDebtNotificationTo(creditor: creditor, debtor: debtor, amount: transaction.total)
             }
         }
         

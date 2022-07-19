@@ -72,13 +72,13 @@ struct DebtCardView: View {
                             .padding(.leading, 4)
                         
                         Button {
-                           print("TODO: Send notification reminder")
+                            NotificationManager.instance.sendCancelRequest(creditor: creditor(), debtor: viewModel.currentUser!, amount: debt.total)
                         } label: {
-                            Text("Send a reminder")
+                            Text("Request to cancel")
                                 .font(.system(size: 10))
                                 .foregroundColor(Color.white)
                                 .frame(width: 112, height: 24)
-                                .background(Color.systemViolet)
+                                .background(Color.systemRed)
                                 .cornerRadius(10)
                         }
                         

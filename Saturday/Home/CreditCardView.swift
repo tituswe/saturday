@@ -72,7 +72,7 @@ struct CreditCardView: View {
                             .padding(.leading, 4)
                         
                         Button {
-                           print("TODO: Send notification reminder")
+                            NotificationManager.instance.sendDebtNotificationTo(creditor: viewModel.currentUser!, debtor: debtor(), amount: credit.total)
                         } label: {
                             Text("Send a reminder")
                                 .font(.system(size: 10))

@@ -726,6 +726,8 @@ class UserViewModel: ObservableObject {
         
         Firestore.firestore().collection("trackers").document(debt.creditorId)
             .updateData(["totalReceivable": FieldValue.increment(-debt.total)])
+        
+        NotificationManager.instance.sendPaidNotification(creditor: self.queryUser(withUid: debt.creditorId), debtor: self.currentUser!, amount: debt.total)
     }
     
     // For cancelling debt
@@ -795,6 +797,8 @@ class UserViewModel: ObservableObject {
         Firestore.firestore().collection("trackers").document(credit.debtorId)
             .updateData(["totalPayable": FieldValue.increment(-credit.total),
                          "netMonthly": FieldValue.increment(credit.total)])
+        
+        NotificationManager.instance.sendSplitCancelled(creditor: self.currentUser!, debtor: self.queryUser(withUid: credit.debtorId), amount: credit.total)
     }
     
     let archiveService = ArchiveService()
