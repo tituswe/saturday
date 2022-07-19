@@ -192,7 +192,8 @@ class CartManager: ObservableObject {
                 self.broadcastTransaction(debtorId: debtorId, creditorId: creditorId, transaction: transaction)
                 
                 //Send notification to debtor
-                NotificationManager.instance.sendDebtNotificationTo(user: self.fetchDebtor(debtorId: debtorId), transaction: transaction)
+                let debtor = self.fetchDebtor(debtorId: debtorId)
+                NotificationManager.instance.sendDebtNotificationTo(creditor: creditor, debtor: debtor, transaction: transaction)
             }
         }
         

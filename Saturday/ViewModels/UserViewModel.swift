@@ -39,7 +39,6 @@ class UserViewModel: ObservableObject {
           if let error = error {
             print("Error fetching FCM registration token: \(error)")
           } else if let token = token {
-            print("FCM registration token: \(token)")
             self.fcmRegToken = token
           }
         }
@@ -432,7 +431,8 @@ class UserViewModel: ObservableObject {
                     "username": currentUser.username.lowercased(),
                     "name": currentUser.name,
                     "profileImageUrl": currentUser.profileImageUrl,
-                    "uid": currentUser.id]
+                    "uid": currentUser.id,
+                    "deviceToken": currentUser.deviceToken]
         
         Firestore.firestore().collection("friendRequests")
             .document(receiverUid)
@@ -444,7 +444,8 @@ class UserViewModel: ObservableObject {
                      "username": user.username.lowercased(),
                      "name": user.name,
                      "profileImageUrl": user.profileImageUrl,
-                     "uid": receiverUid]
+                     "uid": receiverUid,
+                     "deviceToken": user.deviceToken]
         
         Firestore.firestore().collection("friendRequests")
             .document(currentUser.id!)
