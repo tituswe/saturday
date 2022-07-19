@@ -83,7 +83,7 @@ struct UserCardView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .offset(x: 32, y: -24)
+                    .offset(x: 40, y: -32)
                     
                 }
                 

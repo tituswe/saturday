@@ -157,7 +157,7 @@ class UserViewModel: ObservableObject {
         mainQueue.async {
             group.wait()
             group.enter()
-            self.fetchFriends()
+            self.fetchFriendRequests()
             group.leave()
         }
         
