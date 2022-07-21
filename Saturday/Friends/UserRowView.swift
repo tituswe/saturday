@@ -158,9 +158,9 @@ struct UserRowView: View {
     
 }
 
-//struct UserRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserRowView(user: previewUser, state: .FRIEND, isEditingOffset: .constant(CGFloat(-56)))
-//            .environmentObject(UserViewModel())
-//    }
-//}
+struct UserRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserRowView(user: previewUser, state: .FRIEND, isEditingOffset: .constant(CGFloat(-56)))
+            .environmentObject(UserViewModel())
+    }
+}

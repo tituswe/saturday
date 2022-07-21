@@ -7,6 +7,9 @@
 
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseAuth
+import FirebaseStorage
 import Kingfisher
 
 class UserViewModel: ObservableObject {
@@ -287,6 +290,46 @@ class UserViewModel: ObservableObject {
         self.reset()
         userSession = nil
         try? Auth.auth().signOut()
+    }
+    
+    func deleteAccount() {
+        let user = Auth.auth().currentUser
+        guard let uid = self.userSession?.uid else { return }
+        
+        // Delete database files
+        for element in ["users", "trackers", "history", "friends", "friendRequests", "debts", "credits"] {
+            Firestore.firestore().collection(element)
+                .document(uid)
+                .delete { error in
+                    if let error = error {
+                        print("ERROR: Could not remove document: \(error.localizedDescription)")
+                        return
+                    }
+                }
+        }
+        
+        // Delete friend relationships
+        for friend in self.friends {
+            Firestore.firestore().collection("friends")
+                .document(friend.id!)
+                .collection("list")
+                .document(uid)
+                .delete { error in
+                    if let error = error {
+                        print("ERROR: Could not remove document: \(error.localizedDescription)")
+                        return
+                    }
+                }
+        }
+        
+        user?.delete { error in
+            if let error = error {
+                print("ERROR: Could not remove document: \(error.localizedDescription)")
+                return
+            }
+        }
+        
+        self.logout()
     }
     
     func uploadProfileImage(_ image: UIImage) {

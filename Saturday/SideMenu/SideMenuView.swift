@@ -13,6 +13,8 @@ struct SideMenuView: View {
     
     @Binding var isShowingSideMenu: Bool
     
+    @State var isShowingProfileView: Bool = false
+    
     @State var isLoggingOut: Bool = false
     
     var body: some View {
@@ -31,10 +33,19 @@ struct SideMenuView: View {
                 
                 // MARK: Cell Items
                 Button {
-                    print("TODO: Profile View")
+                    withAnimation(.spring()) {
+                        isShowingProfileView = true
+                    }
                 } label: {
                     SideMenuOptionView(title: "Profile", imageName: "person")
                 }
+                
+                NavigationLink(isActive: $isShowingProfileView) {
+                    ProfileView()
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
+                } label: {}
+
                 
                 Button {
                     print("TODO: Help View")

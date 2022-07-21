@@ -10,7 +10,7 @@ import SwiftUI
 enum ViewState {
     case HOME
     case FRIENDS
-    case HISTORY
+    case NONE
     case SPLIT
 }
 struct BottomBarView: View {
@@ -25,7 +25,7 @@ struct BottomBarView: View {
     
     @State var isShowingSplitView: Bool = false
     
-    @State var viewState: ViewState
+    @State var viewState: ViewState = .NONE
     
     var body: some View {
         

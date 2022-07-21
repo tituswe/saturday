@@ -102,7 +102,7 @@ struct HomeView: View {
                             .font(.system(size: 8))
                             .foregroundColor(Color.systemGreen)
                         
-                        Text("$" + String(format: "%.2f", viewModel.tracker?.totalReceivable ?? 999.99))
+                        Text(totalReceivable())
                             .transition(.opacity)
                             .id(UUID().uuidString)
                         
@@ -115,7 +115,7 @@ struct HomeView: View {
                             .font(.system(size: 8))
                             .foregroundColor(Color.systemRed)
                         
-                        Text("$" + String(format: "%.2f", viewModel.tracker?.totalPayable ?? 999.99))
+                        Text(totalPayable())
                             .transition(.opacity)
                             .id(UUID().uuidString)
                         
@@ -183,6 +183,7 @@ struct HomeView: View {
                             .frame(width: 84, height: 2.4)
                             .foregroundColor(Color.systemViolet)
                             .offset(x: homeStateOffset)
+                        
                     }
                     .padding(16)
                     
@@ -297,13 +298,25 @@ struct HomeView: View {
     }
     
     func netMonthly() -> String {
-        guard let monthly = viewModel.tracker?.netMonthly else { return "$999.99" }
+        guard let monthly = viewModel.tracker?.netMonthly else { return "" }
         
         if monthly >= 0 {
             return "$" + String(format: "%.2f", monthly)
         } else {
             return "-$" + String(format: "%.2f", -monthly)
         }
+    }
+    
+    func totalPayable() -> String {
+        guard let payable = viewModel.tracker?.totalPayable else { return "" }
+        
+        return "$" + String(format: "%.2f", payable)
+    }
+    
+    func totalReceivable() -> String {
+        guard let receivable = viewModel.tracker?.totalReceivable else { return "" }
+        
+        return "$" + String(format: "%.2f", receivable)
     }
     
 }

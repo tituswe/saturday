@@ -111,6 +111,32 @@ struct LogInView: View {
                     
                 }
                 
+                Text("By signing in, you agree with our")
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.gray)
+                    .padding(.top, 4)
+                
+                HStack {
+                    
+                    Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday")!) {
+                        Text("Terms")
+                            .font(.system(size: 12))
+                            .underline()
+                            .foregroundColor(Color.gray)
+                    }
+                    
+                    Text("|")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.gray)
+                    
+                    Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday")!) {
+                        Text("Privacy Policy")
+                            .font(.system(size: 12))
+                            .underline()
+                            .foregroundColor(Color.gray)
+                    }
+                }
+                
             }
             
             if isFocused {
