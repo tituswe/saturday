@@ -3,32 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>807679004416-jjg9voro95kscgh51e6n3tmn9o3arn7i.apps.googleusercontent.com</string>
+	<string>268481337344-276goh1dmule1p24lrqi4f2mit2264qi.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.807679004416-jjg9voro95kscgh51e6n3tmn9o3arn7i</string>
+	<string>com.googleusercontent.apps.268481337344-276goh1dmule1p24lrqi4f2mit2264qi</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB1ZW9UlWUybhYg-URA5zIRtmsgOQU50cQ</string>
+	<string>AIzaSyCF3LiRTrMvRuEKgtd7cL0GixxLriT5wio</string>
 	<key>GCM_SENDER_ID</key>
-	<string>807679004416</string>
+	<string>268481337344</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.teamsaturdaydevs.Saturday</string>
 	<key>PROJECT_ID</key>
-	<string>saturday-orbital2022</string>
+	<string>saturday-orbital</string>
 	<key>STORAGE_BUCKET</key>
-	<string>saturday-orbital2022.appspot.com</string>
+	<string>saturday-orbital.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:807679004416:ios:b12780c98fb2a777446de5</string>
+	<string>1:268481337344:ios:537e93efaf21b47ea1e0e5</string>
 </dict>
 </plist>

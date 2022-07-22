@@ -18,13 +18,16 @@ struct HistoryCardView: View {
         
         HStack {
             
-            KFImage(URL(string: user().profileImageUrl))
-                .resizable()
-                .scaledToFill()
-                .clipped()
+//            KFImage(URL(string: user().profileImageUrl))
+//                .resizable()
+//                .scaledToFill()
+//                .clipped()
+//                .frame(width: 64, height: 64)
+//                .clipShape(Circle())
+//                .overlay(Circle().stroke(Color(.lightGray), lineWidth: 3))
+            
+            Avatar(avatarColor: user().color)
                 .frame(width: 64, height: 64)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color(.lightGray), lineWidth: 3))
             
             VStack(alignment: .leading) {
                 
@@ -67,7 +70,12 @@ struct HistoryCardView: View {
         } else if let debtorId = archive.debtorId {
             return viewModel.queryUser(withUid: debtorId)
         } else {
-            return User(name: "", username: "", profileImageUrl: "", email: "", deviceToken: "")
+            return User(name: "",
+                        username: "",
+//                        profileImageUrl: "",
+                        color: 0,
+                        email: "",
+                        deviceToken: "")
         }
     }
     

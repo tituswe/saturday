@@ -53,10 +53,14 @@ struct UserRowView: View {
             
             HStack(spacing: 12) {
                 
-                KFImage(URL(string: user.profileImageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .clipShape(Circle())
+//                KFImage(URL(string: user.profileImageUrl))
+//                    .resizable()
+//                    .scaledToFill()
+//                    .clipShape(Circle())
+//                    .frame(width: 40, height: 40)
+//                    .offset(x: state == .FRIEND ? -isEditingOffset : 0)
+                
+                Avatar(avatarColor: user.color)
                     .frame(width: 40, height: 40)
                     .offset(x: state == .FRIEND ? -isEditingOffset : 0)
                 

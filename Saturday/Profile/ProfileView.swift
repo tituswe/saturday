@@ -36,14 +36,18 @@ struct ProfileView: View {
                     // MARK: Profile Picture
                     if let user = viewModel.currentUser {
                         
-                        KFImage(URL(string: user.profileImageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .clipped()
+//                        KFImage(URL(string: user.profileImageUrl))
+//                            .resizable()
+//                            .scaledToFill()
+//                            .clipped()
+//                            .frame(width: 88, height: 88)
+//                            .clipShape(Circle())
+//                            .overlay(Circle().stroke(Color.background, lineWidth: 2))
+//                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+//                            .padding()
+                        
+                        Avatar(avatarColor: user.color)
                             .frame(width: 88, height: 88)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.background, lineWidth: 2))
-                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                             .padding()
                         
                         VStack {

@@ -46,7 +46,8 @@ class CartManager: ObservableObject {
         return User(id: "NULL",
                     name: "NULL",
                     username: "NULL",
-                    profileImageUrl: "NULL",
+//                    profileImageUrl: "NULL",
+                    color: 0,
                     email: "NULL",
                     deviceToken: "NULL")
     }

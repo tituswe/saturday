@@ -50,14 +50,16 @@ struct PaymentView: View {
             
             VStack {
                 
-                KFImage(URL(string: creditor().profileImageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-                    .frame(width: 88, height: 88)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.background, lineWidth: 3))
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+//                KFImage(URL(string: creditor().profileImageUrl))
+//                    .resizable()
+//                    .scaledToFill()
+//                    .clipped()
+//                    .frame(width: 88, height: 88)
+//                    .clipShape(Circle())
+//                    .overlay(Circle().stroke(Color.background, lineWidth: 3))
+//                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                
+                Avatar(avatarColor: creditor().color)
                 
                 Text("I paid \(userName())")
                     .font(.title3)

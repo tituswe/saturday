@@ -18,10 +18,13 @@ struct AddUserRowView: View {
         
         HStack(spacing: 12) {
             
-            KFImage(URL(string: user.profileImageUrl))
-                .resizable()
-                .scaledToFill()
-                .clipShape(Circle())
+//            KFImage(URL(string: user.profileImageUrl))
+//                .resizable()
+//                .scaledToFill()
+//                .clipShape(Circle())
+//                .frame(width: 48, height: 48)
+            
+            Avatar(avatarColor: user.color)
                 .frame(width: 48, height: 48)
             
             VStack(alignment: .leading, spacing: 2) {
