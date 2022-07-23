@@ -17,12 +17,6 @@ struct SaturdayApp: App {
     
     @StateObject var viewModel = UserViewModel()
    
-    var deviceToken = ["":""]
-    
-//    init() {
-//        FirebaseApp.configure()
-//    }
-    
     var body: some Scene {
         WindowGroup {
                 ContentView()

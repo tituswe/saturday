@@ -56,16 +56,13 @@ struct DebtCardView: View {
                 
                 HStack {
                     
-//                    KFImage(URL(string: creditor().profileImageUrl))
-//                        .resizable()
-//                        .scaledToFill()
-//                        .clipped()
-//                        .frame(width: 64, height: 64)
-//                        .clipShape(Circle())
-//                        .overlay(Circle().stroke(Color.background, lineWidth: 3))
-                    
-                    Avatar(avatarColor: creditor().color)   // TEMP
+                    KFImage(URL(string: creditor().profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
                         .frame(width: 64, height: 64)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.background, lineWidth: 3))
                     
                     VStack(alignment: .leading) {
                         

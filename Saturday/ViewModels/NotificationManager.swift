@@ -11,6 +11,8 @@ import FirebaseMessaging
 class NotificationManager {
     
     static let instance = NotificationManager() // Singleton
+    
+    let serverKey = "AAAAPoK8GAA:APA91bFmUsQ__jIshC8-X0XWi_-N_TZACOWgLDCv44AEXqbjQYEJxA7zWmiriaovbq9eM7rTeIWUgRNqxLL9v7RJByBSycd5RmMIYMpJS8NcPAKazx4XdGiuRy_MiJQk1ovHw7KvWGC6"
    
     func sendDebtNotificationTo(creditor: User, debtor: User, amount: Double) {
         guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else { return }
@@ -24,8 +26,6 @@ class NotificationManager {
             ]
             
         ]
-        
-        let serverKey = "AAAAvA1rjwA:APA91bHZ3Da7JMWVlV_pyf8TYGvCpOvpdxm5PDe_hsuRdb4yjV1kfx1WO2CQSC3jA5YCsTeRveG03tetJRaQcgfpE0sfKPjHUOaALdqqdGl3I4RKmH8j14V9xhReltSx2ui4Nieym6jK"
         
         //URL Requst...
         var request = URLRequest(url: url)
@@ -64,8 +64,6 @@ class NotificationManager {
             
         ]
         
-        let serverKey = "AAAAvA1rjwA:APA91bHZ3Da7JMWVlV_pyf8TYGvCpOvpdxm5PDe_hsuRdb4yjV1kfx1WO2CQSC3jA5YCsTeRveG03tetJRaQcgfpE0sfKPjHUOaALdqqdGl3I4RKmH8j14V9xhReltSx2ui4Nieym6jK"
-        
         //URL Requst...
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -103,8 +101,6 @@ class NotificationManager {
             
         ]
         
-        let serverKey = "AAAAvA1rjwA:APA91bHZ3Da7JMWVlV_pyf8TYGvCpOvpdxm5PDe_hsuRdb4yjV1kfx1WO2CQSC3jA5YCsTeRveG03tetJRaQcgfpE0sfKPjHUOaALdqqdGl3I4RKmH8j14V9xhReltSx2ui4Nieym6jK"
-        
         //URL Requst...
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -141,8 +137,6 @@ class NotificationManager {
             ]
             
         ]
-        
-        let serverKey = "AAAAvA1rjwA:APA91bHZ3Da7JMWVlV_pyf8TYGvCpOvpdxm5PDe_hsuRdb4yjV1kfx1WO2CQSC3jA5YCsTeRveG03tetJRaQcgfpE0sfKPjHUOaALdqqdGl3I4RKmH8j14V9xhReltSx2ui4Nieym6jK"
         
         //URL Requst...
         var request = URLRequest(url: url)

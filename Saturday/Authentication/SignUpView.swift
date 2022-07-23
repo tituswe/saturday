@@ -280,9 +280,7 @@ struct SignUpView: View {
                                 .cornerRadius(50)
                         }
                         
-//                        NavigationLink(destination: ProfilePictureSelectorView().navigationBarHidden(true), isActive: $viewModel.didAuthenticateUser, label: {})
-                        
-                        NavigationLink(destination: ColorSelectorView().environmentObject(viewModel).navigationBarHidden(true), isActive: $viewModel.didAuthenticateUser, label: {})
+                        NavigationLink(destination: ProfilePictureSelectorView().navigationBarHidden(true), isActive: $viewModel.didAuthenticateUser, label: {})
                         
                     }
                     

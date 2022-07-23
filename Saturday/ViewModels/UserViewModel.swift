@@ -9,7 +9,6 @@ import SwiftUI
 import Firebase
 import FirebaseCore
 import FirebaseAuth
-import FirebaseMessaging
 import FirebaseStorage
 import Kingfisher
 
@@ -251,7 +250,7 @@ class UserViewModel: ObservableObject {
     func register(withEmail email: String, password: String, name: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("ERROR: Failed to register with error \(error)")
+                print("ERROR: Failed to register with error \(error.localizedDescription)")
                 return
             }
             
@@ -333,29 +332,18 @@ class UserViewModel: ObservableObject {
         self.logout()
     }
     
-    func selectColor(color: Int) { // TEMP
+    func uploadProfileImage(_ image: UIImage) {
         guard let uid = tempUserSession?.uid else { return }
         
-        Firestore.firestore().collection("users")
-            .document(uid)
-            .setData(["color": color], merge: true) { _ in
-                self.userSession = self.tempUserSession
-                self.fetchUser()
-            }
+        ImageUploader.uploadImage(image: image) { profileImageUrl in
+            Firestore.firestore().collection("users")
+                .document(uid)
+                .setData(["profileImageUrl": profileImageUrl], merge: true) { _ in
+                    self.userSession = self.tempUserSession
+                    self.fetchUser()
+                }
+        }
     }
-    
-//    func uploadProfileImage(_ image: UIImage) {
-//        guard let uid = tempUserSession?.uid else { return }
-//
-//        ImageUploader.uploadImage(image: image) { profileImageUrl in
-//            Firestore.firestore().collection("users")
-//                .document(uid)
-//                .setData(["profileImageUrl": profileImageUrl], merge: true) { _ in
-//                    self.userSession = self.tempUserSession
-//                    self.fetchUser()
-//                }
-//        }
-//    }
     
     
     // MARK: User Services
@@ -402,8 +390,7 @@ class UserViewModel: ObservableObject {
             return User(id: "",
                         name: "",
                         username: "",
-//                        profileImageUrl: "",
-                        color: 0, // TEMP
+                        profileImageUrl: "",
                         email: "",
                         deviceToken: "")
         }
@@ -486,10 +473,9 @@ class UserViewModel: ObservableObject {
         let data = ["email": currentUser.email,
                     "username": currentUser.username.lowercased(),
                     "name": currentUser.name,
-//                    "profileImageUrl": currentUser.profileImageUrl,
-                    "color" : currentUser.color, // TEMP
+                    "profileImageUrl": currentUser.profileImageUrl,
                     "uid": currentUser.id,
-                    "deviceToken": currentUser.deviceToken] as [String : Any]
+                    "deviceToken": currentUser.deviceToken]
         
         Firestore.firestore().collection("friendRequests")
             .document(receiverUid)
@@ -500,10 +486,9 @@ class UserViewModel: ObservableObject {
         let data2 = ["email": user.email,
                      "username": user.username.lowercased(),
                      "name": user.name,
-//                     "profileImageUrl": user.profileImageUrl,
-                     "color" : currentUser.color, // TEMP
+                     "profileImageUrl": user.profileImageUrl,
                      "uid": receiverUid,
-                     "deviceToken": user.deviceToken] as [String : Any]
+                     "deviceToken": user.deviceToken]
         
         Firestore.firestore().collection("friendRequests")
             .document(currentUser.id!)
@@ -582,10 +567,9 @@ class UserViewModel: ObservableObject {
         let data = ["email": currentUser.email,
                     "username": currentUser.username.lowercased(),
                     "name": currentUser.name,
-//                    "profileImageUrl": currentUser.profileImageUrl,
-                    "color" : currentUser.color, // TEMP
+                    "profileImageUrl": currentUser.profileImageUrl,
                     "uid": currentUser.id,
-                    "deviceToken": currentUser.deviceToken] as [String : Any]
+                    "deviceToken": currentUser.deviceToken]
         
         Firestore.firestore().collection("friends")
             .document(senderUid)
@@ -597,10 +581,9 @@ class UserViewModel: ObservableObject {
         let data2 = ["email": user.email,
                      "username": user.username.lowercased(),
                      "name": user.name,
-//                     "profileImageUrl": user.profileImageUrl,
-                     "color" : currentUser.color, // TEMP
+                     "profileImageUrl": user.profileImageUrl,
                      "uid": user.id,
-                     "deviceToken": user.deviceToken] as [String : Any]
+                     "deviceToken": user.deviceToken]
         
         Firestore.firestore().collection("friends")
             .document(currentUser.id!)

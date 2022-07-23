@@ -34,16 +34,12 @@ struct SideMenuHeaderView: View {
                 
                 VStack(alignment: .leading) {
                     
-//                    KFImage(URL(string: user.profileImageUrl))
-//                        .resizable()
-//                        .scaledToFill()
-//                        .clipped()
-//                        .frame(width: 64, height: 64)
-//                        .clipShape(Circle())
-//                        .padding(.bottom, 16)
-                    
-                    Avatar(avatarColor: user.color)
+                    KFImage(URL(string: user.profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
                         .frame(width: 64, height: 64)
+                        .clipShape(Circle())
                         .padding(.bottom, 16)
                     
                     Text(user.name)

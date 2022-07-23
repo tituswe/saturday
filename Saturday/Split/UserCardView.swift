@@ -27,31 +27,16 @@ struct UserCardView: View {
             ZStack {
                 
                 // Long press to change to red x, for deleting
-//                KFImage(URL(string: user.profileImageUrl))
-//                    .resizable()
-//                    .scaledToFill()
-//                    .clipShape(Circle())
-//                    .frame(width: 64, height: 64)
-//                    .overlay(Circle()
-//                        .stroke(isShowingDeleteButton
-//                                ? Color.systemRed.opacity(0.8)
-//                                : cartManager.selectedMap[user.id!] ?? false
-//                                ? Color.systemBlue.opacity(0.8)
-//                                : Color.clear, lineWidth: 5))
-//                    .onTapGesture {
-//                        cartManager.selectUser(user: user)
-//                    }
-//                    .onLongPressGesture {
-//                        isShowingDeleteButton.toggle()
-//                    }
-                
-                Avatar(avatarColor: user.color)
+                KFImage(URL(string: user.profileImageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
                     .frame(width: 64, height: 64)
                     .overlay(Circle()
                         .stroke(isShowingDeleteButton
-                                ? Color.systemRed
+                                ? Color.systemRed.opacity(0.8)
                                 : cartManager.selectedMap[user.id!] ?? false
-                                ? Color.systemBlue
+                                ? Color.systemBlue.opacity(0.8)
                                 : Color.clear, lineWidth: 5))
                     .onTapGesture {
                         cartManager.selectUser(user: user)
@@ -59,7 +44,6 @@ struct UserCardView: View {
                     .onLongPressGesture {
                         isShowingDeleteButton.toggle()
                     }
-                
                     
                 
                 // Item counter/Button to Cart View

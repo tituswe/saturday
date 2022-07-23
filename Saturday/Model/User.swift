@@ -12,8 +12,7 @@ struct User: Identifiable, Decodable {
     @DocumentID var id: String?
     let name: String
     let username: String
-//    let profileImageUrl: String
-    let color: Int // TEMP
+    let profileImageUrl: String
     let email: String
     let deviceToken: String
     
