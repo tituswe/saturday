@@ -161,5 +161,78 @@ class NotificationManager {
             }
         }.resume()
     }
+   
+    func sendFriendRequest(requestSender: User, requestReceiver: User) {
+        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else { return }
+        
+        let json: [String: Any] = [
+            
+            "to": requestReceiver.deviceToken,
+            "notification": [
+                "title": "New Friend Request",
+                "body": "You have a new friend request from \(requestSender.name)!",
+            ]
+            
+        ]
+        
+        //URL Requst...
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        //Converting json Dict to JSON...
+        request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted])
+        
+        //Setting Content Type and Authorization...
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //Authorization ket will be in our server...
+        request.setValue("key=\(serverKey)", forHTTPHeaderField: "Authorization")
+        
+        //Passing request using URL session...
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: request) { _, _, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+        }.resume()
+    }
     
+    func sendAcceptedFriendRequest(user1: User, user2: User) {
+        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else { return }
+        
+        let json: [String: Any] = [
+            
+            "to": user1.deviceToken,
+            "notification": [
+                "title": "Friend Request Accepted",
+                "body": "You can now create splits with \(user2.name)!",
+            ]
+            
+        ]
+        
+        //URL Requst...
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        //Converting json Dict to JSON...
+        request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted])
+        
+        //Setting Content Type and Authorization...
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //Authorization ket will be in our server...
+        request.setValue("key=\(serverKey)", forHTTPHeaderField: "Authorization")
+        
+        //Passing request using URL session...
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: request) { _, _, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+        }.resume()
+    }
 }

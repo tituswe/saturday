@@ -50,7 +50,7 @@ struct HomeView: View {
                 // MARK: Navigation Bar
                 NavBarView(
                     topLeftButtonView: "line.horizontal.3",
-                    topRightButtonView: "gearshape",
+                    topRightButtonView: "",
                     titleString: "Saturday",
                     topLeftButtonAction: {
                         withAnimation(.spring()) {
@@ -232,23 +232,44 @@ struct HomeView: View {
                                 
                                 switch homeState {
                                 case .CREDITS:
-                                    ForEach(viewModel.credits, id: \.id) { credit in
-                                        CreditCardView(credit: credit)
-                                            .environmentObject(viewModel)
+                                    if viewModel.credits.isEmpty {
+                                        Text("No pending credits to receive")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.gray)
+                                            .padding()
+                                    } else {
+                                        ForEach(viewModel.credits, id: \.id) { credit in
+                                            CreditCardView(credit: credit)
+                                                .environmentObject(viewModel)
+                                        }
                                     }
 
                                 case .DEBTS:
-                                    ForEach(viewModel.debts, id: \.id) { debt in
-                                        DebtCardView(debt: debt)
-                                            .environmentObject(viewModel)
+                                    if viewModel.debts.isEmpty {
+                                        Text("No pending debts to pay")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.gray)
+                                            .padding()
+                                    } else {
+                                        ForEach(viewModel.debts, id: \.id) { debt in
+                                            DebtCardView(debt: debt)
+                                                .environmentObject(viewModel)
+                                        }
                                     }
 
                                 case .HISTORY:
-                                    ForEach(viewModel.archives, id: \.id) { archive in
-                                        HistoryCardView(archive: archive)
-                                            .environmentObject(viewModel)
-                                        Divider()
-                                            .padding(.horizontal, 12)
+                                    if viewModel.archives.isEmpty {
+                                        Text("No past splits found")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.gray)
+                                            .padding()
+                                    } else {
+                                        ForEach(viewModel.archives, id: \.id) { archive in
+                                            HistoryCardView(archive: archive)
+                                                .environmentObject(viewModel)
+                                            Divider()
+                                                .padding(.horizontal, 12)
+                                        }
                                     }
                                 }
 

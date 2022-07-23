@@ -496,6 +496,10 @@ class UserViewModel: ObservableObject {
             .document(receiverUid)
             .setData(data2 as [String : Any])
         
+        let receiverUser = queryUser(withUid: receiverUid)
+        
+        NotificationManager.instance.sendFriendRequest(requestSender: currentUser, requestReceiver: receiverUser)
+        
     }
     
     func retractFriendRequest(user: User) {
@@ -617,6 +621,11 @@ class UserViewModel: ObservableObject {
         self.friendRequests = self.friendRequests.filter { $0.id != user.id }
         // Update friend request list
         self.refresh()
+        
+        // Send notification to both users
+        let user2 = queryUser(withUid: senderUid)
+        NotificationManager.instance.sendAcceptedFriendRequest(user1: currentUser, user2: user2)
+        NotificationManager.instance.sendAcceptedFriendRequest(user1: user2, user2: currentUser)
     }
     
     func declineFriendRequest(user: User) {

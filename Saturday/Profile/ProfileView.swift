@@ -12,24 +12,35 @@ struct ProfileView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
     
+    @State var isShowingSideMenu: Bool = false
+    
     @State var isShowingDeleteAlert: Bool = false
     
     var body: some View {
         NavigationView {
+            
             ZStack {
                 
+                // MARK: Side Menu Bar
+                if isShowingSideMenu {
+                    SideMenuView(isShowingSideMenu: $isShowingSideMenu)
+                        .environmentObject(viewModel)
+                } else {
                     LinearGradient(gradient: Gradient(colors: [Color.systemIndigo, Color.background]), startPoint: .topLeading, endPoint: .bottomTrailing)
                         .ignoresSafeArea()
+                }
                 
                 VStack(spacing: 0) {
                     
                     // MARK: Navigation Bar
                     NavBarView(
                         topLeftButtonView: "line.horizontal.3",
-                        topRightButtonView: "pencil",
+                        topRightButtonView: "",
                         titleString: "Your Profile",
                         topLeftButtonAction: {
-                            
+                            withAnimation(.spring()) {
+                                isShowingSideMenu = true
+                            }
                         },
                         topRightButtonAction: {})
                     
@@ -48,8 +59,8 @@ struct ProfileView: View {
                         
                         VStack {
                             
-                            Text(user.name)
-                                .font(.system(size: 20))
+                            Text("Hello, \(user.name)")
+                                .font(.system(size: 16))
                                 .bold()
                                 .foregroundColor(Color.gray)
                             
@@ -75,29 +86,12 @@ struct ProfileView: View {
                             .padding(16)
                             
                             HStack {
-                                Text("MONTH :")
+                                Text("\(viewModel.tracker?.currMonth.uppercased() ?? "MONTH") OVERVIEW:")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.gray)
                                     .padding(.horizontal, 24)
                                 Spacer()
                                 Text(netMonthly())
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 24)
-                            }
-                            .frame(width: 320, height: 72)
-                            .background()
-                            .cornerRadius(25)
-                            .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 3)
-                            .padding(.bottom, 8)
-                            
-                            HStack {
-                                Text("LIFETIME :")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color.gray)
-                                    .padding(.horizontal, 24)
-                                Spacer()
-                                Text(netLifetime())
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.gray)
                                     .padding(.horizontal, 24)
@@ -167,7 +161,10 @@ struct ProfileView: View {
                     }
                     Button("No", role: .cancel) {}
                 }
-                
+                .cornerRadius(isShowingSideMenu ? 20 : 10)
+                .offset(x: isShowingSideMenu ? 300: 0)
+                .scaleEffect(isShowingSideMenu ? 0.8 : 1)
+                .ignoresSafeArea(.all, edges: [.bottom])
             }
             .navigationBarHidden(true)
         }
