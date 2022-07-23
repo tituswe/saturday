@@ -293,171 +293,19 @@ class UserViewModel: ObservableObject {
     }
     
     func deleteAccount() {
+        refresh()
         guard let user = Auth.auth().currentUser else { return }
-        guard let uid = self.userSession?.uid else { return }
-        
-        // Delete credits
-        for transaction in self.credits {
-            
-            // Delete each item in each transaction
-            guard let creditItems = self.creditItems[transaction.transactionId] else { return }
-            for item in creditItems {
-                Firestore.firestore().collection("credits")
-                    .document(uid)
-                    .collection("transactions")
-                    .document(transaction.transactionId)
-                    .collection("items")
-                    .document(item.id!)
-                    .delete { error in
-                        if let error = error {
-                            print("ERROR: Could not remove document: \(error.localizedDescription)")
-                            return
-                        }
-                    }
-            }
-            
-            //Delete each transaction
-            Firestore.firestore().collection("credits")
-                .document(uid)
-                .collection("transactions")
-                .document(transaction.transactionId)
-                .delete { error in
-                    if let error = error {
-                        print("ERROR: Could not remove document: \(error.localizedDescription)")
-                        return
-                    }
-                }
-        }
-        
-        // Delete debts
-        for transaction in self.debts {
-            
-            // Delete each item in each transaction
-            guard let debtItems = self.debtItems[transaction.transactionId] else { return }
-            for item in debtItems {
-                Firestore.firestore().collection("debts")
-                    .document(uid)
-                    .collection("transactions")
-                    .document(transaction.transactionId)
-                    .collection("items")
-                    .document(item.id!)
-                    .delete { error in
-                        if let error = error {
-                            print("ERROR: Could not remove document: \(error.localizedDescription)")
-                            return
-                        }
-                    }
-            }
-            
-            //Delete each transaction
-            Firestore.firestore().collection("debts")
-                .document(uid)
-                .collection("transactions")
-                .document(transaction.transactionId)
-                .delete { error in
-                    if let error = error {
-                        print("ERROR: Could not remove document: \(error.localizedDescription)")
-                        return
-                    }
-                }
-        }
-        
-        // Delete userUid in debts collection
-        Firestore.firestore().collection("debts")
-            .document(uid)
-            .delete { error in
-                if let error = error {
-                    print("ERROR: Could not remove document: \(error.localizedDescription)")
-                    return
-                }
-            }
-       
-        // Delete friends
-        for friend in self.friends {
-            Firestore.firestore().collection("friends")
-                .document(uid)
-                .collection("list")
-                .document(friend.id!)
-                .delete { error in
-                    if let error = error {
-                        print("ERROR: Could not remove document: \(error.localizedDescription)")
-                        return
-                    }
-                }
-            Firestore.firestore().collection("friends")
-                .document(friend.id!)
-                .collection("list")
-                .document(uid)
-                .delete { error in
-                    if let error = error {
-                        print("ERROR: Could not remove document: \(error.localizedDescription)")
-                        return
-                    }
-                }
-        }
-        
-        Firestore.firestore().collection("friends")
-            .document(uid)
-            .delete { error in
-                if let error = error {
-                    print("ERROR: Could not remove document: \(error.localizedDescription)")
-                    return
-                }
-            }
-        
-        // Delete history
-        for archive in archives {
-            Firestore.firestore().collection("history")
-                .document(uid)
-                .collection("archives")
-                .document(archive.transactionId)
-                .delete { error in
-                    if let error = error {
-                        print("ERROR: Could not remove document: \(error.localizedDescription)")
-                        return
-                    }
-                }
-        }
-        
-        Firestore.firestore().collection("history")
-            .document(uid)
-            .delete { error in
-                if let error = error {
-                    print("ERROR: Could not remove document: \(error.localizedDescription)")
-                    return
-                }
-            }
-        
-        // Delete trackers
-        Firestore.firestore().collection("trackers")
-            .document(uid)
-            .delete { error in
-                if let error = error {
-                    print("ERROR: Could not remove document: \(error.localizedDescription)")
-                    return
-                }
-            }
-        
-        // Delete user from users
-        Firestore.firestore().collection("users")
-            .document(uid)
-            .delete { error in
-                if let error = error {
-                    print("ERROR: Could not remove document: \(error.localizedDescription)")
-                    return
-                }
-            }
-        
         user.delete { error in
             if let error = error {
                 print("ERROR: Could not remove document: \(error.localizedDescription)")
-                return
+            } else {
+                print("USER DELETED")
             }
+            
+            self.logout()
         }
-        
-        self.logout()
     }
-    
+        
     func uploadProfileImage(_ image: UIImage) {
         guard let uid = tempUserSession?.uid else { return }
         
