@@ -100,9 +100,9 @@ struct BottomBarView: View {
     
 }
 
-struct BottomBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        BottomBarView(viewState: .HOME)
-            .environmentObject(UserViewModel())
-    }
-}
+//struct BottomBarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BottomBarView(viewState: .HOME)
+//            .environmentObject(UserViewModel())
+//    }
+//}

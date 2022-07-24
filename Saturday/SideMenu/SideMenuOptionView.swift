@@ -34,8 +34,8 @@ struct SideMenuOptionView: View {
     
 }
 
-struct SideMenuOptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenuOptionView(title: "Profile", imageName: "person")
-    }
-}
+//struct SideMenuOptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SideMenuOptionView(title: "Profile", imageName: "person")
+//    }
+//}

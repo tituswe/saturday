@@ -71,9 +71,9 @@ struct SideMenuView: View {
     
 }
 
-struct SideMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenuView(isShowingSideMenu: .constant(true))
-            .environmentObject(UserViewModel())
-    }
-}
+//struct SideMenuView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SideMenuView(isShowingSideMenu: .constant(true))
+//            .environmentObject(UserViewModel())
+//    }
+//}

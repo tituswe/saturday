@@ -274,10 +274,10 @@ struct FriendsView: View {
     
 }
 
-struct FriendsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FriendsView()
-            .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
-    }
-}
+//struct FriendsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FriendsView()
+//            .environmentObject(UserViewModel())
+//            .environment(\.colorScheme, .dark)
+//    }
+//}

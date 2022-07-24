@@ -131,10 +131,10 @@ struct ProfilePictureSelectorView: View {
 }
 
 
-struct ProfilePictureSelectorView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePictureSelectorView()
-            .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
-    }
-}
+//struct ProfilePictureSelectorView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfilePictureSelectorView()
+//            .environmentObject(UserViewModel())
+//            .environment(\.colorScheme, .dark)
+//    }
+//}

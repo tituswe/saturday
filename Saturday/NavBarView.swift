@@ -69,8 +69,8 @@ struct NavBarView: View {
     
 }
 
-struct NavBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavBarView(topLeftButtonView: "line.horizontal.3", topRightButtonView: "circle.dashed", titleString: "Saturday", topLeftButtonAction: {}, topRightButtonAction: {})
-    }
-}
+//struct NavBarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavBarView(topLeftButtonView: "line.horizontal.3", topRightButtonView: "circle.dashed", titleString: "Saturday", topLeftButtonAction: {}, topRightButtonAction: {})
+//    }
+//}

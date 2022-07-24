@@ -303,10 +303,10 @@ struct SignUpView: View {
 }
 
 
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView(isShowingSignUpView: .constant(true))
-            .environmentObject(UserViewModel())
-            .environment(\.colorScheme, .dark)
-    }
-}
+//struct SignUpView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignUpView(isShowingSignUpView: .constant(true))
+//            .environmentObject(UserViewModel())
+//            .environment(\.colorScheme, .dark)
+//    }
+//}

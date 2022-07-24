@@ -154,10 +154,10 @@ struct LogInView: View {
 }
 
 
-struct LogInView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogInView()
-            .environmentObject(UserViewModel())
+//struct LogInView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LogInView()
+//            .environmentObject(UserViewModel())
 //            .environment(\.colorScheme, .dark)
-    }
-}
+//    }
+//}

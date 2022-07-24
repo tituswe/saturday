@@ -43,7 +43,6 @@
 		58CE63E32874A5B300DF2C77 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E22874A5B300DF2C77 /* ImageUploader.swift */; };
 		58CE63E52874AC2400DF2C77 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E42874AC2400DF2C77 /* UserService.swift */; };
 		58CE641F2874ADF500DF2C77 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE641E2874ADF500DF2C77 /* User.swift */; };
-		58CE642B2874B4F100DF2C77 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 58CE642A2874B4F100DF2C77 /* Kingfisher */; };
 		58CE64302874BD2E00DF2C77 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE642F2874BD2E00DF2C77 /* FriendsView.swift */; };
 		58CE64322874BD7600DF2C77 /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE64312874BD7600DF2C77 /* UserRowView.swift */; };
 		58CE64352874C9C600DF2C77 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE64342874C9C600DF2C77 /* SearchBar.swift */; };
@@ -62,6 +61,7 @@
 		B0084728285381E60081CFFF /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0084727285381E60081CFFF /* LogInView.swift */; };
 		B032CB562864A384003FB01F /* TextExtractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB552864A384003FB01F /* TextExtractionModel.swift */; };
 		B032CB582864A845003FB01F /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CB572864A845003FB01F /* TextProcessor.swift */; };
+		B07F6CDB288D44D2009623AA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B07F6CDA288D44D2009623AA /* Kingfisher */; };
 		B09838642853A89900FB93FC /* Preview Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09838632853A89900FB93FC /* Preview Data.swift */; };
 		B0ADE208286CD72A0039D0C1 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADE207286CD72A0039D0C1 /* CartManager.swift */; };
 		B0ADE20B286CD7870039D0C1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADE20A286CD7870039D0C1 /* HomeView.swift */; };
@@ -133,11 +133,11 @@
 			files = (
 				581A5ABF2887484200F2FB30 /* FirebaseMessaging in Frameworks */,
 				581A5ABD2887484200F2FB30 /* FirebaseFirestoreSwift in Frameworks */,
+				B07F6CDB288D44D2009623AA /* Kingfisher in Frameworks */,
 				581A5AB72887484200F2FB30 /* FirebaseAnalytics in Frameworks */,
 				581A5ABB2887484200F2FB30 /* FirebaseFirestore in Frameworks */,
 				581A5AC12887484200F2FB30 /* FirebaseStorage in Frameworks */,
 				581A5AB92887484200F2FB30 /* FirebaseAuth in Frameworks */,
-				58CE642B2874B4F100DF2C77 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,13 +326,13 @@
 			);
 			name = Saturday;
 			packageProductDependencies = (
-				58CE642A2874B4F100DF2C77 /* Kingfisher */,
 				581A5AB62887484200F2FB30 /* FirebaseAnalytics */,
 				581A5AB82887484200F2FB30 /* FirebaseAuth */,
 				581A5ABA2887484200F2FB30 /* FirebaseFirestore */,
 				581A5ABC2887484200F2FB30 /* FirebaseFirestoreSwift */,
 				581A5ABE2887484200F2FB30 /* FirebaseMessaging */,
 				581A5AC02887484200F2FB30 /* FirebaseStorage */,
+				B07F6CDA288D44D2009623AA /* Kingfisher */,
 			);
 			productName = Saturday;
 			productReference = 5886D3BA28355FB60044938C /* Saturday.app */;
@@ -363,8 +363,8 @@
 			);
 			mainGroup = 5886D3B128355FB60044938C;
 			packageReferences = (
-				58CE64292874B4F100DF2C77 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				581A5AB52887484200F2FB30 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B07F6CD9288D44D2009623AA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 5886D3BB28355FB60044938C /* Products */;
 			projectDirPath = "";
@@ -569,6 +569,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Saturday/Saturday.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Saturday/Preview Content\"";
@@ -591,6 +592,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teamsaturdaydevs.Saturday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -604,6 +606,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Saturday/Saturday.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Saturday/Preview Content\"";
@@ -626,6 +629,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teamsaturdaydevs.Saturday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -664,12 +668,12 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		58CE64292874B4F100DF2C77 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		B07F6CD9288D44D2009623AA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -705,9 +709,9 @@
 			package = 581A5AB52887484200F2FB30 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		58CE642A2874B4F100DF2C77 /* Kingfisher */ = {
+		B07F6CDA288D44D2009623AA /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 58CE64292874B4F100DF2C77 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = B07F6CD9288D44D2009623AA /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */

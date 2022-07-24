@@ -342,10 +342,10 @@ struct SplitView: View {
     
 }
 
-struct SplitView_Previews: PreviewProvider {
-    static var previews: some View {
-        SplitView(isShowingSplitView: .constant(true))
-            .environmentObject(UserViewModel())
+//struct SplitView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SplitView(isShowingSplitView: .constant(true))
+//            .environmentObject(UserViewModel())
 //            .environment(\.colorScheme, .dark)
-    }
-}
+//    }
+//}

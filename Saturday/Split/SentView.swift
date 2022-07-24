@@ -63,10 +63,10 @@ struct SentView: View {
     }
 }
 
-struct SentView_Previews: PreviewProvider {
-    static var previews: some View {
-        SentView()
-            .environmentObject(UserViewModel())
+//struct SentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SentView()
+//            .environmentObject(UserViewModel())
 //            .environment(\.colorScheme, .dark)
-    }
-}
+//    }
+//}
