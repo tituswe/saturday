@@ -22,6 +22,10 @@ struct CreditCardView: View {
     
     @State var isSwiped: Bool = false
     
+    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    
+    @State var pauseNotification: Bool = false
+    
     var body: some View {
         
         ZStack {
@@ -73,13 +77,18 @@ struct CreditCardView: View {
                         
                         Button {
                             NotificationManager.instance.sendDebtNotificationTo(creditor: viewModel.currentUser!, debtor: debtor(), amount: credit.total)
+                            pauseNotification = true
                         } label: {
                             Text("Send a reminder")
                                 .font(.system(size: 10))
                                 .foregroundColor(Color.white)
                                 .frame(width: 112, height: 24)
-                                .background(Color.systemViolet)
+                                .background(pauseNotification ? Color.gray : Color.systemViolet)
                                 .cornerRadius(10)
+                        }
+                        .disabled(pauseNotification)
+                        .onReceive(timer) { _ in
+                            pauseNotification = false
                         }
                         
                         Button {

@@ -46,10 +46,7 @@ struct SideMenuView: View {
                         .navigationBarHidden(true)
                 } label: {}
 
-                
-                Button {
-                    print("TODO: Help View")
-                } label: {
+                Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday")!) {
                     SideMenuOptionView(title: "Help", imageName: "questionmark.circle")
                 }
                 

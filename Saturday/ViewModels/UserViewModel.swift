@@ -10,6 +10,7 @@ import Firebase
 import FirebaseCore
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseMessaging
 import Kingfisher
 
 class UserViewModel: ObservableObject {
@@ -17,11 +18,15 @@ class UserViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var didAuthenticateUser: Bool = false
     private var tempUserSession: FirebaseAuth.User?
+    @Published var authErrorMessage = ""
     
     @Published var currentUser: User?
     @Published var friends = [User]()
     @Published var friendRequests = [User]()
     @Published var sentFriendRequests = [User]()
+    
+    @Published var blockedUsers = [User]()
+    @Published var blockedByUsers = [User]()
     
     @Published var users = [User]()
     
@@ -62,6 +67,20 @@ class UserViewModel: ObservableObject {
             group.wait()
             group.enter()
             self.fetchUsers()
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchBlockedUsers()
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchBlockedByUsers()
             group.leave()
         }
         
@@ -147,6 +166,20 @@ class UserViewModel: ObservableObject {
             group.wait()
             group.enter()
             self.fetchUsers()
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchBlockedUsers()
+            group.leave()
+        }
+        
+        mainQueue.async {
+            group.wait()
+            group.enter()
+            self.fetchBlockedByUsers()
             group.leave()
         }
         
@@ -251,6 +284,7 @@ class UserViewModel: ObservableObject {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("ERROR: Failed to register with error \(error.localizedDescription)")
+                self.authErrorMessage = error.localizedDescription
                 return
             }
             
@@ -286,6 +320,74 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    func updateName(withName name: String) {
+        guard let currentUser = currentUser else { return }
+
+        Firestore.firestore().collection("users")
+            .document(currentUser.id!)
+            .setData(["name": name], merge: true)
+    }
+    
+    func updateUsername(withUsername username: String) {
+        guard let currentUser = currentUser else { return }
+
+        Firestore.firestore().collection("users")
+            .document(currentUser.id!)
+            .setData(["username": username.lowercased()], merge: true)
+    }
+    
+    func updateEmail(withEmail email: String, oldEmail: String, password: String) {
+        guard let currentUser = currentUser else { return }
+        
+        let credential = EmailAuthProvider.credential(withEmail: oldEmail, password: password)
+        
+        Auth.auth().currentUser?.reauthenticate(with: credential) { authData, error in
+            if let error = error {
+                print("ERROR: Could not reauthenticate \(error)")
+                return
+            } else {
+                print("REAUTHENTICATED")
+            }
+        }
+        
+        Auth.auth().currentUser?.updateEmail(to: email) { error in
+            if let error = error {
+                print("ERROR: Could not update email \(error)")
+                return
+            } else {
+                print("EMAIL CHANGED")
+            }
+        }
+        
+        Firestore.firestore().collection("users")
+            .document(currentUser.id!)
+            .setData(["email": email], merge: true)
+    }
+    
+    func updatePassword(oldPassword: String, newPassword: String) {
+        guard let currentUser = currentUser else { return }
+
+        let credential = EmailAuthProvider.credential(withEmail: currentUser.email, password: oldPassword)
+        
+        Auth.auth().currentUser?.reauthenticate(with: credential) { authData, error in
+            if let error = error {
+                print("ERROR: Could not reauthenticate \(error)")
+                return
+            } else {
+                print("REAUTHENTICATED")
+            }
+        }
+        
+        Auth.auth().currentUser?.updatePassword(to: newPassword) { error in
+            if let error = error {
+                print("ERROR: Could not update password \(error)")
+                return
+            } else {
+                print("PASSWORD CHANGED")
+            }
+        }
+    }
+    
     func logout() {
         self.reset()
         userSession = nil
@@ -316,6 +418,16 @@ class UserViewModel: ObservableObject {
                     self.userSession = self.tempUserSession
                     self.fetchUser()
                 }
+        }
+    }
+    
+    func updateProfileImage(_ image: UIImage) {
+        guard let uid = self.userSession?.uid else { return }
+        
+        ImageUploader.uploadImage(image: image) { profileImageUrl in
+            Firestore.firestore().collection("users")
+                .document(uid)
+                .setData(["profileImageUrl": profileImageUrl], merge: true)
         }
     }
     
@@ -373,6 +485,7 @@ class UserViewModel: ObservableObject {
     
     func fetchUsers() {
         userService.fetchUsers { users in
+            self.users = [User]()
             self.users = users
         }
         self.users.sort { $0.name.lowercased() < $1.name.lowercased() }
@@ -384,16 +497,29 @@ class UserViewModel: ObservableObject {
         let lowercasedQuery = searchText.lowercased()
         
         if let currentUser = currentUser {
-            return users.filter({
+            var users = users.filter({
                 ($0.username.contains(lowercasedQuery) ||
                  $0.name.lowercased().contains(lowercasedQuery)) &&
                 $0.id! != currentUser.id
             })
+            
+            self.blockedByUsers.forEach { blockedByUser in
+                users = users.filter({ $0.id != blockedByUser.id })
+            }
+            
+            print("RETURN USERS: \(users)")
+            return users
         } else {
-            return users.filter({
+            var users = users.filter({
                 $0.username.contains(lowercasedQuery) ||
                 $0.name.lowercased().contains(lowercasedQuery)
             })
+            
+            self.blockedByUsers.forEach { blockedByUser in
+                users = users.filter({ $0.id != blockedByUser.id })
+            }
+            
+            return users
         }
     }
     
@@ -428,6 +554,8 @@ class UserViewModel: ObservableObject {
                 }
             }
         
+        self.friends = self.friends.filter { $0.id != friend.id }
+        
         Firestore.firestore().collection("friends")
             .document(friend.id!)
             .collection("list")
@@ -456,6 +584,8 @@ class UserViewModel: ObservableObject {
             .collection("senders")
             .document(currentUser.id!)
             .setData(data as [String : Any])
+        
+        self.sentFriendRequests.append(user)
         
         let data2 = ["email": user.email,
                      "username": user.username.lowercased(),
@@ -490,6 +620,8 @@ class UserViewModel: ObservableObject {
                     return
                 }
             }
+        
+        self.sentFriendRequests = self.sentFriendRequests.filter { $0.id != receiverUid }
         
         Firestore.firestore().collection("friendRequests")
             .document(currentUser.id!)
@@ -537,6 +669,33 @@ class UserViewModel: ObservableObject {
         return false
     }
     
+    func isFriend(user: User) -> Bool {
+        for friend in friends {
+            if user.id == friend.id {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func isBlocked(user: User) -> Bool {
+        for block in blockedUsers {
+            if user.id == block.id {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func isBlockedBy(user: User) -> Bool {
+        for blockedBy in blockedByUsers {
+            if user.id == blockedBy.id {
+                return true
+            }
+        }
+        return false
+    }
+    
     func acceptFriendRequest(user: User) {
         guard let currentUser = currentUser else { return }
         guard let senderUid = user.id else { return }
@@ -569,6 +728,8 @@ class UserViewModel: ObservableObject {
             .document(user.id!)
             .setData(data2 as [String : Any])
         
+        self.friends.append(user)
+        
         // Remove from requests
         Firestore.firestore().collection("friendRequests")
             .document(currentUser.id!)
@@ -580,6 +741,7 @@ class UserViewModel: ObservableObject {
                     return
                 }
             }
+        
         
         Firestore.firestore().collection("friendRequests")
             .document(senderUid)
@@ -633,6 +795,109 @@ class UserViewModel: ObservableObject {
         self.friendRequests = self.friendRequests.filter { $0.id != user.id }
         
         self.refresh()
+    }
+    
+    func blockUser(user: User) {
+        guard let currentUser = currentUser else { return }
+        guard let blockUid = user.id else { return }
+        
+        let data = ["email": user.email,
+                    "username": user.username.lowercased(),
+                    "name": user.name,
+                    "profileImageUrl": user.profileImageUrl,
+                    "uid": user.id,
+                    "deviceToken": user.deviceToken]
+        
+        Firestore.firestore().collection("blocks")
+            .document(currentUser.id!)
+            .collection("blocked")
+            .document(blockUid)
+            .setData(data as [String : Any])
+        
+        self.blockedUsers.append(user)
+        
+        let data2 = ["email": currentUser.email,
+                     "username": currentUser.username.lowercased(),
+                     "name": currentUser.name,
+                     "profileImageUrl": currentUser.profileImageUrl,
+                     "uid": currentUser.id,
+                     "deviceToken": currentUser.deviceToken]
+        
+        Firestore.firestore().collection("blocks")
+            .document(blockUid)
+            .collection("blockedby")
+            .document(currentUser.id!)
+            .setData(data2 as [String : Any])
+        
+        Firestore.firestore().collection("friends")
+            .document(currentUser.id!)
+            .collection("list")
+            .document(blockUid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        self.friends = self.friends.filter{ $0.id != blockUid }
+        
+        Firestore.firestore().collection("friends")
+            .document(blockUid)
+            .collection("list")
+            .document(currentUser.id!)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+    }
+    
+    func unblockUser(user: User) {
+        guard let currentUser = currentUser else { return }
+        guard let blockUid = user.id else { return }
+        
+        Firestore.firestore().collection("blocks")
+            .document(currentUser.id!)
+            .collection("blocked")
+            .document(blockUid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        self.blockedUsers = self.blockedUsers.filter { $0.id != blockUid }
+        
+        Firestore.firestore().collection("blocks")
+            .document(blockUid)
+            .collection("blockedby")
+            .document(currentUser.id!)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+
+    }
+    
+    func fetchBlockedUsers() {
+        guard let uid = self.userSession?.uid else { return }
+        
+        userService.fetchBlockedUsers(withUid: uid) { blockedUsers in
+            self.blockedUsers = blockedUsers
+        }
+    }
+    
+    func fetchBlockedByUsers() {
+        guard let uid = self.userSession?.uid else { return }
+        
+        userService.fetchBlockedByUsers(withUid: uid) { blockedByUsers in
+            self.blockedByUsers = blockedByUsers
+        }
     }
     
     

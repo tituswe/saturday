@@ -22,6 +22,8 @@
 		585DD2A82876CD800079E887 /* DebtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2A72876CD800079E887 /* DebtService.swift */; };
 		585DD2AA2876D3530079E887 /* Debt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2A92876D3530079E887 /* Debt.swift */; };
 		585DD2AC2876D35A0079E887 /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DD2AB2876D35A0079E887 /* Credit.swift */; };
+		586EF530288FDCE300D4253B /* Mail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586EF52F288FDCE300D4253B /* Mail.swift */; };
+		586FD57A28909E5200A77B67 /* ChangePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586FD57928909E5200A77B67 /* ChangePictureView.swift */; };
 		5886D3BE28355FB60044938C /* SaturdayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886D3BD28355FB60044938C /* SaturdayApp.swift */; };
 		5886D3C028355FB60044938C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886D3BF28355FB60044938C /* ContentView.swift */; };
 		5886D3C228355FB80044938C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5886D3C128355FB80044938C /* Assets.xcassets */; };
@@ -55,6 +57,9 @@
 		58CE644828762F7800DF2C77 /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE644728762F7500DF2C77 /* SentView.swift */; };
 		58D8762C28774D860046D716 /* UserCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D8762B28774D860046D716 /* UserCartView.swift */; };
 		58D8762E287789D70046D716 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D8762D287789D70046D716 /* PaymentView.swift */; };
+		58E49ADD289028B7008CC491 /* ChangeEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E49ADC289028B6008CC491 /* ChangeEmailView.swift */; };
+		58E49ADF28903C02008CC491 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E49ADE28903C02008CC491 /* ChangePasswordView.swift */; };
+		58E49AE1289052C1008CC491 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E49AE0289052C1008CC491 /* Validation.swift */; };
 		58FA37B12876EB2F00988F37 /* CreditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA37B02876EB2F00988F37 /* CreditService.swift */; };
 		58FA37B328770D7F00988F37 /* CreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA37B228770D7F00988F37 /* CreditCardView.swift */; };
 		58FA37B52877119500988F37 /* SettleDebtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA37B42877119500988F37 /* SettleDebtView.swift */; };
@@ -80,6 +85,8 @@
 		585DD2A72876CD800079E887 /* DebtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtService.swift; sourceTree = "<group>"; };
 		585DD2A92876D3530079E887 /* Debt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debt.swift; sourceTree = "<group>"; };
 		585DD2AB2876D35A0079E887 /* Credit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit.swift; sourceTree = "<group>"; };
+		586EF52F288FDCE300D4253B /* Mail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mail.swift; sourceTree = "<group>"; };
+		586FD57928909E5200A77B67 /* ChangePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePictureView.swift; sourceTree = "<group>"; };
 		5886D3BA28355FB60044938C /* Saturday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saturday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5886D3BD28355FB60044938C /* SaturdayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaturdayApp.swift; sourceTree = "<group>"; };
 		5886D3BF28355FB60044938C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,6 +121,9 @@
 		58CE644728762F7500DF2C77 /* SentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentView.swift; sourceTree = "<group>"; };
 		58D8762B28774D860046D716 /* UserCartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCartView.swift; sourceTree = "<group>"; };
 		58D8762D287789D70046D716 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		58E49ADC289028B6008CC491 /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
+		58E49ADE28903C02008CC491 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		58E49AE0289052C1008CC491 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		58FA37B02876EB2F00988F37 /* CreditService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditService.swift; sourceTree = "<group>"; };
 		58FA37B228770D7F00988F37 /* CreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardView.swift; sourceTree = "<group>"; };
 		58FA37B42877119500988F37 /* SettleDebtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettleDebtView.swift; sourceTree = "<group>"; };
@@ -148,6 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				582B1CDC288957A0007EDE03 /* ProfileView.swift */,
+				586FD57928909E5200A77B67 /* ChangePictureView.swift */,
+				58E49ADC289028B6008CC491 /* ChangeEmailView.swift */,
+				58E49ADE28903C02008CC491 /* ChangePasswordView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -246,6 +259,8 @@
 				B032CB572864A845003FB01F /* TextProcessor.swift */,
 				B032CB552864A384003FB01F /* TextExtractionModel.swift */,
 				58CE63E22874A5B300DF2C77 /* ImageUploader.swift */,
+				586EF52F288FDCE300D4253B /* Mail.swift */,
+				58E49AE0289052C1008CC491 /* Validation.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -412,10 +427,13 @@
 				58D8762E287789D70046D716 /* PaymentView.swift in Sources */,
 				582B1CDD288957A0007EDE03 /* ProfileView.swift in Sources */,
 				B032CB582864A845003FB01F /* TextProcessor.swift in Sources */,
+				58E49ADF28903C02008CC491 /* ChangePasswordView.swift in Sources */,
 				58CE644828762F7800DF2C77 /* SentView.swift in Sources */,
+				586EF530288FDCE300D4253B /* Mail.swift in Sources */,
 				B0ADE208286CD72A0039D0C1 /* CartManager.swift in Sources */,
 				58CE64462875D53700DF2C77 /* Item.swift in Sources */,
 				58CE641F2874ADF500DF2C77 /* User.swift in Sources */,
+				58E49AE1289052C1008CC491 /* Validation.swift in Sources */,
 				58B331322873443400C64E78 /* SideMenuOptionView.swift in Sources */,
 				585DD2AC2876D35A0079E887 /* Credit.swift in Sources */,
 				58CE6444287596DC00DF2C77 /* ItemCardView.swift in Sources */,
@@ -432,6 +450,8 @@
 				589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */,
 				58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */,
 				5886D3BE28355FB60044938C /* SaturdayApp.swift in Sources */,
+				58E49ADD289028B7008CC491 /* ChangeEmailView.swift in Sources */,
+				586FD57A28909E5200A77B67 /* ChangePictureView.swift in Sources */,
 				B0ADE20B286CD7870039D0C1 /* HomeView.swift in Sources */,
 				B032CB562864A384003FB01F /* TextExtractionModel.swift in Sources */,
 				B0ADE210286CD7B10039D0C1 /* Transaction.swift in Sources */,

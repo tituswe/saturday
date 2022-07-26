@@ -39,9 +39,15 @@ struct ItemCardView: View {
                 Spacer()
                     .frame(height: 1.6)
                 
-                Text("$" + String(format: "%.2f", item.price))
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
+                HStack {
+                    Text("$" + String(format: "%.2f", item.price))
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.gray)
+                    
+                    Text(item.noOfDuplicates > 1 ? "(Shared by \(item.noOfDuplicates) friends)" : "")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.gray)
+                }
             }
             .padding(.leading, 8)
             
@@ -85,10 +91,10 @@ struct ItemCardView: View {
     
 }
 
-//struct ItemCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ItemCardView(item: previewItem)
-//            .environmentObject(UserViewModel())
-//            .environmentObject(CartManager())
-//    }
-//}
+struct ItemCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemCardView(item: previewItem)
+            .environmentObject(UserViewModel())
+            .environmentObject(CartManager())
+    }
+}

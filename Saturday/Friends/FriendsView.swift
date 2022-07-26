@@ -49,188 +49,201 @@ struct FriendsView: View {
                         .ignoresSafeArea()
                 }
                 
-                VStack {
+                ZStack {
                     
-                    // MARK: Navigation Bar
-                    NavBarView(
-                        topLeftButtonView: "line.horizontal.3",
-                        topRightButtonView: "pencil",
-                        titleString: "Your Friends",
-                        topLeftButtonAction: {
-                            withAnimation(.spring()) {
-                                isShowingSideMenu = true
-                            }
-                        },
-                        topRightButtonAction: {
-                            withAnimation(.spring()) {
-                                isEditingOffset = isEditingOffset == CGFloat(0)
-                                ? CGFloat(-56)
-                                : CGFloat(0)
-                            }
-                        })
-                    
-                    // MARK: Friends List
                     VStack {
                         
-                        VStack(spacing: 4) {
+                        // MARK: Navigation Bar
+                        NavBarView(
+                            topLeftButtonView: "line.horizontal.3",
+                            topRightButtonView: "pencil",
+                            titleString: "Your Friends",
+                            topLeftButtonAction: {
+                                withAnimation(.spring()) {
+                                    isShowingSideMenu = true
+                                }
+                            },
+                            topRightButtonAction: {
+                                withAnimation(.spring()) {
+                                    isEditingOffset = isEditingOffset == CGFloat(0)
+                                    ? CGFloat(-196)
+                                    : CGFloat(0)
+                                }
+                            })
+                        
+                        // MARK: Friends List
+                        VStack {
                             
-                            ZStack {
+                            VStack(spacing: 4) {
                                 
-                                Button {
-                                    friendState = .FRIEND
-                                    withAnimation(.spring()) {
-                                        viewModel.refresh()
-                                        friendStateOffset = -screenQuarter
+                                ZStack {
+                                    
+                                    Button {
+                                        friendState = .FRIEND
+                                        withAnimation(.spring()) {
+                                            viewModel.refresh()
+                                            friendStateOffset = -screenQuarter
+                                        }
+                                    } label: {
+                                        Text("FRIENDS")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.gray)
                                     }
-                                } label: {
-                                    Text("FRIENDS")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.gray)
+                                    .offset(x: -screenQuarter)
+                                    
+                                    Button {
+                                        friendState = .REQUEST
+                                        withAnimation(.spring()) {
+                                            viewModel.refresh()
+                                            friendStateOffset = screenQuarter
+                                        }
+                                    } label: {
+                                        Text("REQUESTS")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.gray)
+                                    }
+                                    .offset(x: screenQuarter)
+                                    
                                 }
-                                .offset(x: -screenQuarter)
                                 
-                                Button {
-                                    friendState = .REQUEST
-                                    withAnimation(.spring()) {
-                                        viewModel.refresh()
-                                        friendStateOffset = screenQuarter
-                                    }
-                                } label: {
-                                    Text("REQUESTS")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.gray)
-                                }
-                                .offset(x: screenQuarter)
+                                RoundedRectangle(cornerRadius: 25)
+                                    .frame(width: 88, height: 2.4)
+                                    .foregroundColor(Color.systemViolet)
+                                    .offset(x: friendStateOffset)
                                 
                             }
+                            .padding(.top, 16)
+                            .padding(.bottom, 8)
                             
-                            RoundedRectangle(cornerRadius: 25)
-                                .frame(width: 88, height: 2.4)
-                                .foregroundColor(Color.systemViolet)
-                                .offset(x: friendStateOffset)
+                            SearchBar(text: $viewModel.searchText)
+                                .focused($isFocused)
+                                .padding(.horizontal, 10)
+                                .padding(.top, 2)
+                            
+                            ScrollView {
+                                
+                                GeometryReader { reader -> AnyView in
+                                    
+                                    DispatchQueue.main.async {
+                                        
+                                        refresh.offset = reader.frame(in: .global).minY
+                                        
+                                        if refresh.offset > 255 && !refresh.started {
+                                            refresh.started = true
+                                        }
+                                        
+                                        if refresh.offset > 255 && refresh.started && !refresh.released {
+                                            withAnimation(Animation.linear) {
+                                                refresh.released = true
+                                                refresh.offset = 255
+                                            }
+                                            updateData()
+                                        }
+                                        
+                                    }
+                                    
+                                    return AnyView(Color.black.frame(width: 0, height: 0))
+                                    
+                                }
+                                .frame(width: 0, height: 0)
+                                
+                                ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                                    
+                                    if refresh.started && refresh.released {
+                                        ProgressView()
+                                            .offset(y: -35)
+                                    } else {
+                                        Image(systemName: "arrow.down")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color.gray)
+                                            .rotationEffect(.init(degrees: refresh.started ? 180 : 0))
+                                            .offset(y: -25)
+                                            .animation(.easeIn, value: 1)
+                                    }
+                                    
+                                    LazyVStack {
+                                        
+                                        switch friendState {
+                                            
+                                        case .FRIEND:
+                                            if viewModel.searchText.isEmpty {
+                                                ForEach(viewModel.friends) { user in
+                                                    
+                                                    UserRowView(user: user, state: .FRIEND, isEditingOffset: $isEditingOffset)
+                                                        .environmentObject(viewModel)
+                                                    
+                                                    Divider()
+                                                        .padding(.horizontal, 24)
+                                                    
+                                                }
+                                            } else {
+                                                ForEach(viewModel.searchableUsers) { user in
+                                                    
+                                                    UserRowView(user: user, state: userState(user: user), isEditingOffset: $isEditingOffset)
+                                                        .environmentObject(viewModel)
+                                                    
+                                                    Divider()
+                                                        .padding(.horizontal, 24)
+                                                    
+                                                }
+                                            }
+                                            
+                                        case .REQUEST:
+                                            if viewModel.searchText.isEmpty {
+                                                ForEach(viewModel.friendRequests) { user in
+                                                    
+                                                    UserRowView(user: user, state: .RECEIVE, isEditingOffset: $isEditingOffset)
+                                                        .environmentObject(viewModel)
+                                                    
+                                                    Divider()
+                                                        .padding(.horizontal, 24)
+                                                    
+                                                }
+                                            } else {
+                                                ForEach(viewModel.searchableRequests) { user in
+                                                    
+                                                    UserRowView(user: user, state: .RECEIVE, isEditingOffset: $isEditingOffset)
+                                                        .environmentObject(viewModel)
+                                                    
+                                                    Divider()
+                                                        .padding(.horizontal, 24)
+                                                    
+                                                }
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                            Spacer()
                             
                         }
-                        .padding(.top, 16)
-                        .padding(.bottom, 8)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.background)
+                        .cornerRadius(50, corners:[.topLeft, .topRight])
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: -3)
+                        .padding(.top, 8)
                         
-                        SearchBar(text: $viewModel.searchText)
-                            .focused($isFocused)
-                            .padding(.horizontal, 10)
-                            .padding(.top, 2)
-                        
-                        ScrollView {
-                            
-                            GeometryReader { reader -> AnyView in
-                                
-                                DispatchQueue.main.async {
-                                    
-                                    refresh.offset = reader.frame(in: .global).minY
-                                    
-                                    if refresh.offset > 255 && !refresh.started {
-                                        refresh.started = true
-                                    }
-                                    
-                                    if refresh.offset > 255 && refresh.started && !refresh.released {
-                                        withAnimation(Animation.linear) {
-                                            refresh.released = true
-                                            refresh.offset = 255
-                                        }
-                                        updateData()
-                                    }
-                                    
-                                }
-                                
-                                return AnyView(Color.black.frame(width: 0, height: 0))
-                                
-                            }
-                            .frame(width: 0, height: 0)
-                            
-                            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-                                
-                                if refresh.started && refresh.released {
-                                    ProgressView()
-                                        .offset(y: -35)
-                                } else {
-                                    Image(systemName: "arrow.down")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.gray)
-                                        .rotationEffect(.init(degrees: refresh.started ? 180 : 0))
-                                        .offset(y: -25)
-                                        .animation(.easeIn, value: 1)
-                                }
-                                
-                                LazyVStack {
-                                    
-                                    switch friendState {
-                                        
-                                    case .FRIEND:
-                                        if viewModel.searchText.isEmpty {
-                                            ForEach(viewModel.friends) { user in
-                                                
-                                                UserRowView(user: user, state: .FRIEND, isEditingOffset: $isEditingOffset)
-                                                    .environmentObject(viewModel)
-                                                
-                                                Divider()
-                                                    .padding(.horizontal, 24)
-                                                
-                                            }
-                                        } else {
-                                            ForEach(viewModel.searchableUsers) { user in
-                                                
-                                                UserRowView(user: user, state: userState(user: user), isEditingOffset: $isEditingOffset)
-                                                    .environmentObject(viewModel)
-                                                
-                                                Divider()
-                                                    .padding(.horizontal, 24)
-                                                
-                                            }
-                                        }
-                                        
-                                    case .REQUEST:
-                                        if viewModel.searchText.isEmpty {
-                                            ForEach(viewModel.friendRequests) { user in
-                                                
-                                                UserRowView(user: user, state: .RECEIVE, isEditingOffset: $isEditingOffset)
-                                                    .environmentObject(viewModel)
-                                                
-                                                Divider()
-                                                    .padding(.horizontal, 24)
-                                                
-                                            }
-                                        } else {
-                                            ForEach(viewModel.searchableRequests) { user in
-                                                
-                                                UserRowView(user: user, state: .RECEIVE, isEditingOffset: $isEditingOffset)
-                                                    .environmentObject(viewModel)
-                                                
-                                                Divider()
-                                                    .padding(.horizontal, 24)
-                                                
-                                            }
-                                        }
-                                        
-                                    }
-                                    
-                                }
-                                
-                            }
-                            
-                        }
                         Spacer()
+                            .frame(height: 2)
+                        
+                        // MARK: Bottom bar
+                        BottomBarView(viewState: .FRIENDS)
+                            .environmentObject(viewModel)
                         
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.background)
-                    .cornerRadius(50, corners:[.topLeft, .topRight])
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: -3)
-                    .padding(.top, 8)
                     
-                    Spacer()
-                        .frame(height: 2)
-                    
-                    // MARK: Bottom bar
-                    BottomBarView(viewState: .FRIENDS)
-                        .environmentObject(viewModel)
+                    if isShowingSideMenu {
+                        Color.white.opacity(0.001)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    isShowingSideMenu = false
+                                }
+                            }
+                    }
                     
                 }
                 .cornerRadius(isShowingSideMenu ? 20 : 10)
@@ -265,8 +278,14 @@ struct FriendsView: View {
     func userState(user: User) -> RequestState {
         if viewModel.hasFriendRequest(user: user) {
             return .RECEIVE
+        } else if viewModel.isBlocked(user: user) {
+            return .BLOCKED
         } else if viewModel.hasSentFriendRequest(user: user) {
             return .SENT
+        } else if viewModel.isFriend(user: user) {
+            return .FRIEND
+        } else if viewModel.isBlockedBy(user: user) {
+            return .BLOCKEDBY
         } else {
             return .SEND
         }

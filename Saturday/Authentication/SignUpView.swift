@@ -37,13 +37,27 @@ struct SignUpView: View {
     
     @State var password2 = ""
     
-    @State var profilePicture: UIImage?
+//    @State var profilePicture: UIImage?
     
     @State var isShowingActionSheet: Bool = false
     
     @State var isShowingImagePicker: Bool = false
     
     @State var sourceType: UIImagePickerController.SourceType = .camera
+    
+    @State var errorMessage = ""
+    
+    @State var isShowingNameError: Bool = false
+    
+    @State var isShowingUsernameError: Bool = false
+    
+    @State var isShowingEmailError: Bool = false
+    
+    @State var isShowingPassword1Error: Bool = false
+    
+    @State var isShowingPassword2Error: Bool = false
+    
+    let timer = Timer.publish(every: 2.4, on: .main, in: .common).autoconnect()
     
     @FocusState var isFocused: Bool
     
@@ -71,7 +85,9 @@ struct SignUpView: View {
                         topRightButtonView: "",
                         titleString: "",
                         topLeftButtonAction: {
-                            isShowingSignUpView = false
+                            withAnimation(.spring()) {
+                                goBack()
+                            }
                         },
                         topRightButtonAction: {})
                     
@@ -111,7 +127,7 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                            TextField("Name", text: $name)
+                        TextField(isShowingNameError ? "Enter a name" : "Name", text: $name)
                                 .multilineTextAlignment(.center)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
@@ -120,13 +136,30 @@ struct SignUpView: View {
                                 .background(Color.black.opacity(0.05))
                                 .cornerRadius(50)
                                 .focused($isFocused)
+                                .overlay(Capsule()
+                                    .stroke(isShowingNameError ? Color.systemRed : Color.clear, lineWidth: 3))
+                                .onReceive(timer) { _ in
+                                    withAnimation(.spring()) {
+                                        errorMessage = ""
+                                        isShowingNameError = false
+                                    }
+                                }
                         
                         Spacer()
                             .frame(height: 20)
                         
                         Button {
-                            withAnimation(.spring()) {
-                                state = .USERNAME
+                            do {
+                                try isValidName(name)
+                                withAnimation(.spring()) {
+                                    state = .USERNAME
+                                }
+                            } catch {
+                                print(error.localizedDescription)
+                                withAnimation(.spring()) {
+                                    errorMessage = AuthError.invalidName.localizedDescription
+                                    isShowingNameError = true
+                                }
                             }
                         } label: {
                             Text("Next")
@@ -146,7 +179,7 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                            TextField("Username", text: $username)
+                        TextField(isShowingUsernameError ? "Enter a username" : "Username", text: $username)
                                 .multilineTextAlignment(.center)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
@@ -155,13 +188,31 @@ struct SignUpView: View {
                                 .background(Color.black.opacity(0.05))
                                 .cornerRadius(50)
                                 .focused($isFocused)
+                                .overlay(Capsule()
+                                    .stroke(isShowingUsernameError ? Color.systemRed : Color.clear, lineWidth: 3))
+                                .onReceive(timer) { _ in
+                                    withAnimation(.spring()) {
+                                        errorMessage = ""
+                                        isShowingUsernameError = false
+                                    }
+                                }
+
                         
                         Spacer()
                             .frame(height: 20)
                         
                         Button {
-                            withAnimation(.spring()) {
-                                state = .EMAIL
+                            do {
+                                try isValidUsername(username)
+                                withAnimation(.spring()) {
+                                    state = .EMAIL
+                                }
+                            } catch {
+                                print(error.localizedDescription)
+                                withAnimation(.spring()) {
+                                    errorMessage = AuthError.invalidUsername.localizedDescription
+                                    isShowingUsernameError = true
+                                }
                             }
                         } label: {
                             Text("Next")
@@ -181,7 +232,7 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                            TextField("Email", text: $email)
+                        TextField(isShowingEmailError ? "Enter an email" : "Email", text: $email)
                                 .multilineTextAlignment(.center)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
@@ -190,13 +241,30 @@ struct SignUpView: View {
                                 .background(Color.black.opacity(0.05))
                                 .cornerRadius(50)
                                 .focused($isFocused)
+                                .overlay(Capsule()
+                                    .stroke(isShowingEmailError ? Color.systemRed : Color.clear, lineWidth: 3))
+                                .onReceive(timer) { _ in
+                                    withAnimation(.spring()) {
+                                        errorMessage = ""
+                                        isShowingEmailError = false
+                                    }
+                                }
                         
                         Spacer()
                             .frame(height: 20)
                         
                         Button {
-                            withAnimation(.spring()) {
-                                state = .PASSWORD1
+                            do {
+                                try isValidEmail(email)
+                                withAnimation(.spring()) {
+                                    state = .PASSWORD1
+                                }
+                            } catch {
+                                print(error.localizedDescription)
+                                withAnimation(.spring()) {
+                                    errorMessage = AuthError.invalidEmail.localizedDescription
+                                    isShowingEmailError = true
+                                }
                             }
                         } label: {
                             Text("Next")
@@ -216,7 +284,7 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                            SecureField("Password", text: $password1)
+                        SecureField(isShowingPassword1Error ? "Enter a password" : "Password", text: $password1)
                                 .multilineTextAlignment(.center)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
@@ -225,13 +293,29 @@ struct SignUpView: View {
                                 .background(Color.black.opacity(0.05))
                                 .cornerRadius(50)
                                 .focused($isFocused)
+                                .overlay(Capsule()
+                                    .stroke(isShowingPassword1Error ? Color.systemRed : Color.clear, lineWidth: 3))
+                                .onReceive(timer) { _ in
+                                    withAnimation(.spring()) {
+                                        errorMessage = ""
+                                        isShowingPassword1Error = false
+                                    }
+                                }
                         
                         Spacer()
                             .frame(height: 20)
                         
                         Button {
-                            withAnimation(.spring()) {
-                                state = .PASSWORD2
+                            do {
+                                try isValidPassword1(password1)
+                                withAnimation(.spring()) {
+                                    state = .PASSWORD2
+                                }
+                            } catch {
+                                withAnimation(.spring()) {
+                                    errorMessage = AuthError.invalidPassword1.localizedDescription
+                                    isShowingPassword1Error = true
+                                }
                             }
                         } label: {
                             Text("Next")
@@ -251,7 +335,7 @@ struct SignUpView: View {
                         Spacer()
                             .frame(height: 20)
                         
-                            SecureField("Password", text: $password2)
+                        SecureField(isShowingPassword2Error ? "Enter a password" : "Password", text: $password2)
                                 .multilineTextAlignment(.center)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
@@ -260,16 +344,32 @@ struct SignUpView: View {
                                 .background(Color.black.opacity(0.05))
                                 .cornerRadius(50)
                                 .focused($isFocused)
+                                .overlay(Capsule()
+                                    .stroke(isShowingPassword2Error ? Color.systemRed : Color.clear, lineWidth: 3))
+                                .onReceive(timer) { _ in
+                                    withAnimation(.spring()) {
+                                        errorMessage = ""
+                                        isShowingPassword2Error = false
+                                    }
+                                }
                         
                         Spacer()
                             .frame(height: 20)
                         
                         Button {
-                            if (password1 == password2) {
-                                viewModel.register(withEmail: email,
-                                                   password: password2,
-                                                   name: name,
-                                                   username: username)
+                            do {
+                                try isValidPassword2(password1, password2)
+                                withAnimation(.spring()) {
+                                    viewModel.register(withEmail: email,
+                                                       password: password2,
+                                                       name: name,
+                                                       username: username)
+                                }
+                            } catch {
+                                withAnimation(.spring()) {
+                                    errorMessage = AuthError.invalidPassword2.localizedDescription
+                                    isShowingPassword2Error = true
+                                }
                             }
                         } label: {
                             Text("Next")
@@ -283,6 +383,13 @@ struct SignUpView: View {
                         NavigationLink(destination: ProfilePictureSelectorView().navigationBarHidden(true), isActive: $viewModel.didAuthenticateUser, label: {})
                         
                     }
+                    
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    Text(errorMessage)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.systemRed)
                     
                 }
                 
@@ -300,13 +407,32 @@ struct SignUpView: View {
         
     }
     
+    func goBack() {
+        switch state {
+        case .START:
+            self.isShowingSignUpView = false
+        case .NAME:
+            state = .START
+        case .USERNAME:
+            state = .NAME
+        case .EMAIL:
+            state = .USERNAME
+        case .PASSWORD1:
+            state = .EMAIL
+        case .PASSWORD2:
+            state = .PASSWORD1
+        case .PROFILEPICTURE:
+            state = .PASSWORD2
+        }
+    }
+    
 }
 
 
-//struct SignUpView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignUpView(isShowingSignUpView: .constant(true))
-//            .environmentObject(UserViewModel())
-//            .environment(\.colorScheme, .dark)
-//    }
-//}
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView(isShowingSignUpView: .constant(true))
+            .environmentObject(UserViewModel())
+            .environment(\.colorScheme, .dark)
+    }
+}

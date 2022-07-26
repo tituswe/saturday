@@ -75,4 +75,25 @@ struct UserService {
             }
     }
     
+    func fetchBlockedUsers(withUid uid: String, completion: @escaping([User]) -> Void) {
+        Firestore.firestore().collection("blocks")
+            .document(uid)
+            .collection("blocked")
+            .getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                let blockedUsers = documents.compactMap({ try? $0.data(as: User.self) })
+                completion(blockedUsers)
+            }
+    }
+    
+    func fetchBlockedByUsers(withUid uid: String, completion: @escaping([User]) -> Void) {
+        Firestore.firestore().collection("blocks")
+            .document(uid)
+            .collection("blockedby")
+            .getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                let blockedByUsers = documents.compactMap({ try? $0.data(as: User.self) })
+                completion(blockedByUsers)
+            }
+    }
 }

@@ -70,7 +70,6 @@ struct UserCardView: View {
                 } else if cartManager.getTransactionItemsCount(key: user.id!) > 0 {
                     
                     Button {
-                        cartManager.selectUser(user: user)
                         isShowingUserCartView = true
                     } label: {
                         ZStack {

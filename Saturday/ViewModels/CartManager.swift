@@ -79,7 +79,9 @@ class CartManager: ObservableObject {
         
         guard let items = self.transactions[uid]?.getItems() else { return }
         
-        self.addItemsToPayableItems(items: items)
+        for item in items {
+            removeItemFromTransaction(item: item, user: user)
+        }
         self.transactions.removeValue(forKey: uid)
     }
     
@@ -144,30 +146,25 @@ class CartManager: ObservableObject {
     
     func removeItemFromTransaction(item: Item, user: User) {
         let amountToAdd = item.noOfDuplicates == 1 ? 0 : item.price/Double(item.noOfDuplicates - 1)
-        
+
         let replacementItem = Item(
             id: item.id,
             name: item.name,
             price: item.price + amountToAdd,
-            noOfDuplicates: item.noOfDuplicates == 1 ? item.noOfDuplicates : item.noOfDuplicates - 1)
-        
-        var usersWithDuplicates: [String] = []
+            noOfDuplicates: item.noOfDuplicates == 1 ? item.noOfDuplicates : item.noOfDuplicates - 1
+        )
         
         for (userId, userTransaction) in self.transactions {
             for targetItem in userTransaction.items {
                 if targetItem.id == item.id {
-                    usersWithDuplicates.append(userId)
+                    transactions[userId]?.removeItem(item: targetItem)
+                    if userId != user.id {
+                        transactions[userId]?.addItem(item: replacementItem)
+                    }
                 }
             }
         }
-        
-        for userId in usersWithDuplicates {
-            self.transactions[userId]?.removeItem(item: item)
-            if userId != user.id {
-                self.transactions[userId]?.addItem(item: replacementItem)
-            }
-        }
-        
+            
         if item.noOfDuplicates == 1 {
             self.payableItems.append(replacementItem)
         }

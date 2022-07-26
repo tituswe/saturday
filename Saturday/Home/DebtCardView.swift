@@ -22,6 +22,10 @@ struct DebtCardView: View {
     
     @State var isShowingPaymentView: Bool = false
     
+    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    
+    @State var pauseNotification: Bool = false
+    
     var body: some View {
         
         ZStack {
@@ -73,6 +77,7 @@ struct DebtCardView: View {
                         
                         Button {
                             NotificationManager.instance.sendCancelRequest(creditor: creditor(), debtor: viewModel.currentUser!, amount: debt.total)
+                            pauseNotification = true
                         } label: {
                             Text("Request to cancel")
                                 .font(.system(size: 10))
@@ -80,6 +85,10 @@ struct DebtCardView: View {
                                 .frame(width: 112, height: 24)
                                 .background(Color.systemRed)
                                 .cornerRadius(10)
+                        }
+                        .disabled(pauseNotification)
+                        .onReceive(timer) { _ in
+                            pauseNotification = false
                         }
                         
                         Button {

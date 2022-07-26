@@ -17,6 +17,10 @@ struct LogInView: View {
     
     @State var isShowingSignUpView: Bool = false
     
+    @State var isShowingLoginError: Bool = false
+    
+    let timer = Timer.publish(every: 2.4, on: .main, in: .common).autoconnect()
+    
     @FocusState var isFocused: Bool
     
     var body: some View {
@@ -53,7 +57,7 @@ struct LogInView: View {
                     .fontWeight(.bold)
                     .padding()
                 
-                    TextField("Email", text: $email)
+                TextField(isShowingLoginError ? "Enter an email" : "Email", text: $email)
                         .multilineTextAlignment(.center)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
@@ -62,11 +66,18 @@ struct LogInView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(50)
                         .focused($isFocused)
+                        .overlay(Capsule()
+                            .stroke(isShowingLoginError ? Color.systemRed : Color.clear, lineWidth: 3))
+                        .onReceive(timer) { _ in
+                            withAnimation(.spring()) {
+                                isShowingLoginError = false
+                            }
+                        }
                 
                 Spacer()
                     .frame(height: 10)
                 
-                    SecureField("Password", text: $password)
+                    SecureField(isShowingLoginError ? "Enter a password" : "Password", text: $password)
                         .multilineTextAlignment(.center)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
@@ -75,13 +86,25 @@ struct LogInView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(50)
                         .focused($isFocused)
+                        .overlay(Capsule()
+                            .stroke(isShowingLoginError ? Color.systemRed : Color.clear, lineWidth: 3))
+                        .onReceive(timer) { _ in
+                            withAnimation(.spring()) {
+                                isShowingLoginError = false
+                            }
+                        }
                 
                 Spacer()
                     .frame(height: 10)
                 
                 Button {
-                    viewModel.login(withEmail: email, password: password)
-                    viewModel.refresh()
+                    do {
+                        try isValidLogin(email, password)
+                        viewModel.login(withEmail: email, password: password)
+                        viewModel.refresh()
+                    } catch {
+                        isShowingLoginError = true
+                    }
                 } label: {
                     Text("Login")
                         .fontWeight(.bold)
@@ -115,6 +138,7 @@ struct LogInView: View {
                     .font(.system(size: 12))
                     .foregroundColor(Color.gray)
                     .padding(.top, 4)
+                    .padding(.bottom, 1)
                 
                 HStack {
                     
@@ -151,6 +175,7 @@ struct LogInView: View {
             viewModel.reset()
         }
     }
+
 }
 
 
