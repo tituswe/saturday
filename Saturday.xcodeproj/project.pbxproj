@@ -41,6 +41,8 @@
 		58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174D287ABAB100B68D55 /* ArchiveService.swift */; };
 		58BA1750287ABADC00B68D55 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BA174F287ABADC00B68D55 /* Archive.swift */; };
 		58BF9C8B2880AD0C00756B58 /* HistoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */; };
+		58CD52AA2891975200879A57 /* SplitRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CD52A92891975200879A57 /* SplitRideView.swift */; };
+		58CD52AC2891A59100879A57 /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CD52AB2891A59100879A57 /* AddItemView.swift */; };
 		58CE63E12874950200DF2C77 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E02874950200DF2C77 /* ImagePicker.swift */; };
 		58CE63E32874A5B300DF2C77 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E22874A5B300DF2C77 /* ImageUploader.swift */; };
 		58CE63E52874AC2400DF2C77 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE63E42874AC2400DF2C77 /* UserService.swift */; };
@@ -105,6 +107,8 @@
 		58BA174D287ABAB100B68D55 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
 		58BA174F287ABADC00B68D55 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		58BF9C8A2880AD0C00756B58 /* HistoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCardView.swift; sourceTree = "<group>"; };
+		58CD52A92891975200879A57 /* SplitRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitRideView.swift; sourceTree = "<group>"; };
+		58CD52AB2891A59100879A57 /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 		58CE63E02874950200DF2C77 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		58CE63E22874A5B300DF2C77 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		58CE63E42874AC2400DF2C77 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -305,6 +309,8 @@
 				58D8762B28774D860046D716 /* UserCartView.swift */,
 				58CE6443287596DC00DF2C77 /* ItemCardView.swift */,
 				58CE64412875933B00DF2C77 /* SplitView.swift */,
+				58CD52AB2891A59100879A57 /* AddItemView.swift */,
+				58CD52A92891975200879A57 /* SplitRideView.swift */,
 				58CE644728762F7500DF2C77 /* SentView.swift */,
 			);
 			path = Split;
@@ -431,6 +437,7 @@
 				58CE644828762F7800DF2C77 /* SentView.swift in Sources */,
 				586EF530288FDCE300D4253B /* Mail.swift in Sources */,
 				B0ADE208286CD72A0039D0C1 /* CartManager.swift in Sources */,
+				58CD52AC2891A59100879A57 /* AddItemView.swift in Sources */,
 				58CE64462875D53700DF2C77 /* Item.swift in Sources */,
 				58CE641F2874ADF500DF2C77 /* User.swift in Sources */,
 				58E49AE1289052C1008CC491 /* Validation.swift in Sources */,
@@ -450,6 +457,7 @@
 				589820DA2856637400719CCE /* SaturdayLogo.swift in Sources */,
 				58BA174E287ABAB100B68D55 /* ArchiveService.swift in Sources */,
 				5886D3BE28355FB60044938C /* SaturdayApp.swift in Sources */,
+				58CD52AA2891975200879A57 /* SplitRideView.swift in Sources */,
 				58E49ADD289028B7008CC491 /* ChangeEmailView.swift in Sources */,
 				586FD57A28909E5200A77B67 /* ChangePictureView.swift in Sources */,
 				B0ADE20B286CD7870039D0C1 /* HomeView.swift in Sources */,

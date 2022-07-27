@@ -79,7 +79,6 @@ struct PaymentView: View {
                 
                 Button {
                     if (Double(amountPaid) == round(debt.total * 100)/100.0) {
-                        print("test2")
                         viewModel.cacheTransaction(debt: debt)
                         viewModel.refresh()
                         isShowingPaymentView = false

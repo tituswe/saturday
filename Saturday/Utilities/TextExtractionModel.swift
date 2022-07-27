@@ -51,9 +51,12 @@ class TextExtractionModel {
             
             let text = observations.compactMap({
                 $0.topCandidates(1).first?.string
+//            }).joined(separator: " ; ")
+//            }).joined(separator: ";\n")
             }).joined(separator: ";")
             
             // Store text to extractedText variable to manipulate
+            print("DEBUG: EXTRACTED TEXT \n\(text)")
             self?.extractedText = text
             
             let processedText = TextProcessor().presentText(extractedText: text)
@@ -80,11 +83,16 @@ class TextExtractionModel {
     }
     
     func extractItems() -> [Item] {
+        // Update self.extractedText
         recognizeText(image: self.referenceReceipt)
         
         var itemList: [Item] = []
         
+        // Process the text
         let processedText = TextProcessor().presentText(extractedText: self.extractedText)
+        print("DEBUG: PROCESSED TEXT \n\(processedText)")
+        
+        // Create item array
         var i = 0
         while i < processedText.count {
             if i % 3 == 0 { // i = 0, 3, 6, 9,...
@@ -95,6 +103,7 @@ class TextExtractionModel {
             }
             i += 1
         }
+
         return itemList
     }
 }

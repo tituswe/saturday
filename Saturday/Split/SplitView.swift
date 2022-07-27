@@ -17,9 +17,13 @@ struct SplitView: View {
     
     @State var isShowingAddUserView: Bool = false
     
+    @State var isShowingAddItemView: Bool = false
+    
     @State var isShowingImagePicker: Bool = false
     
     @State var referenceReceipt: UIImage?
+    
+    @State var isShowingSplitRideView: Bool = false
     
     @State var isShowingSentView: Bool = false
     
@@ -69,7 +73,7 @@ struct SplitView: View {
                                         .foregroundColor(Color.gray)
                                 }
                                 .offset(x: -screenQuarter)
-                               
+                                
                                 Button {
                                     cartManager.isMultiSplit = true
                                     cartManager.selectNone()
@@ -92,7 +96,7 @@ struct SplitView: View {
                         }
                         .padding(.top, 16)
                         .padding(.bottom, 8)
-                            
+                        
                         Divider()
                         
                         VStack {
@@ -106,18 +110,23 @@ struct SplitView: View {
                                         cartManager.updateAllUsers(allUsers: viewModel.friends, currentUser: viewModel.currentUser!)
                                         self.isShowingAddUserView = true
                                     } label: {
-                                        Text("Add friends")
-                                            .font(.system(size: 16))
-                                            .foregroundColor(.gray)
-                                            .frame(width: 120, height: 40)
-                                            .background(Color.background)
-                                            .cornerRadius(50)
-                                        
+                                        HStack {
+                                            Image(systemName: "person.3")
+                                                .font(.system(size: 16))
+                                                .foregroundColor(.gray)
+                                            
+                                            Text("Add friends")
+                                                .font(.system(size: 16))
+                                                .foregroundColor(.gray)
+                                        }
                                     }
-                                    .overlay(Capsule()
+                                    .frame(width: 280, height: 80)
+                                    .background(Color.background)
+                                    .cornerRadius(20)
+                                    .overlay(RoundedRectangle(cornerRadius: 20)
                                         .stroke(Color(.lightGray),
-                                                style: StrokeStyle(lineWidth: 3,
-                                                                   dash: [10])))
+                                                style: StrokeStyle(lineWidth: 2,
+                                                                   dash: [5])))
                                     .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                                     
                                 }
@@ -148,7 +157,6 @@ struct SplitView: View {
                                                     .stroke(Color(.lightGray),
                                                             style: StrokeStyle(lineWidth: 2,
                                                                                dash: [5])))
-                                                
                                                 Text(" ")
                                             }
                                         }
@@ -182,28 +190,98 @@ struct SplitView: View {
                                 
                                 if referenceReceipt == nil {
                                     
-                                    Button {
-                                        isShowingImagePicker = true
-                                    } label: {
-                                        Text("Upload a receipt")
-                                            .font(.system(size: 16))
-                                            .foregroundColor(.gray)
-                                            .frame(width: 280, height: 320)
+                                    VStack {
+                                        
+                                        // MARK: Split a meal
+                                        Button {
+                                            isShowingImagePicker = true
+                                        } label: {
+                                            HStack {
+                                                Image(systemName: "fork.knife")
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.gray)
+                                                
+                                                Text("Split a meal")
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.gray)
+                                            }
+                                            .frame(width: 280, height: 80)
                                             .background(Color.background)
-                                            .cornerRadius(50)
+                                            .cornerRadius(20)
+                                        }
+                                        .overlay(RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color(.lightGray),
+                                                    style: StrokeStyle(lineWidth: 2,
+                                                                       dash: [5])))
+                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                        .padding(8)
+                                        
+                                        // MARK: Split a ride
+                                        Button {
+                                            isShowingSplitRideView = true
+                                        } label: {
+                                            HStack {
+                                                Image(systemName: "car.fill")
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.gray)
+                                                
+                                                Text("Split a ride")
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.gray)
+                                            }
+                                            .frame(width: 280, height: 80)
+                                            .background(Color.background)
+                                            .cornerRadius(20)
+                                        }
+                                        .overlay(RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color(.lightGray),
+                                                    style: StrokeStyle(lineWidth: 2,
+                                                                       dash: [5])))
+                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                        .padding(8)
+                                        
+                                        // MARK: Manual Add
+                                        Button {
+                                            isShowingAddItemView = true
+                                        } label: {
+                                            HStack {
+                                                Image(systemName: "pencil")
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.gray)
+                                                
+                                                Text("Split manually")
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.gray)
+                                            }
+                                            .frame(width: 280, height: 80)
+                                            .background(Color.background)
+                                            .cornerRadius(20)
+                                        }
+                                        .overlay(RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color(.lightGray),
+                                                    style: StrokeStyle(lineWidth: 2,
+                                                                       dash: [5])))
+                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                        .padding(8)
+                                        
+                                        Text("Select your type of split")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(Color.systemGreen)
+                                            .frame(width: 280, height: 60)
+                                            .background(Color.background)
+                                            .cornerRadius(20)
+                                            .padding(8)
+                                        
                                     }
-                                    .overlay(RoundedRectangle(cornerRadius: 50)
-                                        .stroke(Color(.lightGray),
-                                                style: StrokeStyle(lineWidth: 3,
-                                                                   dash: [10])))
-                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
                                     
                                 } else {
-                                    ZStack {
+                                    ZStack(alignment: .bottomTrailing) {
                                         
-                                        VStack {
+                                        ZStack {
                                             
-                                                TextField("Input Service Fees", text: $cartManager.serviceFees)
+                                            VStack {
+                                                
+                                                TextField("Service fees", text: $cartManager.serviceFees)
                                                     .keyboardType(.decimalPad)
                                                     .multilineTextAlignment(.center)
                                                     .font(.system(size: 16))
@@ -215,46 +293,100 @@ struct SplitView: View {
                                                     .cornerRadius(50)
                                                     .padding()
                                                     .focused($feesIsFocused)
+                                                
+                                                Spacer()
+                                            }
                                             
-                                            Spacer()
+                                            Text("No items!")
+                                                .font(.system(size: 16))
+                                                .foregroundColor(.gray)
+                                                .frame(maxWidth: .infinity, maxHeight: 200)
+                                                .background(Color.background)
+                                                .cornerRadius(50)
                                         }
                                         
-                                        Text("No more items!")
-                                            .font(.system(size: 16))
-                                            .foregroundColor(.gray)
-                                            .frame(width: 200, height: 200)
-                                            .background(Color.background)
-                                            .cornerRadius(50)
+                                        Button {
+                                            isShowingAddItemView = true
+                                        } label: {
+                                            VStack {
+                                                ZStack {
+                                                    Circle()
+                                                        .frame(width: 64, height: 64)
+                                                        .foregroundColor(Color.background)
+                                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                                    
+                                                    Image(systemName: "pencil")
+                                                        .resizable()
+                                                        .frame(width: 20, height: 20)
+                                                        .foregroundColor(.gray)
+                                                        .offset(x: -1.5, y: 1)
+                                                }
+                                                .overlay(Circle()
+                                                    .stroke(Color(.lightGray),
+                                                            style: StrokeStyle(lineWidth: 2,
+                                                                               dash: [5])))
+                                                Text(" ")
+                                            }
+                                        }
+                                        .padding(.top)
+                                        .padding(.horizontal)
                                     }
                                 }
                                 
                             } else {
                                 
-                                ScrollView {
-                                    
-                                    TextField("Service Fees", text: $cartManager.serviceFees)
-                                        .keyboardType(.decimalPad)
-                                        .multilineTextAlignment(.center)
-                                        .font(.system(size: 16))
-                                        .disableAutocorrection(true)
-                                        .autocapitalization(.none)
-                                        .padding()
-                                        .frame(width: 300, height: 40)
-                                        .background(Color.black.opacity(0.05))
-                                        .cornerRadius(50)
-                                        .padding()
-                                        .focused($feesIsFocused)
-                                    
-                                    LazyVStack {
-                                        ForEach(cartManager.payableItems, id: \.id) { item in
-                                            // TODO: Make Item Cards
-                                            ItemCardView(item: item)
-                                                .environmentObject(viewModel)
-                                                .environmentObject(cartManager)
-                                            Divider()
+                                ZStack(alignment: .bottomTrailing) {
+                                    ScrollView {
+                                        
+                                        TextField("Service fees", text: $cartManager.serviceFees)
+                                            .keyboardType(.decimalPad)
+                                            .multilineTextAlignment(.center)
+                                            .font(.system(size: 16))
+                                            .disableAutocorrection(true)
+                                            .autocapitalization(.none)
+                                            .padding()
+                                            .frame(width: 300, height: 40)
+                                            .background(Color.black.opacity(0.05))
+                                            .cornerRadius(50)
+                                            .padding()
+                                            .focused($feesIsFocused)
+                                        
+                                        LazyVStack {
+                                            ForEach(cartManager.payableItems, id: \.id) { item in
+                                                ItemCardView(item: item)
+                                                    .environmentObject(viewModel)
+                                                    .environmentObject(cartManager)
+                                                Divider()
+                                            }
                                         }
                                         
                                     }
+                                    
+                                    Button {
+                                        isShowingAddItemView = true
+                                    } label: {
+                                        VStack {
+                                            ZStack {
+                                                Circle()
+                                                    .frame(width: 64, height: 64)
+                                                    .foregroundColor(Color.background)
+                                                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                                
+                                                Image(systemName: "pencil")
+                                                    .resizable()
+                                                    .frame(width: 20, height: 20)
+                                                    .foregroundColor(.gray)
+                                                    .offset(x: -1.5, y: 1)
+                                            }
+                                            .overlay(Circle()
+                                                .stroke(Color(.lightGray),
+                                                        style: StrokeStyle(lineWidth: 2,
+                                                                           dash: [5])))
+                                            Text(" ")
+                                        }
+                                    }
+                                    .padding(.top)
+                                    .padding(.horizontal)
                                 }
                                 
                             }
@@ -275,8 +407,17 @@ struct SplitView: View {
                             .environmentObject(viewModel)
                             .environmentObject(cartManager)
                     }
-                    .sheet(isPresented: $isShowingImagePicker, onDismiss: extractItems) {
+                    .fullScreenCover(isPresented: $isShowingImagePicker, onDismiss: extractItems) {
                         ImagePicker(selectedImage: $referenceReceipt)
+                    }
+                    .fullScreenCover(isPresented: $isShowingSplitRideView, onDismiss: configureSplitRide) {
+                        SplitRideView(isShowingSplitRideView: $isShowingSplitRideView)
+                            .environmentObject(viewModel)
+                            .environmentObject(cartManager)
+                    }
+                    .fullScreenCover(isPresented: $isShowingAddItemView, onDismiss: configureManualSplit) {
+                        AddItemView(isShowingAddItemView: $isShowingAddItemView)
+                            .environmentObject(cartManager)
                     }
                     
                     Spacer()
@@ -340,12 +481,30 @@ struct SplitView: View {
         return !cartManager.payableUsers.isEmpty && cartManager.payableItems.isEmpty && (cartManager.serviceFees != "")
     }
     
+    func configureSplitRide() {
+        if !cartManager.payableItems.isEmpty {
+            referenceReceipt = UIImage(systemName: "circle")
+            cartManager.isMultiSplit = true
+            cartManager.selectNone()
+            cartManager.selectAll()
+            cartManager.serviceFees = "0.00"
+            withAnimation(.spring()) {
+                offset = screenQuarter
+            }
+        }
+    }
+    
+    func configureManualSplit() {
+        if !cartManager.payableItems.isEmpty {
+            referenceReceipt = UIImage(systemName: "circle")
+        }
+    }
 }
 
-//struct SplitView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SplitView(isShowingSplitView: .constant(true))
-//            .environmentObject(UserViewModel())
-//            .environment(\.colorScheme, .dark)
-//    }
-//}
+struct SplitView_Previews: PreviewProvider {
+    static var previews: some View {
+        SplitView(isShowingSplitView: .constant(true))
+            .environmentObject(UserViewModel())
+        //            .environment(\.colorScheme, .dark)
+    }
+}

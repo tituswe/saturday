@@ -96,6 +96,10 @@ class CartManager: ObservableObject {
         }
     }
     
+    func selectAll() {
+        self.selectedMap.keys.forEach { selectedMap[$0] = true }
+    }
+    
     func selectNone() {
         self.selectedMap.keys.forEach { selectedMap[$0] = false }
     }

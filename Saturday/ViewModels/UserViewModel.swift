@@ -535,6 +535,10 @@ class UserViewModel: ObservableObject {
     func fetchFriends() {
         guard let uid = self.userSession?.uid else { return }
         
+        // TODO: Change
+        // make userService return the array of String uids
+        // pass to this function then query with the users array
+        // append each uid valid user to self.friends
         userService.fetchFriends(withUid: uid) { friends in
             self.friends = friends
         }
