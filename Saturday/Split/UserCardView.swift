@@ -50,8 +50,10 @@ struct UserCardView: View {
                 if isShowingDeleteButton {
                     
                     Button {
-                        self.isShowingDeleteButton = false
-                        cartManager.removePayableUser(user: user)
+                        withAnimation(.spring()) {
+                            self.isShowingDeleteButton = false
+                            cartManager.removePayableUser(user: user)
+                        }
                     } label: {
                         ZStack {
                             Circle()

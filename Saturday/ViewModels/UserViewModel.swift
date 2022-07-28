@@ -545,6 +545,7 @@ class UserViewModel: ObservableObject {
     func deleteAccount() {
         refresh()
         guard let user = Auth.auth().currentUser else { return }
+        guard let uid = self.userSession?.uid else { return }
         user.delete { error in
             if let error = error {
                 print("ERROR: Could not remove document: \(error.localizedDescription)")
@@ -554,6 +555,264 @@ class UserViewModel: ObservableObject {
             
             self.logout()
         }
+        
+        // Delete from users collection
+        Firestore.firestore().collection("users")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        // Delete from trackers collection
+        Firestore.firestore().collection("trackers")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        // Delete from friends collection
+        userService.fetchFriends(withUid: uid) { friends in
+            friends.forEach { friend in
+                Firestore.firestore().collection("friends")
+                    .document(uid)
+                    .collection("list")
+                    .document(friend.id!)
+                    .delete { error in
+                        if let error = error {
+                            print("ERROR: Could not remove document: \(error.localizedDescription)")
+                            return
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchFriends(withUid: uid) { friends in
+            friends.forEach { friend in
+                Firestore.firestore().collection("friends")
+                    .document(friend.id!)
+                    .collection("list")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.delete { error in
+                                if let error = error {
+                                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                                    return
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+        
+        Firestore.firestore().collection("friends")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        // Delete from friendRequests collection
+        userService.fetchFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(uid)
+                    .collection("senders")
+                    .document(request.id!)
+                    .delete { error in
+                        if let error = error {
+                            print("ERROR: Could not remove document: \(error.localizedDescription)")
+                            return
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchSentFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(uid)
+                    .collection("receivers")
+                    .document(request.id!)
+                    .delete { error in
+                        if let error = error {
+                            print("ERROR: Could not remove document: \(error.localizedDescription)")
+                            return
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("receivers")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.delete { error in
+                                if let error = error {
+                                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                                    return
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchSentFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("senders")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.delete { error in
+                                if let error = error {
+                                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                                    return
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+        
+        Firestore.firestore().collection("friendRequests")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        // Delete from debts collection
+        for debt in self.debts {
+            let transactionId = debt.transactionId
+            
+            self.debtItems[transactionId]?.forEach({ item in
+                guard let itemId = item.id else { return }
+                
+                Firestore.firestore().collection("debts").document(uid).collection("transactions").document(transactionId).collection("items").document(itemId)
+                    .delete { error in
+                        if error != nil { return }
+                    }
+            })
+            
+            Firestore.firestore().collection("debts").document(uid).collection("transactions").document(transactionId)
+                .delete { error in
+                    if error != nil { return }
+                }
+            
+            self.debtItems[transactionId]?.forEach({ item in
+                guard let itemId = item.id else { return }
+                
+                Firestore.firestore().collection("credits").document(debt.creditorId).collection("transactions").document(transactionId).collection("items").document(itemId)
+                    .delete { error in
+                        if error != nil { return }
+                    }
+            })
+            
+            Firestore.firestore().collection("credits").document(debt.creditorId).collection("transactions").document(transactionId)
+                .delete { error in
+                    if error != nil { return }
+                }
+            
+            Firestore.firestore().collection("trackers").document(debt.creditorId)
+                .updateData(["totalReceivable": FieldValue.increment(-debt.total)])
+        }
+        
+        Firestore.firestore().collection("debts")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        // Delete from credits collection
+        for credit in self.credits {
+            let transactionId = credit.transactionId
+            
+            self.creditItems[transactionId]?.forEach({ item in
+                guard let itemId = item.id else { return }
+
+                Firestore.firestore().collection("credits").document(uid).collection("transactions").document(transactionId).collection("items").document(itemId)
+                    .delete { error in
+                        if error != nil { return }
+                    }
+            })
+            
+            Firestore.firestore().collection("credits").document(uid).collection("transactions").document(transactionId)
+                .delete { error in
+                    if error != nil { return }
+                }
+            
+            self.creditItems[transactionId]?.forEach({ item in
+                guard let itemId = item.id else { return }
+                
+                Firestore.firestore().collection("debts").document(credit.debtorId).collection("transactions").document(transactionId).collection("items").document(itemId)
+                    .delete { error in
+                        if error != nil { return }
+                    }
+            })
+            
+            Firestore.firestore().collection("debts").document(credit.debtorId).collection("transactions").document(transactionId)
+                .delete { error in
+                    if error != nil { return }
+                }
+            
+            Firestore.firestore().collection("trackers").document(credit.debtorId)
+                .updateData(["totalPayable": FieldValue.increment(-credit.total),
+                             "netMonthly": FieldValue.increment(credit.total)])
+        }
+        
+        Firestore.firestore().collection("credits")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
+        
+        // Delete from history collection
+        for archive in archives {
+            let transactionId = archive.transactionId
+            
+            Firestore.firestore().collection("history").document(uid).collection("archives").document(transactionId)
+                .delete { error in
+                    if error != nil { return }
+                }
+        }
+        
+        Firestore.firestore().collection("history")
+            .document(uid)
+            .delete { error in
+                if let error = error {
+                    print("ERROR: Could not remove document: \(error.localizedDescription)")
+                    return
+                }
+            }
     }
         
     func uploadProfileImage(_ image: UIImage) {
@@ -731,10 +990,6 @@ class UserViewModel: ObservableObject {
     func fetchFriends() {
         guard let uid = self.userSession?.uid else { return }
         
-        // TODO: Change
-        // make userService return the array of String uids
-        // pass to this function then query with the users array
-        // append each uid valid user to self.friends
         userService.fetchFriends(withUid: uid) { friends in
             self.friends = friends
         }

@@ -50,8 +50,10 @@ struct UserRowView: View {
                 
                 if state == .BLOCKED {
                     Button {
-                        viewModel.unblockUser(user: user)
-                        viewModel.refresh()
+                        withAnimation(.spring()) {
+                            viewModel.unblockUser(user: user)
+                            viewModel.refresh()
+                        }
                     } label: {
                         Image(systemName: "circle")
                             .resizable()
@@ -62,8 +64,10 @@ struct UserRowView: View {
                     .frame(width: 56, height: 56)
                 } else {
                     Button {
-                        isShowingBlockAlert = true
-                        viewModel.refresh()
+                        withAnimation(.spring()) {
+                            isShowingBlockAlert = true
+                            viewModel.refresh()
+                        }
                     } label: {
                         Image(systemName: "circle.slash")
                             .resizable()
@@ -108,8 +112,10 @@ struct UserRowView: View {
                 Divider()
                 
                 Button {
-                    viewModel.removeFriend(friend: user)
-                    viewModel.refresh()
+                    withAnimation(.spring()) {
+                        viewModel.removeFriend(friend: user)
+                        viewModel.refresh()
+                    }
                 } label: {
                     Image(systemName: "person.badge.minus")
                         .resizable()
@@ -155,8 +161,10 @@ struct UserRowView: View {
                 switch state {
                 case .SEND:
                     Button {
-                        viewModel.sendFriendRequest(user: user)
-                        state = .SENT
+                        withAnimation(.spring()) {
+                            viewModel.sendFriendRequest(user: user)
+                            state = .SENT
+                        }
                     } label: {
                         Text("Add Friend")
                             .font(.system(.caption2, design: .rounded))
@@ -170,8 +178,10 @@ struct UserRowView: View {
                     }
                 case .SENT:
                         Button {
-                            viewModel.retractFriendRequest(user: user)
-                            state = .SEND
+                            withAnimation(.spring()) {
+                                viewModel.retractFriendRequest(user: user)
+                                state = .SEND
+                            }
                         } label: {
                             Text("Sent")
                                 .font(.system(.caption2, design: .rounded))
