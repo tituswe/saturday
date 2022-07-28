@@ -251,6 +251,7 @@ class UserViewModel: ObservableObject {
     func reset() {
         self.searchText = ""
         self.friendRequests = [User]()
+        self.friends = [User]()
         self.users = [User]()
         self.debts = [Debt]()
         self.credits = [Credit]()
@@ -321,23 +322,121 @@ class UserViewModel: ObservableObject {
     }
     
     func updateName(withName name: String) {
-        guard let currentUser = currentUser else { return }
+        guard let uid = self.userSession?.uid else { return }
 
         Firestore.firestore().collection("users")
-            .document(currentUser.id!)
+            .document(uid)
             .setData(["name": name], merge: true)
+        
+        userService.fetchFriends(withUid: uid) { friends in
+            friends.forEach { friend in
+                Firestore.firestore().collection("friends")
+                    .document(friend.id!)
+                    .collection("list")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["name": name], merge: true)
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("receivers")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["name": name], merge: true)
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchSentFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("senders")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["name": name], merge: true)
+                        }
+                    }
+            }
+        }
+        
     }
     
     func updateUsername(withUsername username: String) {
-        guard let currentUser = currentUser else { return }
+        guard let uid = self.userSession?.uid else { return }
 
         Firestore.firestore().collection("users")
-            .document(currentUser.id!)
+            .document(uid)
             .setData(["username": username.lowercased()], merge: true)
+        
+        userService.fetchFriends(withUid: uid) { friends in
+            friends.forEach { friend in
+                Firestore.firestore().collection("friends")
+                    .document(friend.id!)
+                    .collection("list")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["username": username.lowercased()], merge: true)
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("receivers")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["username": username.lowercased()], merge: true)
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchSentFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("senders")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["username": username.lowercased()], merge: true)
+                        }
+                    }
+            }
+        }
     }
     
     func updateEmail(withEmail email: String, oldEmail: String, password: String) {
         guard let currentUser = currentUser else { return }
+        guard let uid = self.userSession?.uid else { return }
         
         let credential = EmailAuthProvider.credential(withEmail: oldEmail, password: password)
         
@@ -362,6 +461,54 @@ class UserViewModel: ObservableObject {
         Firestore.firestore().collection("users")
             .document(currentUser.id!)
             .setData(["email": email], merge: true)
+        
+        userService.fetchFriends(withUid: uid) { friends in
+            friends.forEach { friend in
+                Firestore.firestore().collection("friends")
+                    .document(friend.id!)
+                    .collection("list")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["email": email], merge: true)
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("receivers")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["email": email], merge: true)
+                        }
+                    }
+            }
+        }
+        
+        userService.fetchSentFriendRequests(withUid: uid) { requests in
+            requests.forEach { request in
+                Firestore.firestore().collection("friendRequests")
+                    .document(request.id!)
+                    .collection("senders")
+                    .whereField("uid", isEqualTo: uid)
+                    .limit(to: 1)
+                    .getDocuments { snapshot, _ in
+                        guard let documents = snapshot?.documents else { return }
+                        for document in documents {
+                            document.reference.setData(["email": email], merge: true)
+                        }
+                    }
+            }
+        }
     }
     
     func updatePassword(oldPassword: String, newPassword: String) {
@@ -391,6 +538,7 @@ class UserViewModel: ObservableObject {
     func logout() {
         self.reset()
         userSession = nil
+        print("DEBUG: USERSESSION \(String(describing: userSession))")
         try? Auth.auth().signOut()
     }
     
@@ -428,6 +576,54 @@ class UserViewModel: ObservableObject {
             Firestore.firestore().collection("users")
                 .document(uid)
                 .setData(["profileImageUrl": profileImageUrl], merge: true)
+            
+            self.userService.fetchFriends(withUid: uid) { friends in
+                friends.forEach { friend in
+                    Firestore.firestore().collection("friends")
+                        .document(friend.id!)
+                        .collection("list")
+                        .whereField("uid", isEqualTo: uid)
+                        .limit(to: 1)
+                        .getDocuments { snapshot, _ in
+                            guard let documents = snapshot?.documents else { return }
+                            for document in documents {
+                                document.reference.setData(["profileImageUrl": profileImageUrl], merge: true)
+                            }
+                        }
+                }
+            }
+            
+            self.userService.fetchFriendRequests(withUid: uid) { requests in
+                requests.forEach { request in
+                    Firestore.firestore().collection("friendRequests")
+                        .document(request.id!)
+                        .collection("receivers")
+                        .whereField("uid", isEqualTo: uid)
+                        .limit(to: 1)
+                        .getDocuments { snapshot, _ in
+                            guard let documents = snapshot?.documents else { return }
+                            for document in documents {
+                                document.reference.setData(["profileImageUrl": profileImageUrl], merge: true)
+                            }
+                        }
+                }
+            }
+            
+            self.userService.fetchSentFriendRequests(withUid: uid) { requests in
+                requests.forEach { request in
+                    Firestore.firestore().collection("friendRequests")
+                        .document(request.id!)
+                        .collection("senders")
+                        .whereField("uid", isEqualTo: uid)
+                        .limit(to: 1)
+                        .getDocuments { snapshot, _ in
+                            guard let documents = snapshot?.documents else { return }
+                            for document in documents {
+                                document.reference.setData(["profileImageUrl": profileImageUrl], merge: true)
+                            }
+                        }
+                }
+            }
         }
     }
     
