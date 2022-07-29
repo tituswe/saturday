@@ -13,6 +13,7 @@ enum ViewState {
     case NONE
     case SPLIT
 }
+
 struct BottomBarView: View {
     
     @EnvironmentObject var viewModel: UserViewModel
@@ -20,8 +21,6 @@ struct BottomBarView: View {
     @State var isShowingDashboard: Bool = false
     
     @State var isShowingFriends: Bool = false
-    
-    //    @State var isShowingHistory: Bool = false
     
     @State var isShowingSplitView: Bool = false
     

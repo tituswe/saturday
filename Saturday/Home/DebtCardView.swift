@@ -83,7 +83,7 @@ struct DebtCardView: View {
                                 .font(.system(size: 10))
                                 .foregroundColor(Color.white)
                                 .frame(width: 112, height: 24)
-                                .background(Color.systemRed)
+                                .background(pauseNotification ? Color.gray : Color.systemRed)
                                 .cornerRadius(10)
                         }
                         .disabled(pauseNotification)
@@ -131,7 +131,6 @@ struct DebtCardView: View {
                     .environmentObject(viewModel)
             }
             .fullScreenCover(isPresented: $isShowingPaymentView, onDismiss: resetOffset) {
-                // TODO: Link to payment services
                 PaymentView(isShowingPaymentView: $isShowingPaymentView, debt: debt)
                     .environmentObject(viewModel)
             }

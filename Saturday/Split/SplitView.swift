@@ -119,10 +119,10 @@ struct SplitView: View {
                                                 .font(.system(size: 16))
                                                 .foregroundColor(.gray)
                                         }
+                                        .frame(width: 280, height: 80)
+                                        .background(Color.background)
+                                        .cornerRadius(20)
                                     }
-                                    .frame(width: 280, height: 80)
-                                    .background(Color.background)
-                                    .cornerRadius(20)
                                     .overlay(RoundedRectangle(cornerRadius: 20)
                                         .stroke(Color(.lightGray),
                                                 style: StrokeStyle(lineWidth: 2,
