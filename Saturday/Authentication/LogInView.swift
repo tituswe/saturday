@@ -142,7 +142,7 @@ struct LogInView: View {
                 
                 HStack {
                     
-                    Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday")!) {
+                    Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday/terms-of-service")!) {
                         Text("Terms")
                             .font(.system(size: 12))
                             .underline()
@@ -153,7 +153,7 @@ struct LogInView: View {
                         .font(.system(size: 12))
                         .foregroundColor(Color.gray)
                     
-                    Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday")!) {
+                    Link(destination: URL(string: "https://teamsaturdaydevs.wixsite.com/saturday/blank-1")!) {
                         Text("Privacy Policy")
                             .font(.system(size: 12))
                             .underline()

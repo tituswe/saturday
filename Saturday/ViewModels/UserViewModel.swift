@@ -548,7 +548,7 @@ class UserViewModel: ObservableObject {
         guard let uid = self.userSession?.uid else { return }
         user.delete { error in
             if let error = error {
-                print("ERROR: Could not remove document: \(error.localizedDescription)")
+                print("ERROR: Could not remove user: \(error.localizedDescription)")
             } else {
                 print("USER DELETED")
             }
